@@ -10,7 +10,7 @@ def test_birth_element():
 
     assert get_birth_element(7) == "water"
     assert get_birth_element(9) == "water"
-
+    
     assert get_birth_element(10) == "earth"
     assert get_birth_element(12) == "earth"
 

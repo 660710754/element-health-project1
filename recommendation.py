@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 import csv
+import random
 from pathlib import Path
 from typing import Any
 
+
+# =========================================================
+# ค่าพื้นฐาน
+# =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent
 FOODS_FILE = BASE_DIR / "data" / "foods.csv"
@@ -38,6 +43,14 @@ REQUIRED_COLUMNS = {
     "reason_th",
 }
 
+DEFAULT_MIXED_THRESHOLD = 3.0
+DEFAULT_ITEMS_PER_CATEGORY = 4
+DEFAULT_AVOID_LIMIT = 6
+
+
+# =========================================================
+# โหลดและตรวจสอบ foods.csv
+# =========================================================
 
 def load_foods() -> list[dict[str, str]]:
     """โหลดและตรวจสอบฐานข้อมูลอาหารจาก data/foods.csv"""
@@ -99,6 +112,10 @@ def load_foods() -> list[dict[str, str]]:
     return cleaned_rows
 
 
+# =========================================================
+# ตรวจสอบและจัดการคะแนนธาตุ
+# =========================================================
+
 def validate_element_scores(
     scores: dict[str, float],
 ) -> None:
@@ -150,34 +167,52 @@ def normalize_scores(
 def rank_elements(
     scores: dict[str, float],
 ) -> list[tuple[str, float]]:
-    """เรียงธาตุจากคะแนนสูงสุดไปต่ำสุด"""
+    """
+    เรียงธาตุจากคะแนนสูงสุดไปต่ำสุด
+
+    หากคะแนนเท่ากัน จะเรียงตามลำดับใน ELEMENTS
+    เพื่อให้ผลลัพธ์คงที่ทุกครั้ง
+    """
 
     validate_element_scores(scores)
+
+    element_order = {
+        element: index
+        for index, element in enumerate(ELEMENTS)
+    }
 
     return sorted(
         (
             (element, float(scores[element]))
             for element in ELEMENTS
         ),
-        key=lambda item: item[1],
-        reverse=True,
+        key=lambda item: (
+            -item[1],
+            element_order[item[0]],
+        ),
     )
 
 
-def detect_close_elements(
+# =========================================================
+# วิเคราะห์ความสัมพันธ์ของธาตุหลักและธาตุรอง
+# =========================================================
+
+def analyze_element_relationship(
     scores: dict[str, float],
-    threshold: float = 0.05,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> dict[str, Any]:
     """
-    ตรวจว่าธาตุอันดับ 1 และอันดับ 2 มีคะแนนใกล้กันหรือไม่
+    วิเคราะห์ความสัมพันธ์ระหว่างธาตุอันดับ 1 และอันดับ 2
 
-    threshold = 0.05 หมายถึงต่างกันไม่เกิน 5%
-    เมื่อเทียบกับคะแนนของธาตุอันดับหนึ่ง
+    mode:
+    - equal: คะแนนเท่ากัน
+    - mixed: คะแนนต่างกันมากกว่า 0 แต่ไม่เกิน 3 คะแนน
+    - primary_only: คะแนนต่างกันมากกว่า 3 คะแนน
     """
 
-    if not 0 <= threshold <= 1:
+    if mixed_threshold < 0:
         raise ValueError(
-            "threshold ต้องอยู่ระหว่าง 0 และ 1"
+            "mixed_threshold ต้องไม่น้อยกว่า 0"
         )
 
     ranking = rank_elements(scores)
@@ -185,7 +220,17 @@ def detect_close_elements(
     primary_element, primary_score = ranking[0]
     secondary_element, secondary_score = ranking[1]
 
-    difference = primary_score - secondary_score
+    difference = round(
+        primary_score - secondary_score,
+        6,
+    )
+
+    if abs(difference) < 1e-9:
+        mode = "equal"
+    elif difference <= mixed_threshold:
+        mode = "mixed"
+    else:
+        mode = "primary_only"
 
     relative_difference = (
         difference / primary_score
@@ -194,89 +239,105 @@ def detect_close_elements(
     )
 
     return {
-        "is_close": relative_difference <= threshold,
+        "mode": mode,
         "primary_element": primary_element,
         "primary_score": primary_score,
         "secondary_element": secondary_element,
         "secondary_score": secondary_score,
         "difference": round(difference, 3),
-        "relative_difference": round(relative_difference, 4),
+        "relative_difference": round(
+            relative_difference,
+            4,
+        ),
+        "mixed_threshold": mixed_threshold,
+        "is_equal": mode == "equal",
+        "is_mixed": mode in {"equal", "mixed"},
+        "is_primary_only": mode == "primary_only",
+    }
+
+
+def detect_close_elements(
+    scores: dict[str, float],
+    threshold: float = DEFAULT_MIXED_THRESHOLD,
+) -> dict[str, Any]:
+    """
+    ฟังก์ชันรองรับโค้ดเดิม
+
+    threshold ปัจจุบันหมายถึง "จำนวนคะแนน"
+    เช่น 3.0 คะแนน ไม่ใช่ร้อยละ
+    """
+
+    result = analyze_element_relationship(
+        scores=scores,
+        mixed_threshold=threshold,
+    )
+
+    return {
+        **result,
+        "is_close": result["is_mixed"],
         "threshold": threshold,
     }
 
 
+# =========================================================
+# คำนวณจำนวนรายการของแต่ละธาตุ
+# =========================================================
+
 def calculate_element_quotas(
     scores: dict[str, float],
     total_items: int,
-    close_threshold: float = 0.05,
-    secondary_share_when_not_close: float = 0.20,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> dict[str, int]:
     """
-    คำนวณจำนวนอาหารที่ควรเลือกจากแต่ละธาตุ
+    คำนวณจำนวนรายการของแต่ละธาตุ
 
-    กรณีคะแนนใกล้กัน:
-    แบ่งจำนวนตามสัดส่วนคะแนนจริงของธาตุอันดับ 1 และ 2
-
-    กรณีคะแนนไม่ใกล้กัน:
-    ให้ธาตุเด่นเป็นหลัก และให้ธาตุรองตามสัดส่วนที่กำหนด
+    เมื่อ total_items = 4:
+    - คะแนนเท่ากัน -> หลัก 2 + รอง 2
+    - ต่างกัน 0–3 คะแนน -> หลัก 3 + รอง 1
+    - ต่างกันมากกว่า 3 คะแนน -> หลัก 4 + รอง 0
     """
 
     if total_items <= 0:
-        raise ValueError("total_items ต้องมากกว่า 0")
-
-    if not 0 <= secondary_share_when_not_close <= 1:
         raise ValueError(
-            "secondary_share_when_not_close ต้องอยู่ระหว่าง 0 และ 1"
+            "total_items ต้องมากกว่า 0"
         )
 
-    close_result = detect_close_elements(
+    relationship = analyze_element_relationship(
         scores=scores,
-        threshold=close_threshold,
+        mixed_threshold=mixed_threshold,
     )
 
-    primary = close_result["primary_element"]
-    secondary = close_result["secondary_element"]
+    primary = relationship["primary_element"]
+    secondary = relationship["secondary_element"]
+    mode = relationship["mode"]
 
     quotas = {
         element: 0
         for element in ELEMENTS
     }
 
-    if close_result["is_close"]:
-        primary_score = float(scores[primary])
-        secondary_score = float(scores[secondary])
-        pair_total = primary_score + secondary_score
+    if mode == "equal":
+        secondary_quota = total_items // 2
+        primary_quota = total_items - secondary_quota
 
-        primary_ratio = (
-            primary_score / pair_total
-            if pair_total > 0
-            else 0.5
-        )
-
-        primary_quota = round(total_items * primary_ratio)
-
-        if total_items >= 2:
-            primary_quota = max(
+    elif mode == "mixed":
+        if total_items == 1:
+            primary_quota = 1
+            secondary_quota = 0
+        else:
+            secondary_quota = max(
                 1,
-                min(primary_quota, total_items - 1),
+                round(total_items * 0.25),
             )
-
-        secondary_quota = total_items - primary_quota
+            secondary_quota = min(
+                secondary_quota,
+                total_items - 1,
+            )
+            primary_quota = total_items - secondary_quota
 
     else:
-        secondary_quota = round(
-            total_items * secondary_share_when_not_close
-        )
-
-        if total_items >= 2:
-            secondary_quota = max(1, secondary_quota)
-
-        secondary_quota = min(
-            secondary_quota,
-            total_items,
-        )
-
-        primary_quota = total_items - secondary_quota
+        primary_quota = total_items
+        secondary_quota = 0
 
     quotas[primary] = primary_quota
     quotas[secondary] = secondary_quota
@@ -284,15 +345,15 @@ def calculate_element_quotas(
     return quotas
 
 
+# =========================================================
+# เตรียมข้อมูลอาหาร
+# =========================================================
+
 def calculate_food_match_score(
     food: dict[str, str],
     normalized_scores: dict[str, float],
 ) -> float:
-    """
-    คะแนนอาหารใช้สัดส่วนคะแนนจริงของธาตุเท่านั้น
-
-    ไม่มีโบนัสคงที่ เช่น 18, 16, 25 หรือ 8
-    """
+    """คำนวณคะแนนความสอดคล้องจากสัดส่วนคะแนนธาตุจริง"""
 
     element = food["recommended_element"]
 
@@ -307,7 +368,7 @@ def prepare_food_result(
     normalized_scores: dict[str, float],
     primary_element: str,
     secondary_element: str,
-    is_mixed: bool,
+    recommendation_mode: str,
 ) -> dict[str, Any]:
     """เตรียมข้อมูลอาหารสำหรับส่งไปแสดงผล"""
 
@@ -335,29 +396,44 @@ def prepare_food_result(
 
     result["primary_element"] = primary_element
     result["secondary_element"] = secondary_element
-    result["mixed_elements"] = is_mixed
+    result["recommendation_mode"] = recommendation_mode
+    result["mixed_elements"] = (
+        recommendation_mode in {"equal", "mixed"}
+    )
+    
+    if recommendation_mode == "equal":
+       result["match_reason"] = (
+        f"รายการนี้เป็นอาหารที่แนะนำสำหรับ{ELEMENT_NAMES_TH[element]} "
+        "เนื่องจากธาตุหลักและธาตุรองมีคะแนนเท่ากัน "
+        "ระบบจึงแนะนำข้อมูลของทั้งสองธาตุในสัดส่วนที่เท่ากัน"
+    )
 
-    if is_mixed:
-        result["match_reason"] = (
-            f"รายการนี้อยู่ในกลุ่มอาหารที่เอกสารแนะนำสำหรับ "
-            f"{ELEMENT_NAMES_TH[element]} "
-            "ซึ่งเป็นหนึ่งในสองธาตุที่มีคะแนนใกล้เคียงกัน"
+    elif recommendation_mode == "mixed":
+        if element == primary_element:
+           result["match_reason"] = (
+            f"รายการนี้เป็นอาหารที่แนะนำสำหรับ{ELEMENT_NAMES_TH[primary_element]} "
+            "ซึ่งเป็นธาตุที่มีคะแนนสูงที่สุด "
+            "จึงได้รับการแนะนำเป็นหลัก"
         )
-    elif element == primary_element:
-        result["match_reason"] = (
-            f"รายการนี้อยู่ในกลุ่มอาหารที่เอกสารแนะนำสำหรับ "
-            f"{ELEMENT_NAMES_TH[primary_element]} "
-            "ซึ่งเป็นธาตุเด่นปัจจุบันของผู้ใช้"
+        else:
+            result["match_reason"] = (
+            f"รายการนี้เป็นอาหารที่แนะนำสำหรับ{ELEMENT_NAMES_TH[secondary_element]} "
+            "ซึ่งมีคะแนนใกล้เคียงกับธาตุหลัก "
+            "ระบบจึงแสดงเป็นข้อมูลประกอบการแนะนำ"
         )
+
     else:
         result["match_reason"] = (
-            f"รายการนี้อยู่ในกลุ่มอาหารที่เอกสารแนะนำสำหรับ "
-            f"{ELEMENT_NAMES_TH[secondary_element]} "
-            "ซึ่งเป็นธาตุรองของผู้ใช้"
-        )
+        f"รายการนี้เป็นอาหารที่แนะนำสำหรับ{ELEMENT_NAMES_TH[primary_element]} "
+        "เนื่องจากมีคะแนนสูงกว่าธาตุอื่นอย่างชัดเจน "
+        "ระบบจึงแนะนำเฉพาะข้อมูลของธาตุนี้"
+    )
 
     return result
 
+# =========================================================
+# ฟังก์ชันช่วยลบชื่อซ้ำและเลือกตามโควตา
+# =========================================================
 
 def normalize_food_name(name: str) -> str:
     """ปรับชื่ออาหารเพื่อใช้ตรวจชื่อซ้ำ"""
@@ -392,80 +468,98 @@ def remove_duplicate_food_names(
     return unique_foods
 
 
-def interleave_foods(
-    grouped_foods: dict[str, list[dict[str, Any]]],
-    element_order: list[str],
-    limit: int,
+def interleave_two_groups(
+    primary_items: list[dict[str, Any]],
+    secondary_items: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """สลับรายการของแต่ละธาตุ เช่น ดิน, น้ำ, ดิน, น้ำ"""
+    """สลับรายการธาตุหลักและธาตุรอง"""
 
     result: list[dict[str, Any]] = []
-    positions = {
-        element: 0
-        for element in element_order
-    }
+    max_length = max(
+        len(primary_items),
+        len(secondary_items),
+    )
 
-    while len(result) < limit:
-        added = False
+    for index in range(max_length):
+        if index < len(primary_items):
+            result.append(primary_items[index])
 
-        for element in element_order:
-            position = positions[element]
-            foods = grouped_foods.get(element, [])
-
-            if position < len(foods):
-                result.append(foods[position])
-                positions[element] += 1
-                added = True
-
-                if len(result) >= limit:
-                    break
-
-        if not added:
-            break
+        if index < len(secondary_items):
+            result.append(secondary_items[index])
 
     return result
 
+
+def select_items_by_mode(
+    primary_items: list[dict[str, Any]],
+    secondary_items: list[dict[str, Any]],
+    primary_quota: int,
+    secondary_quota: int,
+    mode: str,
+) -> list[dict[str, Any]]:
+    """เลือกและจัดลำดับรายการตามโหมดคำแนะนำ"""
+
+    selected_primary = primary_items[:primary_quota]
+    selected_secondary = secondary_items[:secondary_quota]
+
+    if mode == "equal":
+        return interleave_two_groups(
+            selected_primary,
+            selected_secondary,
+        )
+
+    if mode == "mixed":
+        # แสดงรายการธาตุหลักทั้งหมดก่อน แล้วจึงตามด้วยธาตุรอง
+        # ตัวอย่าง 4 รายการ: หลัก, หลัก, หลัก, รอง
+        return selected_primary + selected_secondary
+
+    return selected_primary
+
+
+# =========================================================
+# ระบบแนะนำอาหาร
+# =========================================================
 
 def recommend_foods(
     scores: dict[str, float],
     limit: int = 10,
     categories: list[str] | None = None,
-    close_threshold: float = 0.05,
-    secondary_share_when_not_close: float = 0.20,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> list[dict[str, Any]]:
     """
-    แนะนำอาหารโดยใช้คะแนนจริงจากแบบประเมิน
+    แนะนำอาหารตามความต่างของคะแนนธาตุ
 
-    ขั้นตอน:
-    1. Normalize คะแนนธาตุ
-    2. ตรวจว่าธาตุอันดับ 1 และ 2 ใกล้กันหรือไม่
-    3. คำนวณโควตาตามสัดส่วนคะแนนจริง
-    4. เลือกอาหารจากธาตุเด่นและธาตุรอง
-    5. สลับรายการและลบชื่อซ้ำ
+    - equal:
+      ธาตุหลักและธาตุรองเท่ากัน
+
+    - mixed:
+      ธาตุหลักเป็นส่วนใหญ่และสอดแทรกธาตุรอง
+
+    - primary_only:
+      เฉพาะธาตุหลัก
     """
 
     if limit <= 0:
-        raise ValueError("limit ต้องมากกว่า 0")
+        raise ValueError(
+            "limit ต้องมากกว่า 0"
+        )
 
     foods = load_foods()
     normalized = normalize_scores(scores)
 
-    close_result = detect_close_elements(
+    relationship = analyze_element_relationship(
         scores=scores,
-        threshold=close_threshold,
+        mixed_threshold=mixed_threshold,
     )
 
-    primary = close_result["primary_element"]
-    secondary = close_result["secondary_element"]
-    is_mixed = bool(close_result["is_close"])
+    primary = relationship["primary_element"]
+    secondary = relationship["secondary_element"]
+    mode = relationship["mode"]
 
     quotas = calculate_element_quotas(
         scores=scores,
         total_items=limit,
-        close_threshold=close_threshold,
-        secondary_share_when_not_close=(
-            secondary_share_when_not_close
-        ),
+        mixed_threshold=mixed_threshold,
     )
 
     allowed_categories = (
@@ -474,10 +568,17 @@ def recommend_foods(
         else None
     )
 
-    grouped_results: dict[str, list[dict[str, Any]]] = {}
-    reserve_multiplier = 3
+    target_elements = [primary]
 
-    for element in (primary, secondary):
+    if quotas[secondary] > 0:
+        target_elements.append(secondary)
+
+    grouped_results: dict[
+        str,
+        list[dict[str, Any]],
+    ] = {}
+
+    for element in target_elements:
         element_foods = [
             food
             for food in foods
@@ -497,81 +598,81 @@ def recommend_foods(
                 normalized_scores=normalized,
                 primary_element=primary,
                 secondary_element=secondary,
-                is_mixed=is_mixed,
+                recommendation_mode=mode,
             )
             for food in element_foods
         ]
 
-        # เอกสารไม่ได้จัดอันดับอาหารภายในธาตุเดียวกัน
-        # จึงเรียงชื่อเพื่อให้ผลลัพธ์คงที่และตรวจสอบซ้ำได้
-        prepared.sort(
-            key=lambda item: normalize_food_name(
-                item["food_name_th"]
-            )
-        )
+        # ลบชื่อซ้ำก่อน แล้วสุ่มลำดับรายการภายในธาตุ
+        # เพื่อไม่ให้ผลลัพธ์เรียงตามตัวอักษรทุกครั้ง
+        prepared = remove_duplicate_food_names(prepared)
+        random.shuffle(prepared)
 
-        grouped_results[element] = prepared[
-            : max(
-                quotas[element] * reserve_multiplier,
-                quotas[element],
-            )
-        ]
+        grouped_results[element] = prepared
 
-    interleaved = interleave_foods(
-        grouped_foods=grouped_results,
-        element_order=[primary, secondary],
-        limit=limit * reserve_multiplier,
+    primary_items = grouped_results.get(primary, [])
+    secondary_items = grouped_results.get(secondary, [])
+
+    selected = select_items_by_mode(
+        primary_items=primary_items,
+        secondary_items=secondary_items,
+        primary_quota=quotas[primary],
+        secondary_quota=quotas[secondary],
+        mode=mode,
     )
 
-    unique_results = remove_duplicate_food_names(
-        interleaved
-    )
+    selected = remove_duplicate_food_names(selected)
 
-    selected = unique_results[:limit]
-
-    # หากลบชื่อซ้ำแล้วจำนวนยังไม่ครบ ให้เติมจากรายการสำรอง
+    # เติมรายการให้ครบเฉพาะจากธาตุที่อนุญาตในโหมดนั้น
     if len(selected) < limit:
         existing_names = {
             normalize_food_name(item["food_name_th"])
             for item in selected
         }
 
-        remaining_candidates: list[dict[str, Any]] = []
-
-        for element in (primary, secondary):
-            for item in grouped_results.get(element, []):
-                name = normalize_food_name(
-                    item["food_name_th"]
-                )
-
-                if name not in existing_names:
-                    remaining_candidates.append(item)
-                    existing_names.add(name)
-
-        selected.extend(
-            remaining_candidates[
-                : limit - len(selected)
-            ]
+        fallback_candidates = (
+            primary_items + secondary_items
         )
+
+        for item in fallback_candidates:
+            name = normalize_food_name(
+                item["food_name_th"]
+            )
+
+            if name in existing_names:
+                continue
+
+            selected.append(item)
+            existing_names.add(name)
+
+            if len(selected) >= limit:
+                break
 
     return selected[:limit]
 
 
+# =========================================================
+# แนะนำอาหารแยกตามหมวด
+# =========================================================
+
 def recommend_foods_by_category(
     scores: dict[str, float],
-    per_category: int = 4,
-    close_threshold: float = 0.05,
-    secondary_share_when_not_close: float = 0.20,
+    per_category: int = DEFAULT_ITEMS_PER_CATEGORY,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> dict[str, list[dict[str, Any]]]:
     """
     แนะนำอาหารแยกตามหมวด
 
-    หากสองธาตุใกล้กันและ per_category = 4
-    ระบบจะกระจายรายการตามสัดส่วนคะแนนจริง
+    เมื่อ per_category = 4:
+    - คะแนนเท่ากัน: หลัก 2 + รอง 2
+    - ต่างกันไม่เกิน 3: หลัก 3 + รอง 1
+    - ต่างกันมากกว่า 3: หลัก 4
     """
 
     if per_category <= 0:
-        raise ValueError("per_category ต้องมากกว่า 0")
+        raise ValueError(
+            "per_category ต้องมากกว่า 0"
+        )
 
     categories = [
         "menu",
@@ -586,117 +687,214 @@ def recommend_foods_by_category(
             scores=scores,
             limit=per_category,
             categories=[category],
-            close_threshold=close_threshold,
-            secondary_share_when_not_close=(
-                secondary_share_when_not_close
-            ),
+            mixed_threshold=mixed_threshold,
         )
         for category in categories
     }
 
 
+# =========================================================
+# อาหารที่ควรระวัง
+# =========================================================
+
 def get_avoid_rules(
     scores: dict[str, float],
-    close_threshold: float = 0.05,
+    limit: int = DEFAULT_AVOID_LIMIT,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> list[dict[str, str]]:
-    """ดึงข้อควรหลีกเลี่ยงของธาตุเด่นและธาตุรอง"""
+    """
+    เลือกอาหารที่ควรระวังตามเงื่อนไขเดียวกับอาหารแนะนำ
+
+    เมื่อ limit = 6:
+    - คะแนนเท่ากัน: หลัก 3 + รอง 3
+    - ต่างกันไม่เกิน 3: หลักประมาณ 4–5 + รอง 1–2
+    - ต่างกันมากกว่า 3: หลัก 6
+    """
+
+    if limit <= 0:
+        return []
 
     foods = load_foods()
 
-    close_result = detect_close_elements(
+    relationship = analyze_element_relationship(
         scores=scores,
-        threshold=close_threshold,
+        mixed_threshold=mixed_threshold,
     )
 
-    primary = close_result["primary_element"]
-    secondary = close_result["secondary_element"]
+    primary = relationship["primary_element"]
+    secondary = relationship["secondary_element"]
+    mode = relationship["mode"]
 
-    target_elements = {
-        primary,
-        secondary,
-    }
-
-    avoid_rules = [
-        food
+    primary_rules = [
+        dict(food)
         for food in foods
         if (
             food["recommendation_status"] == "avoid"
-            and food["recommended_element"] in target_elements
+            and food["recommended_element"] == primary
         )
     ]
 
-    avoid_rules.sort(
-        key=lambda item: (
-            item["recommended_element"] != primary,
-            normalize_food_name(item["food_name_th"]),
+    secondary_rules = [
+        dict(food)
+        for food in foods
+        if (
+            food["recommendation_status"] == "avoid"
+            and food["recommended_element"] == secondary
+        )
+    ]
+
+    primary_rules.sort(
+        key=lambda item: normalize_food_name(
+            item["food_name_th"]
         )
     )
 
+    secondary_rules.sort(
+        key=lambda item: normalize_food_name(
+            item["food_name_th"]
+        )
+    )
+
+    primary_rules = remove_duplicate_food_names(
+        primary_rules
+    )
+
+    secondary_rules = remove_duplicate_food_names(
+        secondary_rules
+    )
+
+    quotas = calculate_element_quotas(
+        scores=scores,
+        total_items=limit,
+        mixed_threshold=mixed_threshold,
+    )
+
+    selected = select_items_by_mode(
+        primary_items=primary_rules,
+        secondary_items=secondary_rules,
+        primary_quota=quotas[primary],
+        secondary_quota=quotas[secondary],
+        mode=mode,
+    )
+
+    selected = remove_duplicate_food_names(selected)
+
+    if len(selected) < limit:
+        existing_names = {
+            normalize_food_name(item["food_name_th"])
+            for item in selected
+        }
+
+        fallback_candidates = (
+            primary_rules + secondary_rules
+        )
+
+        for item in fallback_candidates:
+            name = normalize_food_name(
+                item["food_name_th"]
+            )
+
+            if name in existing_names:
+                continue
+
+            selected.append(item)
+            existing_names.add(name)
+
+            if len(selected) >= limit:
+                break
+
     return [
         dict(item)
-        for item in remove_duplicate_food_names(
-            [dict(item) for item in avoid_rules]
-        )
+        for item in selected[:limit]
     ]
 
 
+# =========================================================
+# สรุปผลสำหรับ app.py
+# =========================================================
+
 def build_recommendation_summary(
     scores: dict[str, float],
-    close_threshold: float = 0.05,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> dict[str, Any]:
     """สร้างผลสรุปสำหรับแสดงบนหน้าเว็บ"""
 
     normalized = normalize_scores(scores)
 
-    close_result = detect_close_elements(
+    relationship = analyze_element_relationship(
         scores=scores,
-        threshold=close_threshold,
+        mixed_threshold=mixed_threshold,
     )
 
-    primary = close_result["primary_element"]
-    secondary = close_result["secondary_element"]
+    primary = relationship["primary_element"]
+    secondary = relationship["secondary_element"]
+    mode = relationship["mode"]
+    difference = relationship["difference"]
 
     grouped = recommend_foods_by_category(
         scores=scores,
-        per_category=4,
-        close_threshold=close_threshold,
+        per_category=DEFAULT_ITEMS_PER_CATEGORY,
+        mixed_threshold=mixed_threshold,
     )
 
     top_recommendations = recommend_foods(
         scores=scores,
         limit=10,
-        close_threshold=close_threshold,
+        mixed_threshold=mixed_threshold,
     )
 
     avoid_rules = get_avoid_rules(
         scores=scores,
-        close_threshold=close_threshold,
+        limit=DEFAULT_AVOID_LIMIT,
+        mixed_threshold=mixed_threshold,
     )
 
-    if close_result["is_close"]:
+    if mode == "equal":
         interpretation = (
             f"{ELEMENT_NAMES_TH[primary]}และ"
             f"{ELEMENT_NAMES_TH[secondary]}"
-            "มีคะแนนใกล้เคียงกัน "
-            "ระบบจึงกระจายตัวอย่างอาหารของทั้งสองธาตุ "
-            "ตามสัดส่วนคะแนนจากแบบประเมิน"
+            "มีคะแนนเท่ากัน "
+            "ระบบจึงแสดงตัวอย่างอาหารและข้อควรระวัง "
+            "ของทั้งสองธาตุในจำนวนเท่ากัน"
         )
+
+    elif mode == "mixed":
+        interpretation = (
+            f"{ELEMENT_NAMES_TH[primary]}"
+            "มีคะแนนสูงที่สุด และ"
+            f"{ELEMENT_NAMES_TH[secondary]}"
+            f"มีคะแนนต่างกัน {difference:.1f} คะแนน "
+            "ระบบจึงแนะนำข้อมูลของธาตุหลักเป็นส่วนใหญ่ "
+            "พร้อมสอดแทรกข้อมูลของธาตุรอง"
+        )
+
     else:
         interpretation = (
             f"{ELEMENT_NAMES_TH[primary]}"
-            "เป็นธาตุเด่นปัจจุบัน "
-            f"โดยใช้{ELEMENT_NAMES_TH[secondary]}"
-            "เป็นข้อมูลประกอบ"
+            f"มีคะแนนสูงกว่า"
+            f"{ELEMENT_NAMES_TH[secondary]} "
+            f"{difference:.1f} คะแนน "
+            "ระบบจึงแนะนำอาหารและข้อควรระวัง "
+            "ของธาตุหลักเท่านั้น"
         )
 
     return {
         "primary_element": primary,
         "primary_element_th": ELEMENT_NAMES_TH[primary],
         "secondary_element": secondary,
-        "secondary_element_th": ELEMENT_NAMES_TH[secondary],
-        "is_mixed": close_result["is_close"],
-        "score_difference": close_result["difference"],
-        "relative_difference": close_result["relative_difference"],
+        "secondary_element_th": ELEMENT_NAMES_TH[
+            secondary
+        ],
+        "recommendation_mode": mode,
+        "is_equal": mode == "equal",
+        # คง key เดิมไว้เพื่อให้ app.py รุ่นเดิมยังใช้งานได้
+        "is_mixed": mode in {"equal", "mixed"},
+        "is_primary_only": mode == "primary_only",
+        "score_difference": difference,
+        "relative_difference": relationship[
+            "relative_difference"
+        ],
+        "mixed_threshold": mixed_threshold,
         "normalized_scores": normalized,
         "interpretation": interpretation,
         "top_recommendations": top_recommendations,
@@ -705,6 +903,10 @@ def build_recommendation_summary(
     }
 
 
+# =========================================================
+# แสดงผลใน Terminal
+# =========================================================
+
 def print_recommendations(
     scores: dict[str, float],
 ) -> None:
@@ -712,22 +914,44 @@ def print_recommendations(
 
     summary = build_recommendation_summary(scores)
 
+    mode_names_th = {
+        "equal": "คะแนนเท่ากัน",
+        "mixed": "ธาตุหลักร่วมกับธาตุรอง",
+        "primary_only": "เฉพาะธาตุหลัก",
+    }
+
     print("=" * 60)
     print("ผลแนะนำอาหาร")
     print("=" * 60)
 
-    print("ธาตุเด่น:", summary["primary_element_th"])
-    print("ธาตุรอง:", summary["secondary_element_th"])
     print(
-        "ธาตุเด่นร่วมกัน:",
-        "ใช่" if summary["is_mixed"] else "ไม่ใช่",
+        "ธาตุหลัก:",
+        summary["primary_element_th"],
+    )
+    print(
+        "ธาตุรอง:",
+        summary["secondary_element_th"],
+    )
+    print(
+        "รูปแบบคำแนะนำ:",
+        mode_names_th[
+            summary["recommendation_mode"]
+        ],
+    )
+    print(
+        "ผลต่างคะแนน:",
+        summary["score_difference"],
     )
 
     print()
     print("สัดส่วนคะแนน")
 
     for element in ELEMENTS:
-        percentage = summary["normalized_scores"][element] * 100
+        percentage = (
+            summary["normalized_scores"][element]
+            * 100
+        )
+
         print(
             f"- {ELEMENT_NAMES_TH[element]}: "
             f"{percentage:.2f}%"
@@ -748,13 +972,31 @@ def print_recommendations(
             f"({food['recommended_element_th']})"
         )
 
+    print()
+    print("อาหารที่ควรระวัง")
+
+    for index, food in enumerate(
+        summary["avoid_rules"],
+        start=1,
+    ):
+        print(
+            f"{index}. {food['food_name_th']} "
+            f"({food['recommended_element_th']})"
+        )
+
+
+# =========================================================
+# ทดสอบเมื่อรันไฟล์โดยตรง
+# =========================================================
 
 if __name__ == "__main__":
+    # ตัวอย่างกรณีต่างกัน 0.5 คะแนน
+    # ควรได้โหมด mixed และหมวดละ 3:1
     sample_scores = {
-        "earth": 15.0,
-        "water": 14.6,
-        "wind": 13.1,
-        "fire": 13.6,
+        "earth": 16.1,
+        "water": 15.5,
+        "wind": 12.1,
+        "fire": 15.6,
     }
 
     print_recommendations(sample_scores)

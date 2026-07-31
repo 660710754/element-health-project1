@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import csv
+from io import BytesIO
 from html import escape
 from pathlib import Path
 from typing import Any
 
+import math
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
@@ -54,6 +58,7 @@ div[data-testid="stProgress"]>div>div>div{background-color:var(--primary)}
 .score-card{width:100%;min-height:150px;box-sizing:border-box;padding:1.25rem .7rem;background:white;border:1px solid var(--border);border-radius:18px;text-align:center;box-shadow:0 7px 22px rgba(72,83,32,.08)}.score-icon{font-size:2rem;margin-bottom:.35rem}.score-name{color:var(--primary);font-size:1.05rem;font-weight:750}.score-number{color:var(--dark);font-size:1.9rem;font-weight:850;margin-top:.25rem}
 .safety-note{width:100%;box-sizing:border-box;margin-top:1.7rem;padding:1.1rem 1.35rem;background:var(--warning-bg);border:1px solid #e4d9a8;border-left:6px solid var(--warning-border);border-radius:14px;color:#544b22;font-size:.94rem;line-height:1.8;text-align:left}.safety-note-title{color:#675a24;font-size:1rem;font-weight:800;margin-bottom:.35rem}
 .missing-answer{width:100%;box-sizing:border-box;margin-top:1rem;padding:.95rem 1rem;background:#fff3e7;border:1px solid #e9b77f;border-radius:13px;color:#824a17;font-size:.98rem;font-weight:700;text-align:center}
+.radar-card{width:100%;box-sizing:border-box;margin:.6rem 0 1.8rem;padding:1rem 1rem .35rem;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:20px;box-shadow:0 9px 26px rgba(72,83,32,.08)}
 @media(max-width:768px){.block-container{padding:.9rem .75rem 4rem}.main-title{font-size:2rem}div[data-testid="stForm"]{padding:1.2rem .85rem 1.5rem}.question-heading{grid-template-columns:40px minmax(0,1fr);font-size:.94rem}.question-number{width:40px;padding-right:6px}div[data-testid="stRadio"] div[role="radiogroup"]>label{padding-left:.1rem!important;padding-right:.1rem!important;font-size:.82rem!important}div[data-testid="stRadio"] div[role="radiogroup"] label p{white-space:normal}}
 </style>
 """, unsafe_allow_html=True)
@@ -96,6 +101,167 @@ def render_score_cards(scores: dict[str,float]) -> None:
     for col, element in zip(st.columns(4), ("earth","water","wind","fire")):
         with col:
             st.markdown(f'<div class="score-card"><div class="score-icon">{ELEMENT_ICONS[element]}</div><div class="score-name">{ELEMENT_NAMES[element]}</div><div class="score-number">{scores[element]:.1f}</div></div>', unsafe_allow_html=True)
+
+
+def render_radar_chart(scores: dict[str, float]) -> None:
+    """แสดงคะแนนธาตุทั้ง 4 เป็นเรดาร์ขนาดกะทัดรัด พร้อมรายการคะแนนด้านขวา"""
+
+    element_order = ("earth", "water", "wind", "fire")
+    labels = [ELEMENT_NAMES[element] for element in element_order]
+    values = [float(scores[element]) for element in element_order]
+
+    angles = [
+        index / len(labels) * 2 * math.pi
+        for index in range(len(labels))
+    ]
+    closed_angles = angles + [angles[0]]
+    closed_values = values + [values[0]]
+
+    max_score = max(values) if values else 0.0
+    axis_max = max(20.0, math.ceil((max_score + 1.0) / 5.0) * 5.0)
+    radial_ticks = list(range(5, int(axis_max) + 1, 5))
+
+    plt.rcParams["font.family"] = "sans-serif"
+    plt.rcParams["font.sans-serif"] = [
+        "Tahoma",
+        "Thonburi",
+        "Arial Unicode MS",
+        "Noto Sans Thai",
+        "DejaVu Sans",
+    ]
+    plt.rcParams["axes.unicode_minus"] = False
+
+    # สร้างพื้นที่ 2 ส่วน: กราฟด้านซ้าย และรายการคะแนนด้านขวา
+    figure = plt.figure(figsize=(8.2, 3.15))
+    grid = figure.add_gridspec(
+        1,
+        2,
+        width_ratios=[1.15, 0.85],
+        wspace=0.18,
+    )
+
+    axis = figure.add_subplot(grid[0, 0], polar=True)
+    info_axis = figure.add_subplot(grid[0, 1])
+    info_axis.axis("off")
+
+    # ธาตุดินอยู่ด้านบน และเรียงตามเข็มนาฬิกา
+    axis.set_theta_offset(math.pi / 2)
+    axis.set_theta_direction(-1)
+
+    axis.plot(
+        closed_angles,
+        closed_values,
+        linewidth=2.4,
+        marker="o",
+        markersize=5.5,
+        color="#4f74e8",
+        zorder=3,
+    )
+    axis.fill(
+        closed_angles,
+        closed_values,
+        color="#8fa8ff",
+        alpha=0.30,
+        zorder=2,
+    )
+
+    axis.set_xticks(angles)
+    axis.set_xticklabels(
+        labels,
+        fontsize=11,
+        fontweight="bold",
+        color="#485320",
+    )
+    axis.tick_params(axis="x", pad=8)
+
+    axis.set_ylim(0, axis_max)
+    axis.set_yticks(radial_ticks)
+    axis.set_yticklabels(
+        [str(tick) for tick in radial_ticks],
+        fontsize=8,
+        color="#929a7b",
+    )
+    axis.set_rlabel_position(90)
+
+    axis.grid(color="#dfe4d4", linewidth=0.9)
+    axis.spines["polar"].set_color("#d3dac5")
+    axis.spines["polar"].set_linewidth(1.0)
+    axis.set_facecolor("#ffffff")
+
+    # สีของแต่ละธาตุสำหรับรายการคะแนนด้านขวา
+    element_colors = {
+        "earth": "#9b6a2f",
+        "water": "#36a9dc",
+        "wind": "#f4a62a",
+        "fire": "#ef5a5a",
+    }
+
+    y_positions = [0.78, 0.60, 0.42, 0.24]
+
+    for element, y in zip(element_order, y_positions):
+        value = float(scores[element])
+
+        info_axis.scatter(
+            0.08,
+            y,
+            s=115,
+            marker="s",
+            color=element_colors[element],
+            transform=info_axis.transAxes,
+        )
+
+        info_axis.text(
+            0.16,
+            y,
+            ELEMENT_NAMES[element],
+            fontsize=11,
+            color="#485320",
+            va="center",
+            transform=info_axis.transAxes,
+        )
+
+        info_axis.text(
+            0.55,
+            y,
+            f"{value:.1f}",
+            fontsize=11,
+            fontweight="bold",
+            color="#303817",
+            va="center",
+            transform=info_axis.transAxes,
+        )
+
+        info_axis.text(
+            0.72,
+            y,
+            "คะแนน",
+            fontsize=9.5,
+            color="#77805c",
+            va="center",
+            transform=info_axis.transAxes,
+        )
+
+    figure.patch.set_alpha(0)
+    figure.subplots_adjust(left=0.05, right=0.96, top=0.96, bottom=0.05)
+
+    image_buffer = BytesIO()
+    figure.savefig(
+        image_buffer,
+        format="png",
+        dpi=150,
+        bbox_inches="tight",
+        pad_inches=0.02,
+        transparent=True,
+    )
+    image_buffer.seek(0)
+
+    # แสดงภาพที่ครอบตัดแล้ว เพื่อไม่ให้มีพื้นที่ว่างจาก canvas ของ Matplotlib
+    left_space, chart_column, right_space = st.columns([0.04, 0.92, 0.04])
+    with chart_column:
+        st.image(image_buffer, use_container_width=True)
+
+    plt.close(figure)
+
 
 def render_main_result(result: dict[str,Any], birth_element: str) -> None:
     primary, secondary = result["primary_element"], result["secondary_element"]
@@ -241,9 +407,13 @@ def main() -> None:
     st.markdown('<div class="section-header">คะแนนธาตุทั้ง 4</div>', unsafe_allow_html=True)
     render_score_cards(scores)
 
-    st.markdown('<div class="section-header">กราฟเปรียบเทียบคะแนน</div>', unsafe_allow_html=True)
-    chart_data = pd.DataFrame({"ธาตุ":[ELEMENT_NAMES[e] for e in ("earth","water","wind","fire")], "คะแนน":[scores[e] for e in ("earth","water","wind","fire")]}).set_index("ธาตุ")
-    st.bar_chart(chart_data, y="คะแนน", use_container_width=True)
+    st.markdown(
+        '<div class="section-header" style="margin:1.15rem 0 0.15rem;">'
+        'Radar Chart แสดงคะแนนของธาตุเจ้าเรือนปัจจุบันทั้ง 4 ธาตุ'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    render_radar_chart(scores)
 
     st.markdown('<div class="section-header">ลำดับคะแนน</div>', unsafe_allow_html=True)
     ranking_data = pd.DataFrame([{"ลำดับ":i,"ธาตุ":f"{ELEMENT_ICONS[e]} {ELEMENT_NAMES[e]}","คะแนน":score} for i,(e,score) in enumerate(result["ranking"],1)])
