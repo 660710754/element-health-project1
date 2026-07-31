@@ -1,7 +1,18 @@
+# Project Directories
 __pycache__/
 *.py[cod]
-.DS_Store
 .venv/
 venv/
 .env
 .streamlit/secrets.toml
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
