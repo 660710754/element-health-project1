@@ -1,6 +1,6 @@
 {
     "metadata": {
-      "dataset_name": "Thai Traditional Medicine Element Knowledge Base",
+      "dataset_name_th": "Thai Traditional Medicine Element Knowledge Base",
       "version": "1.0.0",
       "language": "th",
       "purpose": "ฐานความรู้สำหรับระบบคัดกรองธาตุเจ้าเรือนปัจจุบันและแนะนำอาหารเบื้องต้น",
@@ -15,9 +15,9 @@
     },
     "elements": {
       "earth": {
-        "element_id": "earth",
-        "name_th": "ธาตุดิน",
-        "name_en": "Earth Element",
+        "element_asset_id": "earth",
+        "name_th_th": "ธาตุดิน",
+        "name_th_en": "Earth Element",
         "thai_medicine_role": {
           "description": "ธาตุที่เกี่ยวข้องกับโครงสร้างและส่วนที่เป็นของแข็งของร่างกาย",
           "body_functions": [
@@ -140,7 +140,7 @@
             "น้ำฟักทอง"
           ]
         },
-        "foods_to_avoid": [
+        "foods_to_avoasset_id": [
           {
             "item": "อาหารย่อยยาก",
             "reason": "อาจเพิ่มความแน่นและภาระต่อระบบย่อยอาหาร"
@@ -154,7 +154,7 @@
             "reason": "เป็นอาหารที่ย่อยได้ยากและมีไขมันสูง"
           }
         ],
-        "health_considerations": [
+        "health_consasset_iderations": [
           "ควรระมัดระวังปัญหาที่เกี่ยวข้องกับโครงสร้างร่างกาย",
           "ควรระมัดระวังกระดูก กล้ามเนื้อ ผิวหนัง และอวัยวะที่เป็นโครงสร้าง",
           "ธาตุดินเด่นไม่ได้หมายความว่ามีโรค"
@@ -175,9 +175,9 @@
         ]
       },
       "water": {
-        "element_id": "water",
-        "name_th": "ธาตุน้ำ",
-        "name_en": "Water Element",
+        "element_asset_id": "water",
+        "name_th_th": "ธาตุน้ำ",
+        "name_th_en": "Water Element",
         "thai_medicine_role": {
           "description": "ธาตุที่เกี่ยวข้องกับของเหลวและความชุ่มชื้นในร่างกาย",
           "body_functions": [
@@ -297,7 +297,7 @@
             "น้ำสับปะรด"
           ]
         },
-        "foods_to_avoid": [
+        "foods_to_avoasset_id": [
           {
             "item": "อาหารจากนมและเนย",
             "reason": "อาจเพิ่มความชื้น ความหนัก หรือเสมหะในบางราย"
@@ -319,7 +319,7 @@
             "reason": "มักมีโซเดียมและสารปรุงแต่งสูง"
           }
         ],
-        "health_considerations": [
+        "health_consasset_iderations": [
           "ควรระมัดระวังระบบทางเดินหายใจ",
           "ควรระมัดระวังอาการหวัด คัดจมูก ตาแฉะ และภูมิแพ้",
           "ควรระมัดระวังระบบทางเดินอาหาร น้ำย่อย และระบบขับถ่าย",
@@ -342,9 +342,9 @@
         ]
       },
       "wind": {
-        "element_id": "wind",
-        "name_th": "ธาตุลม",
-        "name_en": "Wind Element",
+        "element_asset_id": "wind",
+        "name_th_th": "ธาตุลม",
+        "name_th_en": "Wind Element",
         "thai_medicine_role": {
           "description": "ธาตุที่เกี่ยวข้องกับการเคลื่อนไหว การไหลเวียน การหายใจ และระบบประสาทสัมผัส",
           "body_functions": [
@@ -452,7 +452,7 @@
             "น้ำกานพลู"
           ]
         },
-        "foods_to_avoid": [
+        "foods_to_avoasset_id": [
           {
             "item": "อาหารหวานมาก",
             "reason": "อาจเพิ่มความหนักและไม่สอดคล้องกับรสเผ็ดร้อนที่ใช้ปรับสมดุลธาตุลม"
@@ -462,7 +462,7 @@
             "reason": "อาจทำให้ระบบย่อยทำงานช้าหรือเกิดอาการอืดแน่นในบางราย"
           }
         ],
-        "health_considerations": [
+        "health_consasset_iderations": [
           "ควรระมัดระวังระบบการเคลื่อนไหวของร่างกาย",
           "ควรระมัดระวังการหายใจและระบบประสาทสัมผัส",
           "ผู้ที่มีอาการเวียนหัว หน้ามืด หรือใจสั่นรุนแรงควรพบแพทย์",
@@ -484,9 +484,9 @@
         ]
       },
       "fire": {
-        "element_id": "fire",
-        "name_th": "ธาตุไฟ",
-        "name_en": "Fire Element",
+        "element_asset_id": "fire",
+        "name_th_th": "ธาตุไฟ",
+        "name_th_en": "Fire Element",
         "thai_medicine_role": {
           "description": "ธาตุที่เกี่ยวข้องกับความร้อน การย่อยอาหาร การเผาผลาญพลังงาน และอุณหภูมิร่างกาย",
           "body_functions": [
@@ -604,7 +604,7 @@
             "น้ำเก๊กฮวย"
           ]
         },
-        "foods_to_avoid": [
+        "foods_to_avoasset_id": [
           {
             "item": "อาหารหวานจัด",
             "reason": "เอกสารแนะนำให้หลีกเลี่ยงรสจัดสำหรับผู้มีธาตุไฟเด่น"
@@ -634,7 +634,7 @@
             "reason": "อาจกระตุ้นความร้อน ใจสั่น หรือการนอนในบางราย"
           }
         ],
-        "health_considerations": [
+        "health_consasset_iderations": [
           "ควรระมัดระวังกระบวนการเผาผลาญ",
           "ควรระมัดระวังระบบย่อยอาหาร",
           "ควรระมัดระวังอุณหภูมิร่างกาย",
@@ -657,7 +657,7 @@
         ]
       }
     },
-    "screening_guidelines": {
+    "screening_guasset_idelines": {
       "principle": "ควรแยกธาตุเจ้าเรือนเกิดออกจากธาตุเจ้าเรือนปัจจุบัน",
       "birth_element_score": 2,
       "current_sign_score": 1,

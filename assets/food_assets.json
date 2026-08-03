@@ -1,0 +1,3425 @@
+{
+  "schema_version": 2,
+  "items": [
+    {
+      "asset_id": "ingredient-mangosteen",
+      "name_th": "มังคุด",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/mangosteen_1.jpg",
+          "source_url": "https://fit-d.com/food/view/NTI5/ข้อมูลโภชนาการ แคลอรี่ มังคุด-mangosteen",
+          "alt_th": "มังคุด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/mangosteen_2.jpg",
+          "source_url": "https://www.prachachat.net/hilight-prachachat/news-941831",
+          "alt_th": "มังคุด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-guava",
+      "name_th": "ฝรั่ง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/guava_1.jpg",
+          "source_url": "https://www.ตลาดเกษตรกรออนไลน์.com/p/3059/ฝรั่งไส้แดง.html",
+          "alt_th": "ฝรั่ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/guava_2.jpg",
+          "source_url": "https://www.disthai.com/16941150/ฝรั่ง",
+          "alt_th": "ฝรั่ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-pumpkin",
+      "name_th": "ฟักทอง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/pumpkin_1.jpg",
+          "source_url": "https://www.kasetsomboon.com/product/ฟักทอง-บึงกาฬ-21-ตราเ/",
+          "alt_th": "ฟักทอง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/pumpkin_2.jpg",
+          "source_url": "https://www.bunnings.com.au/diy-advice/garden/planting-and-growing/planting-growing-and-harvesting-pumpkin",
+          "alt_th": "ฟักทอง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-wax-gourd",
+      "name_th": "ฟักคราด",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/waxgourd_1.jpg",
+          "source_url": "https://www.eastwestseed.com/crop/wax-gourd/",
+          "alt_th": "ฟักคราด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/waxgourd_2.jpg",
+          "source_url": "https://www.magicgardenseeds.com/Winter-Melon-Wax-Gourd-Benincasa-hispida-seeds",
+          "alt_th": "ฟักคราด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-rambutan",
+      "name_th": "เงาะ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/rambutan_1.jpg",
+          "source_url": "https://www.imreal-fruit.com/product/26/dehydrated-rambutan-with-lychee-flavor-เงาะรสลิ้นจี่อบแห้ง",
+          "alt_th": "เงาะ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/rambutan_2.jpg",
+          "source_url": "https://www.disthai.com/17404070/เงาะ",
+          "alt_th": "เงาะ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-taro",
+      "name_th": "เผือก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/taro_1.jpg",
+          "source_url": "https://www.kcfresh.com/en/node/199",
+          "alt_th": "เผือก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/taro_2.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/ข้อมูลโภชนาการ/เผือก-ประโยชน์-ข้อควรระวังในการบริโภค/",
+          "alt_th": "เผือก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-mixed-nuts",
+      "name_th": "ถั่วต่าง ๆ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/mixednuts_1.jpg",
+          "source_url": "https://www.hamptonfarms.com/blogs/news/healthy-nut-based-snack-asset_ideas",
+          "alt_th": "ถั่วต่าง ๆ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/mixednuts_2.jpg",
+          "source_url": "https://krema.com/products/gourmet-mixed-nuts-roasted-salted-16-oz-bag",
+          "alt_th": "ถั่วต่าง ๆ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-yam",
+      "name_th": "หัวมันเทศ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/yam_1.jpg",
+          "source_url": "https://medthai.com/มันเทศ/",
+          "alt_th": "หัวมันเทศ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/yam_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/มันเทศ",
+          "alt_th": "หัวมันเทศ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-kradone",
+      "name_th": "ผักกระโดน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/kradone_1.jpg",
+          "source_url": "https://www.facebook.com/ForestHerbarium/posts/-กระโดน-เปลือก-ช่วยสมานแผลภายนอก-หรือแผลภายใน-ใบ-สมานแผล-ปิดแผล-ชื่อท้องถิ่น-กระ/4548746855150966/",
+          "alt_th": "ผักกระโดน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/kradone_2.jpg",
+          "source_url": "https://medthai.com/กระโดน/",
+          "alt_th": "ผักกระโดน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-raw-banana",
+      "name_th": "กล้วยดิบ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/rawbanana_1.jpg",
+          "source_url": "https://sistacafe.com/summaries/8-ประโยชน์สุดล้ำของการกิน-กล้วยดิบ-ไม่ต้องรอให้สุกก-asset_id-44851",
+          "alt_th": "กล้วยดิบ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/rawbanana_2.jpg",
+          "source_url": "https://www.hashi-grd.com/content/30105/แก้ปัญหาแผลในกระเพาะอาหารเองง่ายๆ-ด้วยกล้วยดิบ-โดยไม่ต้องใช้ยา",
+          "alt_th": "กล้วยดิบ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-leucaena",
+      "name_th": "กระถินไทย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/leucaena_1.jpg",
+          "source_url": "https://medthai.com/กระถินไทย/",
+          "alt_th": "กระถินไทย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/leucaena_2.jpg",
+          "source_url": "https://www.agrinewsthai.com/dasset_id-you-know/173169",
+          "alt_th": "กระถินไทย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-smor-plant",
+      "name_th": "สมอไทย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/smorplant_1.jpg",
+          "source_url": "https://kaset.today/สมุนไพร/สมอไทย/",
+          "alt_th": "สมอไทย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/smorplant_2.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/techno-news/article_14862",
+          "alt_th": "สมอไทย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-cashew-topleaves",
+      "name_th": "ยอดมะม่วงหิมพานต์",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/cashewtopleaves_1.jpg",
+          "source_url": "https://www.ตลาดเกษตรกรออนไลน์.com/p/2310/ยอดมะม่วงหิมพานต์.html",
+          "alt_th": "ยอดมะม่วงหิมพานต์ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/cashewtopleaves_2.jpg",
+          "source_url": "https://www.mtoday.co.th/32313",
+          "alt_th": "ยอดมะม่วงหิมพานต์ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-stargooseberry-topleaves",
+      "name_th": "ยอดมะยม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/stargooseberrytopleaves_1.jpg",
+          "source_url": "https://www.disthai.com/17114010/มะยม/",
+          "alt_th": "ยอดมะยม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/stargooseberrytopleaves_2.jpg",
+          "source_url": "https://medthai.com/มะยม/",
+          "alt_th": "ยอดมะยม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-careya-arborea",
+      "name_th": "กระโดนบก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/careyaarborea_1.jpg",
+          "source_url": "https://medthai.com/กระโดน/",
+          "alt_th": "กระโดนบก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/careyaarborea_2.jpg",
+          "source_url": "https://efloraofindia.com/efi/careya-arborea/",
+          "alt_th": "กระโดนบก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-itchytree",
+      "name_th": "กระโดนน้ำ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/itchytree_1.jpg",
+          "source_url": "https://www.disthai.com/17452372/จิกน้ำ",
+          "alt_th": "กระโดนน้ำ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/itchytree_2.jpg",
+          "source_url": "https://www.baanlaesuan.com/plants/fruit/137115.html/",
+          "alt_th": "กระโดนน้ำ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-melientha",
+      "name_th": "ผักหวาน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/melientha_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/featured/article_56648",
+          "alt_th": "ผักหวาน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/melientha_2.jpg",
+          "source_url": "https://morkeaw.net/melientha/",
+          "alt_th": "ผักหวาน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-young-jackfruit",
+      "name_th": "ขนุนอ่อน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/youngjackfruit_1.jpg",
+          "source_url": "https://www.jmthaifood.com/product/%E0%B8%82%E0%B8%99%E0%B8%B8%E0%B8%99%E0%B8%AD%E0%B9%88%E0%B8%AD%E0%B8%99/",
+          "alt_th": "ขนุนอ่อน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/youngjackfruit_2.jpg",
+          "source_url": "https://freshket.co/product/detail/Peeled-Young-Jackfruit-Trimmed-/ae9eba12-4310-4b43-88b9-d27a2e3889eb",
+          "alt_th": "ขนุนอ่อน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-sator",
+      "name_th": "สะตอ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/sator_1.jpg",
+          "source_url": "https://greatyeat.com/product/สะตอ/",
+          "alt_th": "สะตอ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/sator_2.jpg",
+          "source_url": "https://www.thethaipress.com/2021/32584",
+          "alt_th": "สะตอ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-spinach",
+      "name_th": "ผักโขม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/spinach_1.jpg",
+          "source_url": "https://baka.co.th/th/weeds/ผักโขม/",
+          "alt_th": "ผักโขม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/spinach_2.jpg",
+          "source_url": "https://health.kapook.com/view124852.html",
+          "alt_th": "ผักโขม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-sesbania",
+      "name_th": "โสน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/sesbania_1.jpg",
+          "source_url": "https://www.disthai.com/17173685/โสน",
+          "alt_th": "โสน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/sesbania_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/โสน_(สกุล)",
+          "alt_th": "โสน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-cowslip",
+      "name_th": "ขจร",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/cowslip_1.jpg",
+          "source_url": "https://morkeaw.net/cowslip-creeper/",
+          "alt_th": "ขจร ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/cowslip_2.jpg",
+          "source_url": "https://medthai.com/ขจร/",
+          "alt_th": "ขจร ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-pumpkin-topleaves",
+      "name_th": "ยอดฟักทอง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/pumpkintopleaves_1.jpg",
+          "source_url": "https://creator.kapook.com/view268857.html",
+          "alt_th": "ยอดฟักทอง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/pumpkintopleaves_2.jpg",
+          "source_url": "http://www.medi.co.th/news_detail71.php?q_asset_id=853",
+          "alt_th": "ยอดฟักทอง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-jering",
+      "name_th": "ลูกเหนียงนก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/jering_1.jpg",
+          "source_url": "https://kasettumkin.com/agriculture-news/55571/",
+          "alt_th": "ลูกเหนียงนก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/jering_2.jpg",
+          "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Pithecellobium_jiringa.JPG/960px-Pithecellobium_jiringa.JPG",
+          "alt_th": "ลูกเหนียงนก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-sponge-gourd",
+      "name_th": "บวบเหลี่ยม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/spongegourd_1.jpg",
+          "source_url": "https://www.disthai.com/17149756/บวบเหลี่ยม",
+          "alt_th": "บวบเหลี่ยม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/spongegourd_2.jpg",
+          "source_url": "https://www.chiataigroup.com/business/seed/chiataiseed/Luffa",
+          "alt_th": "บวบเหลี่ยม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-snake-gound",
+      "name_th": "บวบงู",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/snakegound_1.jpg",
+          "source_url": "http://www.panothaishop.com/product/98/เมล็ดพันธุ์-บวบงู",
+          "alt_th": "บวบงู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/snakegound_2.jpg",
+          "source_url": "https://www.agrinewsthai.com/news/51271",
+          "alt_th": "บวบงู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-fragent-gound",
+      "name_th": "บวบหอม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/fragentgound_1.jpg",
+          "source_url": "http://www.thaiseed.co.th/product/บวบหอมลูกผสม-พันธุ์หอมม/",
+          "alt_th": "บวบหอม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/fragentgound_2.jpg",
+          "source_url": "https://skm.ssru.ac.th/news/view/wut098",
+          "alt_th": "บวบหอม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-lime",
+      "name_th": "มะนาว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/lime_1.jpg",
+          "source_url": "http://bktl.ac.th/news-detail_20617_251957",
+          "alt_th": "มะนาว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/lime_2.jpg",
+          "source_url": "https://www.epicurious.com/expert-advice/are-yellow-limes-better-than-green-ones-article",
+          "alt_th": "มะนาว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-orange",
+      "name_th": "ส้ม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/orange_1.jpg",
+          "source_url": "https://medthai.com/ส้มเขียวหวาน/",
+          "alt_th": "ส้ม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/orange_2.jpg",
+          "source_url": "https://www.foodequipment.co.th/oranges/",
+          "alt_th": "ส้ม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-pineapple",
+      "name_th": "สับปะรด",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/pineapple_1.jpg",
+          "source_url": "https://spfresh.co.th/product/trat-si-thong-pineapple/",
+          "alt_th": "สับปะรด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/pineapple_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/สับปะรด",
+          "alt_th": "สับปะรด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-tomato",
+      "name_th": "มะเขือเทศ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/tomato_1.jpg",
+          "source_url": "https://www.agrinewsthai.com/dasset_id-you-know/177045",
+          "alt_th": "มะเขือเทศ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/tomato_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/มะเขือเทศ",
+          "alt_th": "มะเขือเทศ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-star-gooseberry",
+      "name_th": "มะยม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/stargooseberry_1.jpg",
+          "source_url": "https://www.disthai.com/17114010/มะยม",
+          "alt_th": "มะยม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/stargooseberry_2.jpg",
+          "source_url": "https://thai-herbs.thdata.co/page/มะยม/",
+          "alt_th": "มะยม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-olive",
+      "name_th": "มะกอก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/olive_1.jpg",
+          "source_url": "https://www.disthai.com/17341141/มะกอก",
+          "alt_th": "มะกอก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/olive_2.jpg",
+          "source_url": "https://www.agrinewsthai.com/dasset_id-you-know/131161",
+          "alt_th": "มะกอก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-garcinia",
+      "name_th": "มะดัน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/garcinia_1.jpg",
+          "source_url": "https://kaset.today/ผลไม้/มะดัน/",
+          "alt_th": "มะดัน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/garcinia_2.jpg",
+          "source_url": "https://center.office.nu.ac.th/nubotany/index.php?n=85&b=1&t=1&search=",
+          "alt_th": "มะดัน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-santol",
+      "name_th": "กระท้อน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/santol_1.jpg",
+          "source_url": "https://health.kapook.com/view150857.html",
+          "alt_th": "กระท้อน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/santol_2.jpg",
+          "source_url": "https://www.duriannon.com/17514998/กระท้อน",
+          "alt_th": "กระท้อน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-cassod",
+      "name_th": "ขี้เหล็ก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/cassod_1.jpg",
+          "source_url": "https://www.fascino.co.th/article/post/senna-siamea",
+          "alt_th": "ขี้เหล็ก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/cassod_2.jpg",
+          "source_url": "https://www.disthai.com/16488303/ขี้เหล็ก",
+          "alt_th": "ขี้เหล็ก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-sesbania-grandiflora",
+      "name_th": "แคบ้าน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/sesbaniagrandiflora_1.jpg",
+          "source_url": "https://clgc.agri.kps.ku.ac.th/resources/herb/sesbania.html",
+          "alt_th": "แคบ้าน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/sesbaniagrandiflora_2.jpg",
+          "source_url": "http://www.พันธุ์ไม้.com/แคบ้าน/",
+          "alt_th": "แคบ้าน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-garcinia-cova",
+      "name_th": "ชะมวง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/garciniacova_1.jpg",
+          "source_url": "https://www.baanlaesuan.com/plants/tree/137574.html/",
+          "alt_th": "ชะมวง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/garciniacova_2.jpg",
+          "source_url": "https://sathai.org/?p=1904",
+          "alt_th": "ชะมวง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-cratoxylum",
+      "name_th": "ผักติ้ว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/cratoxylum_1.jpg",
+          "source_url": "https://www.khonkaenlink.info/read/877788/",
+          "alt_th": "ผักติ้ว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/cratoxylum_2.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/how-to/tips/article_2219",
+          "alt_th": "ผักติ้ว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-olive-topleaves",
+      "name_th": "ยอดมะกอก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/olivetopleaves_1.jpg",
+          "source_url": "https://medthai.com/มะกอกป่า/",
+          "alt_th": "ยอดมะกอก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/olivetopleaves_2.jpg",
+          "source_url": "https://www.tastythaivegs.com/en/product/188642-187982/ยอดมะกอก",
+          "alt_th": "ยอดมะกอก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-tamarind-topleaves",
+      "name_th": "ยอดมะขาม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/tamarindtopleaves_1.jpg",
+          "source_url": "https://www.matichon.co.th/lifestyle/news_1529715",
+          "alt_th": "ยอดมะขาม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/tamarindtopleaves_2.jpg",
+          "source_url": "https://www.nanagarden.com/product/389126",
+          "alt_th": "ยอดมะขาม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-hairy-fruit",
+      "name_th": "มะอึก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/hairyfruit_1.jpg",
+          "source_url": "https://www.disthai.com/17339453/มะอึก",
+          "alt_th": "มะอึก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/hairyfruit_2.jpg",
+          "source_url": "https://www.smileconsumer.com/2017/04/มะอึกไร้หนาม/",
+          "alt_th": "มะอึก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-cherry-tomato",
+      "name_th": "มะเขือเครือ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/cherrytomato_1.jpg",
+          "source_url": "https://saonday.com/makreated/",
+          "alt_th": "มะเขือเครือ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/cherrytomato_2.jpg",
+          "source_url": "https://www.gotoknow.org/posts/555989",
+          "alt_th": "มะเขือเครือ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-neem",
+      "name_th": "สะเดาบ้าน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/neem_1.jpg",
+          "source_url": "https://www.matichon.co.th/weekly/column/article_15341",
+          "alt_th": "สะเดาบ้าน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/neem_2.jpg",
+          "source_url": "https://www.siampackingcenter.co.th/สะเดา-สรรพคุณและประโยชน/",
+          "alt_th": "สะเดาบ้าน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-bitter-guord",
+      "name_th": "มะระขี้นก",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/bitterguord_1.jpg",
+          "source_url": "https://www.doctor.or.th/article/detail/8931",
+          "alt_th": "มะระขี้นก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/bitterguord_2.jpg",
+          "source_url": "https://www.botanischetuinen.nl/en/plant_en/5827/balsam-pear",
+          "alt_th": "มะระขี้นก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-bitter-melon",
+      "name_th": "มะระจีน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/bittermelon_1.jpg",
+          "source_url": "https://www.wearecp.com/chiatai-31082021/",
+          "alt_th": "มะระจีน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/bittermelon_2.jpg",
+          "source_url": "https://www.kasetsomboon.com/product/มะระจีน-เบลนด์-188-ตรา/",
+          "alt_th": "มะระจีน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-brinjal",
+      "name_th": "มะแว้ง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/brinjal_1.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/มะแว้งต้น",
+          "alt_th": "มะแว้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/brinjal_2.jpg",
+          "source_url": "https://www.disthai.com/16963957/มะแว้งต้น",
+          "alt_th": "มะแว้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-noni-leaves",
+      "name_th": "ใบยอ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/nonileaves_1.jpg",
+          "source_url": "http://www.alungkarngarden.com/product/576/ใบยอสด-ทำห่อหมก-สด-สะอาด-ปลอดสารเคมี-50-ใบ",
+          "alt_th": "ใบยอ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/nonileaves_2.jpg",
+          "source_url": "https://sathai.org/?p=1858",
+          "alt_th": "ใบยอ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-ginger",
+      "name_th": "ขิง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/ginger_1.jpg",
+          "source_url": "https://www.sanook.com/health/12969/",
+          "alt_th": "ขิง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/ginger_2.jpg",
+          "source_url": "https://www.panmai.com/ขิง-ginger/",
+          "alt_th": "ขิง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-galangal",
+      "name_th": "ข่า",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/galangal_1.jpg",
+          "source_url": "https://www.panmai.com/ข่า-galangal/",
+          "alt_th": "ข่า ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/galangal_2.jpg",
+          "source_url": "https://www.diversivore.com/ingredient-pages/greater-galangal/",
+          "alt_th": "ข่า ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-lemon-grass",
+      "name_th": "ตะไคร้",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/lemongrass_1.jpg",
+          "source_url": "http://www.alungkarngarden.com/product/1017/ต้นพันธุ์ตะไคร้แกงแท้-lemon-grass",
+          "alt_th": "ตะไคร้ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/lemongrass_2.jpg",
+          "source_url": "https://www.sanook.com/health/9009/",
+          "alt_th": "ตะไคร้ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-finger-root",
+      "name_th": "กระชาย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/fingerroot_1.jpg",
+          "source_url": "https://www.doctor.or.th/article/detail/1321",
+          "alt_th": "กระชาย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/fingerroot_2.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/ข้อมูลโภชนาการ/กระชาย-สรรพคุณ/",
+          "alt_th": "กระชาย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-pepper",
+      "name_th": "พริกไทย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/pepper_1.jpg",
+          "source_url": "https://www.pholfoodmafia.com/the-colors-of-peppers/",
+          "alt_th": "พริกไทย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/pepper_2.jpg",
+          "source_url": "https://oldtimethaicuisine.blogspot.com/2019/02/blog-post.html",
+          "alt_th": "พริกไทย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-basil",
+      "name_th": "โหระพา",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/basil_1.jpg",
+          "source_url": "https://health.kapook.com/view204678.html",
+          "alt_th": "โหระพา ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/basil_2.jpg",
+          "source_url": "https://www.sanook.com/women/10347/",
+          "alt_th": "โหระพา ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-zingiber",
+      "name_th": "กระทือ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/zingiber_1.jpg",
+          "source_url": "https://www.doctor.or.th/article/detail/1550",
+          "alt_th": "กระทือ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/zingiber_2.jpg",
+          "source_url": "https://www.disthai.com/17075683/กระทือ",
+          "alt_th": "กระทือ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-siam-sakura",
+      "name_th": "ดอกกระเจียว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/siamsakura_1.jpg",
+          "source_url": "https://www.agrinewsthai.com/dasset_id-you-know/144715",
+          "alt_th": "ดอกกระเจียว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/siamsakura_2.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/techno/plants-vegetables-fruit/article_271404",
+          "alt_th": "ดอกกระเจียว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-turmeric",
+      "name_th": "ขมิ้นชัน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/turmeric_1.jpg",
+          "source_url": "https://www.poompuksa.com/content/3990/ขมิ้นชัน-turmeric",
+          "alt_th": "ขมิ้นชัน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/turmeric_2.jpg",
+          "source_url": "https://biothai.net/biological-and-genetic-resource/plants-fight-epasset_idemic/1874",
+          "alt_th": "ขมิ้นชัน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-betel",
+      "name_th": "ชะพลู",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/betel_1.jpg",
+          "source_url": "https://www.สมุนไพร-ไทย.com/สมุนไพรไทย/ระบบทางเดินหายใจ/แก้ไอ-ขับเสมหะ/ช้าพลู/",
+          "alt_th": "ชะพลู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/betel_2.jpg",
+          "source_url": "https://medthai.com/ชะพลู/",
+          "alt_th": "ชะพลู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-viet-coriander",
+      "name_th": "ผักไผ่",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/vietcoriander_1.jpg",
+          "source_url": "https://hkm.hrdi.or.th/Knowledge/detail/118",
+          "alt_th": "ผักไผ่ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/vietcoriander_2.jpg",
+          "source_url": "https://www.pptvhd36.com/health/food/5969",
+          "alt_th": "ผักไผ่ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-birdeye-chili",
+      "name_th": "พริกขี้หนู",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/birdeyechili_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/featured/article_37550",
+          "alt_th": "พริกขี้หนู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/birdeyechili_2.jpg",
+          "source_url": "https://www.ohmcuisine.co.th/TH/news/birds_eye_chilli.html",
+          "alt_th": "พริกขี้หนู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-lemon-balm",
+      "name_th": "สะระแหน่",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/lemonbalm_1.jpg",
+          "source_url": "https://hdmall.co.th/blog/health/lemon-balm/",
+          "alt_th": "สะระแหน่ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/lemonbalm_2.jpg",
+          "source_url": "https://www.disthai.com/17105247/สะระแหน่",
+          "alt_th": "สะระแหน่ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-coleus-amboinicus",
+      "name_th": "หูเสือ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/coleusamboinicus_1.jpg",
+          "source_url": "https://morkeaw.net/indian-borage/",
+          "alt_th": "หูเสือ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/coleusamboinicus_2.jpg",
+          "source_url": "https://www.disthai.com/17105209/หูเสือ",
+          "alt_th": "หูเสือ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-ricepaddy-herb",
+      "name_th": "ผักแขยง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/ricepaddyherb_1.jpg",
+          "source_url": "https://www.disthai.com/17208366/ผักแขยง",
+          "alt_th": "ผักแขยง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/ricepaddyherb_2.jpg",
+          "source_url": "https://esan108.com/ผักกะแยง.html",
+          "alt_th": "ผักแขยง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-dill",
+      "name_th": "ผักชีลาว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/dill_1.jpg",
+          "source_url": "https://www.sanook.com/women/259661/",
+          "alt_th": "ผักชีลาว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/dill_2.jpg",
+          "source_url": "https://baansomtum.com/ผักชีไทย-ผักชีลาว-ผักชีฝ/",
+          "alt_th": "ผักชีลาว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-water-dropwort",
+      "name_th": "ผักชีล้อม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/waterdropwort_1.jpg",
+          "source_url": "https://medthai.com/ผักชีล้อม/",
+          "alt_th": "ผักชีล้อม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/waterdropwort_2.jpg",
+          "source_url": "https://www.samunpri.com/ผักชีล้อม/",
+          "alt_th": "ผักชีล้อม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-caraway",
+      "name_th": "ยี่หร่า",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/caraway_1.jpg",
+          "source_url": "https://medthai.com/ยี่หร่า/",
+          "alt_th": "ยี่หร่า ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/caraway_2.jpg",
+          "source_url": "https://www.disthai.com/17105234/ยี่หร่า",
+          "alt_th": "ยี่หร่า ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-clove",
+      "name_th": "กานพลู",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/clove_1.jpg",
+          "source_url": "https://www.sgethai.com/article/รู้จักกับ-กานพลู-สรรพคุณ/",
+          "alt_th": "กานพลู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/clove_2.jpg",
+          "source_url": "https://mgronline.com/dhamma/detail/9580000024722",
+          "alt_th": "กานพลู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-watermelon",
+      "name_th": "แตงโม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/watermelon_1.jpg",
+          "source_url": "https://www.khaosod.co.th/sentangsedtee/featured/article_326250",
+          "alt_th": "แตงโม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/watermelon_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/แตงโม",
+          "alt_th": "แตงโม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-jicama",
+      "name_th": "มันแกว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/jicama_1.jpg",
+          "source_url": "https://medthai.com/มันแกว/",
+          "alt_th": "มันแกว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/jicama_2.jpg",
+          "source_url": "https://www.thairath.co.th/agriculture/agricultural-product-prices/2759060",
+          "alt_th": "มันแกว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-jujube",
+      "name_th": "พุทรา",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/jujube_1.jpg",
+          "source_url": "https://www.matichon.co.th/weekly/column/article_391025",
+          "alt_th": "พุทรา ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/jujube_2.jpg",
+          "source_url": "https://medthai.com/พุทราจีน/",
+          "alt_th": "พุทรา ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-apple",
+      "name_th": "แอปเปิล",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/apple_1.jpg",
+          "source_url": "https://www.onegreenplanet.org/lifestyle/a-quick-guasset_ide-to-standard-fruit-trees-grown-in-the-usa/",
+          "alt_th": "แอปเปิล ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/apple_2.jpg",
+          "source_url": "https://www.bhg.com/fruit-tree-care-tips-11796450",
+          "alt_th": "แอปเปิล ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-morning-glory",
+      "name_th": "ผักบุ้ง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/morningglory_1.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/ข้อมูลโภชนาการ/ผักบุ้ง-ประโยชน์ต่อสุขภาพ/",
+          "alt_th": "ผักบุ้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/morningglory_2.jpg",
+          "source_url": "https://www.pim.in.th/sasset_ide-dish-by-pork/689-pak-bung-pad-taohuyee",
+          "alt_th": "ผักบุ้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-ivy-gourd",
+      "name_th": "ตำลึง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/ivygourd_1.jpg",
+          "source_url": "https://www.thaihof.org/ตำลึง-ในตำรับยาล้านนา/",
+          "alt_th": "ตำลึง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/ivygourd_2.jpg",
+          "source_url": "https://morkeaw.net/ivy-gourd/",
+          "alt_th": "ตำลึง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-water-minosa",
+      "name_th": "ผักกระเฉด",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/watermimosa_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/techno-news/article_208061",
+          "alt_th": "ผักกระเฉด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/watermimosa_2.jpg",
+          "source_url": "https://thai-herbs.thdata.co/page/ผักกระเฉด/",
+          "alt_th": "ผักกระเฉด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-peperomia-pellucida",
+      "name_th": "ผักกระสัง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/peperomiapellucida_1.jpg",
+          "source_url": "https://medthai.com/กระสัง/",
+          "alt_th": "ผักกระสัง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/peperomiapellucida_2.jpg",
+          "source_url": "https://mgronline.com/dhamma/detail/9570000036522",
+          "alt_th": "ผักกระสัง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-lotus-stem",
+      "name_th": "สายบัว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/lotusstem_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/how-to/tips/article_296950",
+          "alt_th": "สายบัว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/lotusstem_2.jpg",
+          "source_url": "https://www.thailandinnovationportal.com/info/innovation/item/8568",
+          "alt_th": "สายบัว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-napa-cabbage",
+      "name_th": "ผักกาดจีน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/napacabbage_1.jpg",
+          "source_url": "https://www.kikkoman.com/en/culture/foodforum/spirit-of-the-seasons/36-4.html",
+          "alt_th": "ผักกาดจีน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/napacabbage_2.jpg",
+          "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Napa_cabbages.png/500px-Napa_cabbages.png",
+          "alt_th": "ผักกาดจีน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-phak-katna",
+      "name_th": "ผักกาดนา",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/phakkatna_1.jpg",
+          "source_url": "https://morkeaw.net/pak-gardna/",
+          "alt_th": "ผักกาดนา ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/phakkatna_2.jpg",
+          "source_url": "https://morkeaw.net/pak-gardna/",
+          "alt_th": "ผักกาดนา ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-phakkat-nokkhao",
+      "name_th": "ผักกาดนกเขา",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/phakkatnokkhao_1.jpg",
+          "source_url": "https://www.kasettambon.com/ผักกาดนกเขา-ผักบั้ง/",
+          "alt_th": "ผักกาดนกเขา ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/phakkatnokkhao_2.jpg",
+          "source_url": "https://medthai.com/ผักกาดนอ/",
+          "alt_th": "ผักกาดนกเขา ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-80",
+      "name_th": "มะระ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/greenbittermelon_1.jpg",
+          "source_url": "https://www.vegaproduce.com/product/chinese-bitter-melon/",
+          "alt_th": "มะระ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/greenbittermelon_2.jpg",
+          "source_url": "https://www.oscseeds.com/product/bitter-gourd-or-bitter-melon-asian-greens-seeds-2565/",
+          "alt_th": "มะระ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-basella-alba",
+      "name_th": "ผักปรัง",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/basellaalba_1.jpg",
+          "source_url": "https://www.disthai.com/16913647/ผักปลัง",
+          "alt_th": "ผักปรัง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/basellaalba_2.jpg",
+          "source_url": "https://www.khonkaenlink.info/read/878852/",
+          "alt_th": "ผักปรัง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-moringa",
+      "name_th": "มะรุม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/moringa_1.jpg",
+          "source_url": "https://health.kapook.com/view1051.html",
+          "alt_th": "มะรุม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/moringa_2.jpg",
+          "source_url": "https://morkeaw.net/moringa/",
+          "alt_th": "มะรุม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-eggplant",
+      "name_th": "มะเขือยาว",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/eggplant_1.jpg",
+          "source_url": "https://www.chiataigroup.com/business/seed/chiataiseed/Eggplant",
+          "alt_th": "มะเขือยาว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/eggplant_2.jpg",
+          "source_url": "https://www.ppseeds.com/product/453/มะเขือยาวม่วงญี่ปุ่น-japanese-long-eggplant-f1",
+          "alt_th": "มะเขือยาว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-lasia-spinosa",
+      "name_th": "ผักหนาม",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/lasiaspinosa_1.jpg",
+          "source_url": "https://www.nanagarden.com/product/339142",
+          "alt_th": "ผักหนาม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/lasiaspinosa_2.jpg",
+          "source_url": "https://farm.co.th/lasia-spinosa/",
+          "alt_th": "ผักหนาม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-sweetpotato-topleaves",
+      "name_th": "ยอดมันเทศ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/sweetpotatotopleaves_1.jpg",
+          "source_url": "https://www.nanagarden.com/product/286918",
+          "alt_th": "ยอดมันเทศ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/sweetpotatotopleaves_2.jpg",
+          "source_url": "https://medthai.com/มันเทศ/",
+          "alt_th": "ยอดมันเทศ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-okra",
+      "name_th": "กระเจี๊ยบมอญ",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/okra_1.jpg",
+          "source_url": "https://www.disthai.com/17341132/กระเจี๊ยบมอญ",
+          "alt_th": "กระเจี๊ยบมอญ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/okra_2.jpg",
+          "source_url": "https://hkm.hrdi.or.th/Knowledge/detail/62",
+          "alt_th": "กระเจี๊ยบมอญ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-banana-stem",
+      "name_th": "หยวกกล้วย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/bananastem_1.jpg",
+          "source_url": "https://cooking.kapook.com/view284477.html",
+          "alt_th": "หยวกกล้วย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/bananastem_2.jpg",
+          "source_url": "https://www.praotawan.com/product/459/ใส้กล้วยที่ถอดลูกแล้ว-หยวกกล้วยยังไม่ออกลูก1000-กรัม",
+          "alt_th": "หยวกกล้วย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-mulberry",
+      "name_th": "หม่อน",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/mulberry_1.jpg",
+          "source_url": "https://www.sanook.com/health/3241/",
+          "alt_th": "หม่อน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/mulberry_2.jpg",
+          "source_url": "https://kaset.today/ผลไม้/หม่อน/",
+          "alt_th": "หม่อน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-chives",
+      "name_th": "กุยช่าย",
+      "asset_type": "ingredient",
+      "category_th": "ผักพื้นบ้าน/ผลไม้",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/ingredients/chives_1.jpg",
+          "source_url": "https://conomi.co/lifestyle/chives-benefits-and-how-to-use/",
+          "alt_th": "กุยช่าย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/ingredients/chives_2.jpg",
+          "source_url": "https://www.disthai.com/17189506/กุยช่าย",
+          "alt_th": "กุยช่าย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-01",
+      "name_th": "ผักกูดผัดน้ำมันงา",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food01_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/f466e414df97478287b2be9e99034436",
+          "alt_th": "ผักกูดผัดน้ำมันงา ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food01_2.jpg",
+          "source_url": "https://www.wongnai.com/restaurants/106911qB-ร้านอาหารริมแก่ง/menu/items/356845",
+          "alt_th": "ผักกูดผัดน้ำมันงา ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-02",
+      "name_th": "แกงป่า",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food02_1.jpg",
+          "source_url": "https://www.vistra.co.th/เมนูอาหารสุขภาพ/เมนูชีวจิต-แกงป่า/",
+          "alt_th": "แกงป่า ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food02_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/e5ee55c21a064f6e898d0fb7a1d4ce20",
+          "alt_th": "แกงป่า ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-03",
+      "name_th": "ดอกงิ้วทอดไข่",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food03_1.jpg",
+          "source_url": "https://www.tiktok.com/@mesatang_2255/vasset_ideo/7470105056239488263",
+          "alt_th": "ดอกงิ้วทอดไข่ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food03_2.jpg",
+          "source_url": "https://www.instagram.com/p/DUm0t9VGv4P/",
+          "alt_th": "ดอกงิ้วทอดไข่ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-stirfried-jackfruit",
+      "name_th": "คั่วขนุน",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/stirfriedjackfruit_1.jpg",
+          "source_url": "https://craftlog.com/th/ปรุงอาหาร/คั่วขนุน-ง่ายๆ-3qYqB",
+          "alt_th": "คั่วขนุน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/stirfriedjackfruit_2.jpg",
+          "source_url": "https://www.youtube.com/watch?v=I3c_7rxQyc8",
+          "alt_th": "คั่วขนุน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-05",
+      "name_th": "สะตอผัดกุ้ง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food05_1.jpg",
+          "source_url": "https://nativefoodnakhon.wordpress.com/2015/04/29/กุ้งผัดสะตอ/",
+          "alt_th": "สะตอผัดกุ้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food05_2.jpg",
+          "source_url": "https://howtocookhub.com/2021/06/16/สะตอผัดกะปิกุ้งสด/",
+          "alt_th": "สะตอผัดกุ้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-06",
+      "name_th": "สมอไทยผัดน้ำมันหอย",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food06_1.jpg",
+          "source_url": "https://cookpad.com/th/recipes/17070589",
+          "alt_th": "สมอไทยผัดน้ำมันหอย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food06_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/17070589",
+          "alt_th": "สมอไทยผัดน้ำมันหอย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-07",
+      "name_th": "แกงขี้เหล็กปลาย่าง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food07_1.jpg",
+          "source_url": "https://www.greenery.org/rosbaan-keelek/",
+          "alt_th": "แกงขี้เหล็กปลาย่าง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food07_2.jpg",
+          "source_url": "https://www.matichon.co.th/prachachuen/news_1490866",
+          "alt_th": "แกงขี้เหล็กปลาย่าง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-08",
+      "name_th": "แกงส้มดอกแค",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food08_1.jpg",
+          "source_url": "https://food.trueasset_id.net/detail/5WD25MMKLQ8j",
+          "alt_th": "แกงส้มดอกแค ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food08_2.jpg",
+          "source_url": "https://www.sanook.com/health/3921/",
+          "alt_th": "แกงส้มดอกแค ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-09",
+      "name_th": "แกงอ่อม",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food09_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/5479a24faab94121948084f290322c93",
+          "alt_th": "แกงอ่อม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food09_2.jpg",
+          "source_url": "https://cooking.kapook.com/view236717.html",
+          "alt_th": "แกงอ่อม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-10",
+      "name_th": "ผัดมะระใส่ไข่",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food10_1.jpg",
+          "source_url": "https://pantip.com/topic/41403258/desktop",
+          "alt_th": "ผัดมะระใส่ไข่ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food10_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/90bf96d6078547b7a6598a547c89e2ba",
+          "alt_th": "ผัดมะระใส่ไข่ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-11",
+      "name_th": "ห่อหมกใบยอ",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food11_1.jpg",
+          "source_url": "https://www.sanook.com/women/177169/",
+          "alt_th": "ห่อหมกใบยอ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food11_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/13422132",
+          "alt_th": "ห่อหมกใบยอ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-12",
+      "name_th": "แกงป่าสะเดาใส่ปลาหมอ",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food12_1.jpg",
+          "source_url": "https://www.youtube.com/watch?v=-mqUVV18rNQ",
+          "alt_th": "แกงป่าสะเดาใส่ปลาหมอ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food12_2.jpg",
+          "source_url": "https://www.youtube.com/watch?v=L2447Mj1lxk",
+          "alt_th": "แกงป่าสะเดาใส่ปลาหมอ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-13",
+      "name_th": "แกงป่าสะเดาปิ้ง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food13_1.jpg",
+          "source_url": "https://www.facebook.com/100033419658263/posts/แกงป่าหมูสะเดา-ขมน้อยๆ-อร่อยมากๆสะเดามัน-50-กรัมนำไปลวกในน้ำร้อน-1-นาที-ตักมาแช่/1392297605227548/",
+          "alt_th": "แกงป่าสะเดาปิ้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food13_2.jpg",
+          "source_url": "https://www.youtube.com/watch?v=H-jBX4hq6QE",
+          "alt_th": "แกงป่าสะเดาปิ้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-14",
+      "name_th": "ต้มโคล้งยอดมะขาม",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food14_1.jpg",
+          "source_url": "https://www.gotoknow.org/posts/472877",
+          "alt_th": "ต้มโคล้งยอดมะขาม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food14_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/e42f2399e989499aa373534c6bef5ad0",
+          "alt_th": "ต้มโคล้งยอดมะขาม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-15",
+      "name_th": "ใบยอผัดน้ำมันหอยใส่หมูบด",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food15_1.jpg",
+          "source_url": "https://www.blockdit.com/posts/66bf2705a827d0ecf198bb87",
+          "alt_th": "ใบยอผัดน้ำมันหอยใส่หมูบด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food15_2.jpg",
+          "source_url": "https://www.youtube.com/watch?v=LCFzGVKTwCQ",
+          "alt_th": "ใบยอผัดน้ำมันหอยใส่หมูบด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-chickenandgalangal-incocomilk",
+      "name_th": "ต้มข่าไก่",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/chickenandgalangalincocomilk_1.jpg",
+          "source_url": "https://www.tecnoplusthai.com/cocoonut-chicken-soap/",
+          "alt_th": "ต้มข่าไก่ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/chickenandgalangalincocomilk_2.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/ต้มข่าไก่",
+          "alt_th": "ต้มข่าไก่ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-thai-shrimpsoup",
+      "name_th": "ต้มยำกุ้ง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/thaishrimpsoup_1.jpg",
+          "source_url": "https://guasset_ide.michelin.com/th/th/article/dining-in/how-to-make-tom-yam-kung-the-epitome-of-delicious-and-nutritious-thai-cuisine",
+          "alt_th": "ต้มยำกุ้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/thaishrimpsoup_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/11652236",
+          "alt_th": "ต้มยำกุ้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-18",
+      "name_th": "แกงปลาดุกใส่กระทือ",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food18_1.jpg",
+          "source_url": "https://www.youtube.com/watch?v=xsTthVT4n9A",
+          "alt_th": "แกงปลาดุกใส่กระทือ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food18_2.jpg",
+          "source_url": "https://www.instagram.com/p/DNt7wExZByz/",
+          "alt_th": "แกงปลาดุกใส่กระทือ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-19",
+      "name_th": "แกงหอยขมใส่ใบชะพลู",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food19_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/c07f1f0987f642ab86d8c438d3d2b5b5",
+          "alt_th": "แกงหอยขมใส่ใบชะพลู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food19_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/16361881",
+          "alt_th": "แกงหอยขมใส่ใบชะพลู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-20",
+      "name_th": "สมอไทยจิ้มน้ำพริก",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "unavailable",
+      "images": [],
+      "note_th": "ไม่พบภาพที่ตรวจสอบแหล่งที่มาได้"
+    },
+    {
+      "asset_id": "menu-21",
+      "name_th": "สมอไทยทุบผัดน้ำมันพืช",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "unavailable",
+      "images": [],
+      "note_th": "ไม่พบภาพที่ตรวจสอบแหล่งที่มาได้"
+    },
+    {
+      "asset_id": "menu-stirfried-morningglory",
+      "name_th": "ผัดผักบุ้ง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/stirfriedmorningglory_1.jpg",
+          "source_url": "https://ploytellsastory.home.blog/2021/10/08/ผัดผักบุ้งไฟแดงใส่กุ้ง/",
+          "alt_th": "ผัดผักบุ้ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/stirfriedmorningglory_2.jpg",
+          "source_url": "https://veganpunks.com/thai-morning-glory-stir-fry/",
+          "alt_th": "ผัดผักบุ้ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-clearsoup-withgourd",
+      "name_th": "แกงจืดตำลึง",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/clearsoupwithgourd_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/df5ff3a4b39a45b1b92eddb818cc9cf5",
+          "alt_th": "แกงจืดตำลึง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/clearsoupwithgourd_2.jpg",
+          "source_url": "https://tecnogasthai.com/gourd-menu-recipes/",
+          "alt_th": "แกงจืดตำลึง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-stirfried-lotusstem-withchili",
+      "name_th": "ผัดสายบัวใส่พริก",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/stirfriedlotusstemwithchili_1.jpg",
+          "source_url": "https://www.facebook.com/weladeechiangmai/posts/สายบัวผัดกะปิกุ้งสด-เมนูไทยโบราณหาทานยากที่เปี่ยมไปด้วยสรรพคุณมากมาย-ในสายบัวจะม/332309424853336/",
+          "alt_th": "ผัดสายบัวใส่พริก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/stirfriedlotusstemwithchili_2.jpg",
+          "source_url": "https://www.pinterest.com/pin/611011874427465968/",
+          "alt_th": "ผัดสายบัวใส่พริก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-25",
+      "name_th": "แกงส้มมะรุม",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food25_1.jpg",
+          "source_url": "https://cookpad.com/th/recipes/24340351",
+          "alt_th": "แกงส้มมะรุม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food25_2.jpg",
+          "source_url": "https://www.hiqfood.com/recipe/โรซ่าแกงส้มมะรุม/",
+          "alt_th": "แกงส้มมะรุม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-26",
+      "name_th": "แกงคูน",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food26_1.jpg",
+          "source_url": "https://www.facebook.com/Suphotmalod99/posts/แกงคูนหรือแกงตูนจะนิยมแกงกับเนื้อปลา-บ้างนิยมนำปลาย่างไฟก่อน-บ้างนิยมแกงกับกุ้งฝ/739451486874940/",
+          "alt_th": "แกงคูน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food26_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/16052293",
+          "alt_th": "แกงคูน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-clearsoup-withstuffed-bittermelon",
+      "name_th": "แกงจืดมะระ",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/clearsoupwithstuffedbittermelon_1.jpg",
+          "source_url": "https://cooking.kapook.com/view161596.html",
+          "alt_th": "แกงจืดมะระ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/clearsoupwithstuffedbittermelon_2.jpg",
+          "source_url": "https://www.thaitastetherapy.com/immune-booster/clear-soup-with-stuffed-bitter-melon/",
+          "alt_th": "แกงจืดมะระ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-28",
+      "name_th": "แกงส้มหยวกกล้วยใส่ปลาช่อน",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food28_1.jpg",
+          "source_url": "https://www.facebook.com/groups/Easycookingmenu/posts/9617796508275703/",
+          "alt_th": "แกงส้มหยวกกล้วยใส่ปลาช่อน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food28_2.jpg",
+          "source_url": "https://www.facebook.com/ThungsongCityPage/posts/แกงส้มปลาช้อนกับหยวกกล้วย-ของหรอยเลยที่มาวันทิพย์-ชุมศรี/1201534325436624/",
+          "alt_th": "แกงส้มหยวกกล้วยใส่ปลาช่อน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-29",
+      "name_th": "ยำผักกระเฉด",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food29_1.jpg",
+          "source_url": "https://th.openrice.com/th/bangkok/p-เจ๊เกียง-สะพานเหลือง-p563217",
+          "alt_th": "ยำผักกระเฉด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food29_2.jpg",
+          "source_url": "https://pantip.com/topic/40016753",
+          "alt_th": "ยำผักกระเฉด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "menu-30",
+      "name_th": "ผักหนามผัดน้ำมันหอย",
+      "asset_type": "menu",
+      "category_th": "เมนูอาหาร",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/menus/food30_1.jpg",
+          "source_url": "https://www.instagram.com/p/DXbXfL2AZOY/",
+          "alt_th": "ผักหนามผัดน้ำมันหอย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/menus/food30_2.jpg",
+          "source_url": "https://www.youtube.com/watch?v=CyEUi1mffho`",
+          "alt_th": "ผักหนามผัดน้ำมันหอย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-sweet-mungbean",
+      "name_th": "เต้าส่วน",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/sweetmungbean_1.jpg",
+          "source_url": "http://www.wandamrong.com/2018/main/article.php?catasset_id=5&asset_id=154",
+          "alt_th": "เต้าส่วน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/sweetmungbean_2.jpg",
+          "source_url": "https://eatconnection.com/th/what-is-sweet-mung-bean-porrasset_idge-with-coconut-cream-th/",
+          "alt_th": "เต้าส่วน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-coconut-agar",
+      "name_th": "วุ้นกะทิ",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/coconutagar_1.jpg",
+          "source_url": "https://dessertsmate.com/วุ้นกะทิมะพร้าวอ่อน/",
+          "alt_th": "วุ้นกะทิ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/coconutagar_2.jpg",
+          "source_url": "http://little1994.blogspot.com/p/blog-page.html",
+          "alt_th": "วุ้นกะทิ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-banana-in-coconut-milk",
+      "name_th": "กล้วยบวชชี",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/bananaincoconutmilk_1.jpg",
+          "source_url": "https://th.wikipedia.org/wiki/กล้วยบวชชี",
+          "alt_th": "กล้วยบวชชี ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/bananaincoconutmilk_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/499357525e7c467ebd4cabca97f67eb2",
+          "alt_th": "กล้วยบวชชี ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-pumpkin-in-coconut-milk",
+      "name_th": "แกงบวดฟักทอง",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/pumpkinincoconutmilk_1.jpg",
+          "source_url": "https://tbcc-community.com/articles/meabanchemo2021-10/",
+          "alt_th": "แกงบวดฟักทอง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/pumpkinincoconutmilk_2.jpg",
+          "source_url": "https://www.pholfoodmafia.com/recipe/poached-pumpkin-in-coconut-milk-ฟักทองแกงบวด/",
+          "alt_th": "แกงบวดฟักทอง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-taro-agar",
+      "name_th": "ตะโกเผือก",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/taroagar_1.jpg",
+          "source_url": "https://cookpad.com/th/recipes/16310160",
+          "alt_th": "ตะโกเผือก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/taroagar_2.jpg",
+          "source_url": "https://dessertsmate.com/ตะโก้เผือก/",
+          "alt_th": "ตะโกเผือก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-glassed-stargooseberry",
+      "name_th": "มะยมเชื่อม",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/glassedstargooseberry_1.jpg",
+          "source_url": "https://www.nanagarden.com/product/292073",
+          "alt_th": "มะยมเชื่อม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/glassedstargooseberry_2.jpg",
+          "source_url": "https://southernfood-th.square.site/product/-/2",
+          "alt_th": "มะยมเชื่อม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-leathered-pineapple",
+      "name_th": "สับปะรดกวน",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/leatheredpineapple_1.jpg",
+          "source_url": "https://cooking.kapook.com/view213134.html",
+          "alt_th": "สับปะรดกวน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/leatheredpineapple_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/61e786800e2b48b7880e295b25cf251e",
+          "alt_th": "สับปะรดกวน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-santol-insyrup",
+      "name_th": "กระท้อนลอยแก้ว",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/santolinsyrup_1.jpg",
+          "source_url": "https://howtocookhub.com/wp-content/uploads/2024/07/1-1.jpg",
+          "alt_th": "กระท้อนลอยแก้ว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/santolinsyrup_2.jpg",
+          "source_url": "http://mallika.co.th/ของว่าง-ขนมหวาน/กระท้อนลอยแก้ว-01/",
+          "alt_th": "กระท้อนลอยแก้ว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-mango-with-sweetfishsauce",
+      "name_th": "มะม่วงน้ำปลาหวาน",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/mangowithsweetfishsauce_1.jpg",
+          "source_url": "https://kindeeyuudee.baanlaesuan.com/easy-cooking/mango-with-sweet-fish-sauce/",
+          "alt_th": "มะม่วงน้ำปลาหวาน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/mangowithsweetfishsauce_2.jpg",
+          "source_url": "https://www.topsgazine.com/single-post/easy-cooking-mango-sweet-fishsauce",
+          "alt_th": "มะม่วงน้ำปลาหวาน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-leathered-mango",
+      "name_th": "มะม่วงกวน",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/leatheredmango_1.jpg",
+          "source_url": "https://dessertsmate.com/มะม่วงกวน/",
+          "alt_th": "มะม่วงกวน ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/leatheredmango_2.jpg",
+          "source_url": "https://krua.co/recipe/mangofruitleather",
+          "alt_th": "มะม่วงกวน ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-bualoy-ingingertea",
+      "name_th": "บัวลอยน้ำขิง",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/bualoyingingertea_1.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/สูตรอาหารเพื่อสุขภาพ/สูตรบัวลอยน้ำขิง/",
+          "alt_th": "บัวลอยน้ำขิง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/bualoyingingertea_2.jpg",
+          "source_url": "https://cookpad.com/th/recipes/528071",
+          "alt_th": "บัวลอยน้ำขิง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "ingredient-12",
+      "name_th": "เต้าฮวย",
+      "asset_type": "ingredient",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/taohuay_1.jpg",
+          "source_url": "https://pantip.com/topic/37474390",
+          "alt_th": "เต้าฮวย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/taohuay_2.jpg",
+          "source_url": "https://cheewajit.com/healthy-food2/209249.html",
+          "alt_th": "เต้าฮวย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-assortedbeans-insyrup",
+      "name_th": "เต้าทึง",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/assortedbeansinsyrup_1.jpg",
+          "source_url": "https://th.theasianparent.com/cold-assorted-beans-in-syrup",
+          "alt_th": "เต้าทึง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/assortedbeansinsyrup_2.jpg",
+          "source_url": "https://news.kapook.com/topics/เต้าทึง",
+          "alt_th": "เต้าทึง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-yam-with-ginger",
+      "name_th": "มันต้มขิง",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/yamwithginger_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/e29af954be0140f59ad5e82a86b28bc1",
+          "alt_th": "มันต้มขิง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/yamwithginger_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/205302e4cd2e4406b5af5c7789403412",
+          "alt_th": "มันต้มขิง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-mungbeans-inginger",
+      "name_th": "ถั่วเขียวต้มขิง",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/mungbeansinginger_1.jpg",
+          "source_url": "https://www.youtube.com/watch?v=fZ3vdsXV-Og",
+          "alt_th": "ถั่วเขียวต้มขิง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/mungbeansinginger_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/cea240f55e7447d994d915c4badf1209",
+          "alt_th": "ถั่วเขียวต้มขิง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-miang-kum",
+      "name_th": "เมี่ยงคำ",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/miangkum_1.jpg",
+          "source_url": "https://veganlokaa.com/recipe/miang-kum-vegan/",
+          "alt_th": "เมี่ยงคำ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/miangkum_2.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/techno-news/article_100636",
+          "alt_th": "เมี่ยงคำ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-sahrim",
+      "name_th": "ซาหริ่ม",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/sahrim_1.jpg",
+          "source_url": "http://supitchar43203.blogspot.com/2013/08/blog-post.html",
+          "alt_th": "ซาหริ่ม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/sahrim_2.jpg",
+          "source_url": "https://ribeyejacksalehouse.com/ซ่าหริ่ม/",
+          "alt_th": "ซาหริ่ม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-icecream",
+      "name_th": "ไอศกรีม",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/icecream_1.jpg",
+          "source_url": "https://krua.co/recipe/yogurticecream",
+          "alt_th": "ไอศกรีม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/icecream_2.jpg",
+          "source_url": "https://matchazuki.com/ไอศกรีมชาเขียวสำหรับทุ/",
+          "alt_th": "ไอศกรีม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "snack-shaved-ice",
+      "name_th": "น้ำแข็งไส",
+      "asset_type": "snack",
+      "category_th": "อาหารว่าง",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/snacks/shavedice_1.jpg",
+          "source_url": "https://www.wongnai.com/restaurants/503182jm-หวานเย็น-น้ำแข็งใส/photos/31df3be52dd14ea29bc290983dc54994",
+          "alt_th": "น้ำแข็งไส ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/snacks/shavedice_2.jpg",
+          "source_url": "https://foodasean2526.wordpress.com/น้ำแข็งใส/",
+          "alt_th": "น้ำแข็งไส ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-sugarcane-drink",
+      "name_th": "น้ำอ้อย",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/sugarcanedrink_1.jpg",
+          "source_url": "http://www.allmineicecream.com/product/830/ผงกลิ่นน้ำอ้อย-sugar-cane-flavor-powder",
+          "alt_th": "น้ำอ้อย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/sugarcanedrink_2.jpg",
+          "source_url": "https://www.sanook.com/women/173549/",
+          "alt_th": "น้ำอ้อย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-coconut-water",
+      "name_th": "น้ำมะพร้าว",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/coconutwater_1.jpg",
+          "source_url": "https://4ecoshop.co.uk/gb/blog/is-coconut-water-good-for-you-is-it-hydrating-n61",
+          "alt_th": "น้ำมะพร้าว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/coconutwater_2.jpg",
+          "source_url": "https://www.ecowatch.com/8-health-benefits-of-coconut-water-1891130828.html",
+          "alt_th": "น้ำมะพร้าว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-fresh-sugar",
+      "name_th": "น้ำตาลสด",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/fresh_sugar_drink_1.jpg",
+          "source_url": "https://sanaymuangpetch.wordpress.com/2011/10/20/น้ำตาลสดหอมหวานจริงๆ/",
+          "alt_th": "น้ำตาลสด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/fresh_sugar_drink_2.jpg",
+          "source_url": "https://www.calforlife.com/th/calories/Fresh-jaggery",
+          "alt_th": "น้ำตาลสด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-bael-drink",
+      "name_th": "น้ำมะตูม",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/baeldrink_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/how-to/tips/article_7612",
+          "alt_th": "น้ำมะตูม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/baeldrink_2.jpg",
+          "source_url": "https://th.theasianparent.com/pregnant-drink-bael-juice",
+          "alt_th": "น้ำมะตูม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-soy-milk",
+      "name_th": "นมถั่วเหลือง",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/soymilk_1.jpg",
+          "source_url": "https://www.top10.in.th/อาหาร/นมถั่วเหลือง-ยี่ห้อไหน/",
+          "alt_th": "นมถั่วเหลือง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/soymilk_2.jpg",
+          "source_url": "https://www.doctor.or.th/article/detail/2289",
+          "alt_th": "นมถั่วเหลือง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-cantaloupe-drink",
+      "name_th": "น้ำแคนตาลูป",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/cantaloupedrink_1.jpg",
+          "source_url": "https://drivemehungry.com/cantaloupe-agua-fresca/",
+          "alt_th": "น้ำแคนตาลูป ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/cantaloupedrink_2.jpg",
+          "source_url": "https://brokebankvegan.com/agua-de-melon/",
+          "alt_th": "น้ำแคนตาลูป ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-orange-juice",
+      "name_th": "น้ำส้ม",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/orangejuice_1.jpg",
+          "source_url": "https://www.kitchentreaty.com/fresh-squeezed-orange-juice/",
+          "alt_th": "น้ำส้ม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/orangejuice_2.jpg",
+          "source_url": "https://sreerajlassibar.com/fresh-fruit/orange/",
+          "alt_th": "น้ำส้ม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-guava-juice",
+      "name_th": "น้ำฝรั่ง",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/guavajuice_1.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/สูตรอาหารเพื่อสุขภาพ/สูตรน้ำฝรั่ง/",
+          "alt_th": "น้ำฝรั่ง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/guavajuice_2.jpg",
+          "source_url": "https://cooking.kapook.com/view195262.html",
+          "alt_th": "น้ำฝรั่ง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-millet-milk",
+      "name_th": "น้ำลูกเดือย",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/milletmilk_1.jpg",
+          "source_url": "https://www.khaosod.co.th/technologychaoban/techno-news/article_267912",
+          "alt_th": "น้ำลูกเดือย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/milletmilk_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/af75b44b024c4deba105991cad760171",
+          "alt_th": "น้ำลูกเดือย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-chestnut-water",
+      "name_th": "น้ำแห้ว",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/chestnutwater_1.jpg",
+          "source_url": "http://herbal-drinks.blogspot.com/2011/03/blog-post_17.html",
+          "alt_th": "น้ำแห้ว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/chestnutwater_2.jpg",
+          "source_url": "https://www.pinterest.com/pin/786722628647443746/",
+          "alt_th": "น้ำแห้ว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-pumpkin-juice",
+      "name_th": "น้ำฟักทอง",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/pumpkinjuice_1.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/ข้อมูลโภชนาการ/น้ำฟักทอง-ประโยชน์-ข้อควรระวังการบริโภค/",
+          "alt_th": "น้ำฟักทอง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/pumpkinjuice_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/b3be00bb381e4a24bc9f47661a93eda0",
+          "alt_th": "น้ำฟักทอง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-lemonade",
+      "name_th": "น้ำมะนาว",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/lemonade_1.jpg",
+          "source_url": "https://www.top10.in.th/อาหาร/น้ำมะนาวขวด-ยี่ห้อไหน/",
+          "alt_th": "น้ำมะนาว ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/lemonade_2.jpg",
+          "source_url": "https://th.theasianparent.com/warm-lemon-juice-good-for-mom",
+          "alt_th": "น้ำมะนาว ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-roselle-tea",
+      "name_th": "น้ำกระเจี๊ยบ",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/roselletea_1.jpg",
+          "source_url": "https://foodof.com/น้ำสมุนไพรดอกกระเจี๊ยบ - การปรุงอาหารของ ไทย",
+          "alt_th": "น้ำกระเจี๊ยบ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/roselletea_2.jpg",
+          "source_url": "https://www.bluemochatea.com/2020/01/16/น้ำกระเจี๊ยบหอม/",
+          "alt_th": "น้ำกระเจี๊ยบ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-starfruit-juice",
+      "name_th": "น้ำมะเฟือง",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/starfruitjuice_1.jpg",
+          "source_url": "https://food.trueasset_id.net/detail/aMjrpGlRE9pM",
+          "alt_th": "น้ำมะเฟือง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/starfruitjuice_2.jpg",
+          "source_url": "https://healthythairecipes.com/th/เครื่องดื่มน้ำผลไม้สตา/",
+          "alt_th": "น้ำมะเฟือง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-tamarind-juice",
+      "name_th": "น้ำมะขาม",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/tamarindjuice_1.jpg",
+          "source_url": "https://hellokhunmor.com/โภชนาการเพื่อสุขภาพ/สูตรอาหารเพื่อสุขภาพ/สูตรน้ำมะขาม-วิธีทำน้ำมะขาม/",
+          "alt_th": "น้ำมะขาม ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/tamarindjuice_2.jpg",
+          "source_url": "https://www.chuahahseng.com/น้ำมะขามโซดา/",
+          "alt_th": "น้ำมะขาม ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-pennywort-drink",
+      "name_th": "น้ำใบบัวบก",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/pennywortdrink_1.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/733109dc5e9e4f46ace8e859a9f72546",
+          "alt_th": "น้ำใบบัวบก ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/pennywortdrink_2.jpg",
+          "source_url": "https://cooking.kapook.com/view72595.html",
+          "alt_th": "น้ำใบบัวบก ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-tomato-juice",
+      "name_th": "น้ำมะเขือเทศ",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/tomatojuice_1.jpg",
+          "source_url": "https://www.th-hellomagazine.com/beauty-health/easy-tomato-juice-recipes/",
+          "alt_th": "น้ำมะเขือเทศ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/tomatojuice_2.jpg",
+          "source_url": "https://conomi.co/lifestyle/tomato-juice-health-benefits/",
+          "alt_th": "น้ำมะเขือเทศ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-pineapple-juice",
+      "name_th": "น้ำสับปะรด",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/pineapplejuice_1.jpg",
+          "source_url": "https://www.bluemochatea.com/2020/04/19/น้ำสับปะรดปั่น/",
+          "alt_th": "น้ำสับปะรด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/pineapplejuice_2.jpg",
+          "source_url": "https://www.wongnai.com/recipes/ugc/536b436ea18247ffb4e63f6042474082",
+          "alt_th": "น้ำสับปะรด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-ginger-tea",
+      "name_th": "น้ำขิง",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/gingertea_1.jpg",
+          "source_url": "https://www.sgethai.com/article/วิธีทำน้ำขิง/",
+          "alt_th": "น้ำขิง ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/gingertea_2.jpg",
+          "source_url": "https://www.th-hellomagazine.com/beauty-health/health-wellness/ginger-tea-benefits/",
+          "alt_th": "น้ำขิง ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-lemongrass-tea",
+      "name_th": "น้ำตะไคร้",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/lemongrasstea_1.jpg",
+          "source_url": "https://smoosh.me/น้ำตะไคร้ใบเตย-เครื่อง/",
+          "alt_th": "น้ำตะไคร้ ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/lemongrasstea_2.jpg",
+          "source_url": "https://th.theasianparent.com/คนท้องกินน้ําตะไคร้ได้ไหม",
+          "alt_th": "น้ำตะไคร้ ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-galangal-tea",
+      "name_th": "น้ำข่า",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/galangaltea_1.jpg",
+          "source_url": "https://www.doctor.or.th/article/detail/3051",
+          "alt_th": "น้ำข่า ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/galangaltea_2.jpg",
+          "source_url": "https://cooking.kapook.com/view73829.html",
+          "alt_th": "น้ำข่า ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-clove-tea",
+      "name_th": "น้ำกานพลู",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/clovetea_1.jpg",
+          "source_url": "https://ultimatepersonalwellbeing.co.uk/nutrition-blog/benefits-of-clove-tea/",
+          "alt_th": "น้ำกานพลู ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/clovetea_2.jpg",
+          "source_url": "https://mytastycurry.com/clove-tea-recipe/",
+          "alt_th": "น้ำกานพลู ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-watermelon-juice",
+      "name_th": "น้ำแตงโมปั่น",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/watermelonjuice_1.jpg",
+          "source_url": "https://www.playglao.co/product/แตงโมปั่น/",
+          "alt_th": "น้ำแตงโมปั่น ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/watermelonjuice_2.jpg",
+          "source_url": "https://cooking.kapook.com/view78600.html",
+          "alt_th": "น้ำแตงโมปั่น ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-pandan-tea",
+      "name_th": "น้ำใบเตย",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/pandantea_1.jpg",
+          "source_url": "http://www.namsamoonpai.com/article/7/ประโยชน์น้ำใบเตย",
+          "alt_th": "น้ำใบเตย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/pandantea_2.jpg",
+          "source_url": "https://www.proudsugarofficial.com/blog/7227/น้ำใบเตย",
+          "alt_th": "น้ำใบเตย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-chrysanthemum-tea",
+      "name_th": "น้ำเก๊กฮวย",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/chrysanthemumtea_1.jpg",
+          "source_url": "https://www.joozejuice.com/benefits-and-how-to-make-of-chrysanthemum/",
+          "alt_th": "น้ำเก๊กฮวย ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/chrysanthemumtea_2.jpg",
+          "source_url": "http://www.medi.co.th/news_detail.php?q_asset_id=325",
+          "alt_th": "น้ำเก๊กฮวย ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    },
+    {
+      "asset_id": "drink-corn-milk",
+      "name_th": "น้ำข้าวโพด",
+      "asset_type": "drink",
+      "category_th": "เครื่องดื่ม",
+      "availability_status": "available",
+      "images": [
+        {
+          "path": "assets/images/drinks/cornmilk_1.jpg",
+          "source_url": "https://beyondsweetandsavory.com/vietnamese-corn-milk-sua-bap/",
+          "alt_th": "น้ำข้าวโพด ภาพที่ 1",
+          "license_status": "needs_review"
+        },
+        {
+          "path": "assets/images/drinks/cornmilk_2.jpg",
+          "source_url": "https://www.okonomikitchen.com/corn-milk/",
+          "alt_th": "น้ำข้าวโพด ภาพที่ 2",
+          "license_status": "needs_review"
+        }
+      ]
+    }
+  ]
+}
