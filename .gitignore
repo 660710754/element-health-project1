@@ -7,6 +7,7 @@ venv/
 .streamlit/secrets.toml
 
 # Editor directories and files
+.agents
 .vscode/*
 !.vscode/extensions.json
 .idea

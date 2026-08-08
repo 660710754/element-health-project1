@@ -19,9 +19,14 @@ def test_retrieve_recommended_foods(element):
         item["recommendation_status"] == "recommended"
         for item in results
     )
+    assert all(item["evidence"] for item in results)
+
     assert all(
-        item["source_document_primary"]
-        and item["source_page_primary"]
+        any(
+            evidence["evidence_role"] == "primary"
+            and evidence["verification_status"] == "verified"
+            for evidence in item["evidence"]
+        )
         for item in results
     )
 
