@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from io import BytesIO
 from html import escape
 from pathlib import Path
@@ -14,9 +15,11 @@ import streamlit as st
 
 from scoring import calculate_scores, get_birth_element, get_result
 from recommendation import build_recommendation_summary
+from rag import RAGSystem
 
 BASE_DIR = Path(__file__).resolve().parent
 QUESTIONS_FILE = BASE_DIR / "data" / "questions.csv"
+ELEMENTS_FILE = BASE_DIR / "data" / "elements.json"
 
 ELEMENT_NAMES = {"earth": "ธาตุดิน", "water": "ธาตุน้ำ", "wind": "ธาตุลม", "fire": "ธาตุไฟ"}
 ELEMENT_ICONS = {"earth": "⛰️", "water": "💧", "wind": "🍃", "fire": "🔥"}
@@ -59,6 +62,22 @@ div[data-testid="stProgress"]>div>div>div{background-color:var(--primary)}
 .safety-note{width:100%;box-sizing:border-box;margin-top:1.7rem;padding:1.1rem 1.35rem;background:var(--warning-bg);border:1px solid #e4d9a8;border-left:6px solid var(--warning-border);border-radius:14px;color:#544b22;font-size:.94rem;line-height:1.8;text-align:left}.safety-note-title{color:#675a24;font-size:1rem;font-weight:800;margin-bottom:.35rem}
 .missing-answer{width:100%;box-sizing:border-box;margin-top:1rem;padding:.95rem 1rem;background:#fff3e7;border:1px solid #e9b77f;border-radius:13px;color:#824a17;font-size:.98rem;font-weight:700;text-align:center}
 .radar-card{width:100%;box-sizing:border-box;margin:.6rem 0 1.8rem;padding:1rem 1rem .35rem;background:rgba(255,255,255,.96);border:1px solid var(--border);border-radius:20px;box-shadow:0 9px 26px rgba(72,83,32,.08)}
+
+.element-description-wrapper{margin:1.15rem 0 1.8rem}
+.element-description-card{width:100%;box-sizing:border-box;margin:.85rem 0 1.15rem;padding:1.45rem 1.6rem;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 24px rgba(72,83,32,.08)}
+.element-description-title{text-align:center;color:var(--primary);font-size:1.35rem;font-weight:800;margin:0 0 1rem}
+.element-description-grid{display:grid;grid-template-columns:1fr;gap:.8rem}
+.element-description-section{background:#f8faf3;border:1px solid #e2e7d4;border-radius:13px;padding:1rem 1.1rem}
+.element-description-heading{color:var(--primary);font-size:1rem;font-weight:800;margin-bottom:.35rem}
+.element-description-text{color:#4a5038;font-size:.96rem;line-height:1.8}
+.equal-note{width:100%;box-sizing:border-box;margin:.4rem 0 1rem;padding:.9rem 1rem;background:#f4f7ec;border:1px solid #d9e1c5;border-radius:13px;color:#596436;text-align:center;line-height:1.7}
+
+
+.rag-card{width:100%;box-sizing:border-box;margin:1rem 0 1.5rem;padding:1.35rem 1.5rem;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 24px rgba(72,83,32,.08)}
+.rag-answer-title{color:var(--primary);font-size:1.05rem;font-weight:800;margin-bottom:.65rem}
+.rag-answer-text{color:#414735;font-size:.98rem;line-height:1.85;white-space:pre-wrap}
+.rag-source{display:inline-block;margin:.2rem .35rem .2rem 0;padding:.35rem .6rem;background:#f1f5e7;border:1px solid #dce4c8;border-radius:999px;color:#596436;font-size:.86rem}
+
 @media(max-width:768px){.block-container{padding:.9rem .75rem 4rem}.main-title{font-size:2rem}div[data-testid="stForm"]{padding:1.2rem .85rem 1.5rem}.question-heading{grid-template-columns:40px minmax(0,1fr);font-size:.94rem}.question-number{width:40px;padding-right:6px}div[data-testid="stRadio"] div[role="radiogroup"]>label{padding-left:.1rem!important;padding-right:.1rem!important;font-size:.82rem!important}div[data-testid="stRadio"] div[role="radiogroup"] label p{white-space:normal}}
 </style>
 """, unsafe_allow_html=True)
@@ -76,6 +95,103 @@ def load_questions() -> list[dict[str, str]]:
     if missing:
         raise ValueError("questions.csv ขาดคอลัมน์: " + ", ".join(sorted(missing)))
     return questions
+
+
+@st.cache_data
+def load_elements_data() -> dict[str, Any]:
+    if not ELEMENTS_FILE.exists():
+        raise FileNotFoundError(f"ไม่พบไฟล์ข้อมูลธาตุ: {ELEMENTS_FILE}")
+    with ELEMENTS_FILE.open("r", encoding="utf-8") as file:
+        data = json.load(file)
+    if "elements" not in data:
+        raise ValueError("elements.json ไม่มีข้อมูล elements")
+    return data
+
+
+def render_element_description(element_key: str, elements_data: dict[str, Any]) -> None:
+    """แสดงคำอธิบายลักษณะธาตุเด่นปัจจุบันจาก data/elements.json"""
+    element = elements_data.get("elements", {}).get(element_key, {})
+    description = element.get("current_element_description", {})
+
+    if not description:
+        st.info(f"ยังไม่มีคำอธิบายลักษณะของ {ELEMENT_NAMES.get(element_key, element_key)} ใน elements.json")
+        return
+
+    name_th = element.get("name_th", ELEMENT_NAMES.get(element_key, element_key))
+    emoji = element.get("emoji", ELEMENT_ICONS.get(element_key, ""))
+
+    body = escape(str(description.get("body", "")))
+    personality = escape(str(description.get("personality", "")))
+    health = escape(str(description.get("health", "")))
+
+    st.markdown(
+        (
+            '<div class="element-description-card">'
+            f'<div class="element-description-title">{emoji} ลักษณะของ{name_th}</div>'
+            '<div class="element-description-grid">'
+            '<div class="element-description-section">'
+            '<div class="element-description-heading">ลักษณะโดยทั่วไป</div>'
+            f'<div class="element-description-text">{body}</div>'
+            '</div>'
+            '<div class="element-description-section">'
+            '<div class="element-description-heading">ลักษณะนิสัย</div>'
+            f'<div class="element-description-text">{personality}</div>'
+            '</div>'
+            '<div class="element-description-section">'
+            '<div class="element-description-heading">แนวโน้มด้านสุขภาพตามเอกสาร</div>'
+            f'<div class="element-description-text">{health}</div>'
+            '</div>'
+            '</div>'
+            '</div>'
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def render_current_element_descriptions(
+    scores: dict[str, float],
+    elements_data: dict[str, Any],
+) -> None:
+    """แสดงธาตุอันดับหนึ่ง และถ้าคะแนนอันดับ 1-2 เท่ากันให้แสดงทั้งสองธาตุ"""
+    ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    if len(ranked) < 2:
+        return
+
+    primary_element, primary_score = ranked[0]
+    secondary_element, secondary_score = ranked[1]
+
+    st.markdown(
+        '<div class="section-header" style="margin-top:1.1rem;">'
+        'ลักษณะธาตุเจ้าเรือนปัจจุบันของคุณ'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="section-description">'
+        'คำอธิบายอ้างอิงจากฐานข้อมูลธาตุเจ้าเรือนที่ใช้ในระบบ'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    is_equal = abs(float(primary_score) - float(secondary_score)) < 1e-9
+
+    if is_equal:
+        st.markdown(
+            (
+                '<div class="equal-note">'
+                f'คะแนนสูงสุดของ {ELEMENT_NAMES[primary_element]} และ '
+                f'{ELEMENT_NAMES[secondary_element]} เท่ากันที่ '
+                f'{float(primary_score):.1f} คะแนน '
+                'จึงแสดงลักษณะของธาตุเด่นทั้งสองร่วมกัน'
+                '</div>'
+            ),
+            unsafe_allow_html=True,
+        )
+        render_element_description(primary_element, elements_data)
+        render_element_description(secondary_element, elements_data)
+    else:
+        render_element_description(primary_element, elements_data)
+
 
 def render_page_header() -> None:
     html = ('<div class="main-title">🌿 แบบประเมินธาตุเจ้าเรือน</div>'
@@ -345,11 +461,127 @@ def render_food_recommendations(
                 f"{item['food_name_th']} — {item['reason_th']}"
             )
 
+
+@st.cache_resource
+def get_rag_system() -> RAGSystem:
+    """สร้าง RAG system เพียงครั้งเดียวต่อการรันแอป"""
+    return RAGSystem(
+        model="scb10x/typhoon2.5-qwen3-4b:latest",
+        top_k=5,
+    )
+
+
+def render_rag_section() -> None:
+    """แสดงช่องถาม-ตอบ RAG บนหน้า Streamlit"""
+
+    st.markdown(
+        '<div class="section-header" style="margin-top:2rem;">'
+        'ถามเพิ่มเติมเกี่ยวกับธาตุเจ้าเรือนปัจจุบัน'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        '<div class="section-description">'
+        'ระบบจะค้นข้อมูลจากฐานเอกสารความรู้ แล้วสร้างคำตอบภาษาไทยจากข้อมูลที่ค้นพบ'
+        '</div>',
+        unsafe_allow_html=True,
+    )
+
+    question = st.text_area(
+        "คำถามเพิ่มเติม",
+        placeholder=(
+            "ตัวอย่าง: ธาตุไฟควรกินอาหารอะไร "
+            "หรือ คนธาตุลมมีลักษณะอย่างไร"
+        ),
+        key="rag_question",
+        height=100,
+    )
+
+    ask = st.button(
+        "ค้นหาและสร้างคำตอบ",
+        width="stretch",
+        key="rag_ask_button",
+    )
+
+    if ask:
+        if not question.strip():
+            st.warning("กรุณาพิมพ์คำถามก่อน")
+            return
+
+        try:
+            rag = get_rag_system()
+
+            with st.spinner("กำลังค้นข้อมูลและสร้างคำตอบ..."):
+                result = rag.answer(question)
+
+            # เก็บคำตอบ RAG ไว้ เพื่อไม่ให้หายเมื่อ Streamlit rerun
+            st.session_state["rag_last_result"] = result
+            st.session_state["rag_last_question"] = question
+
+        except Exception as error:
+            st.error(
+                "ไม่สามารถใช้งานระบบ RAG ได้ "
+                "กรุณาตรวจสอบว่า Ollama เปิดอยู่และมีโมเดลที่กำหนดไว้\n\n"
+                f"รายละเอียด: {error}"
+            )
+            return
+
+    result = st.session_state.get("rag_last_result")
+
+    if not result:
+        return
+
+    answer = escape(str(result.get("answer", ""))).replace("\n", "<br>")
+
+    st.markdown(
+        (
+            '<div class="rag-card">'
+            '<div class="rag-answer-title">คำตอบจากฐานความรู้</div>'
+            f'<div class="rag-answer-text">{answer}</div>'
+            '</div>'
+        ),
+        unsafe_allow_html=True,
+    )
+
+    sources = result.get("sources", [])
+
+    if sources:
+        st.markdown(
+            '<div class="rag-answer-title" style="margin-top:.8rem;">'
+            'แหล่งข้อมูลที่ระบบค้นคืน'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+        source_html = "".join(
+            f'<span class="rag-source">{escape(str(source))}</span>'
+            for source in sources
+        )
+        st.markdown(source_html, unsafe_allow_html=True)
+
+    with st.expander("ดูข้อมูลที่ระบบค้นคืน (Top-k)"):
+        retrieved_chunks = result.get("retrieved_chunks", [])
+
+        if not retrieved_chunks:
+            st.write("ไม่พบข้อมูลที่ค้นคืน")
+        else:
+            for chunk in retrieved_chunks:
+                st.markdown(
+                    f"**{escape(str(chunk.get('filename', '')))}** "
+                    f"— similarity: {float(chunk.get('score', 0)):.4f}"
+                )
+                st.write(chunk.get("text", ""))
+                st.divider()
+
+
+
 def main() -> None:
     render_page_header()
     try:
         questions = load_questions()
-    except (FileNotFoundError, ValueError) as error:
+        elements_data = load_elements_data()
+    except (FileNotFoundError, ValueError, json.JSONDecodeError) as error:
         st.error(str(error)); st.stop()
 
     birth_question = next((q for q in questions if q["question_id"].strip()=="Q001"), None)
@@ -385,23 +617,61 @@ def main() -> None:
     st.markdown(f'<div style="text-align:center;color:#66713d;font-size:.92rem;margin-top:.4rem;">ตอบแล้ว {answered} จาก {total_questions} ข้อ</div>', unsafe_allow_html=True)
     render_safety_note()
 
-    if not submitted:
+    # -----------------------------------------------------
+    # บันทึกผลการประเมินไว้ใน session_state
+    # เพื่อให้ผลลัพธ์ยังอยู่เมื่อกดปุ่ม RAG ซึ่งทำให้ Streamlit rerun
+    # -----------------------------------------------------
+    if submitted:
+        if birth_month is None:
+            st.warning("กรุณาเลือกเดือนเกิดก่อนประมวลผล")
+            return
+
+        missing = [qid for qid, v in answers.items() if v is None]
+        if missing:
+            st.markdown(
+                f'<div class="missing-answer">'
+                f'กรุณาตอบคำถามให้ครบทุกข้อ ขณะนี้ยังเหลือ {len(missing)} ข้อ'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+            return
+
+        valid_answers = {
+            qid: int(v)
+            for qid, v in answers.items()
+            if v is not None
+        }
+
+        try:
+            scores = calculate_scores(
+                valid_answers,
+                int(birth_month),
+            )
+        except (ValueError, KeyError) as error:
+            st.error(f"ไม่สามารถคำนวณคะแนนได้: {error}")
+            return
+
+        result = get_result(scores)
+        birth_element = get_birth_element(int(birth_month))
+        recommendation_summary = build_recommendation_summary(scores)
+
+        st.session_state["assessment_completed"] = True
+        st.session_state["assessment_scores"] = scores
+        st.session_state["assessment_result"] = result
+        st.session_state["assessment_birth_element"] = birth_element
+        st.session_state["assessment_recommendation_summary"] = recommendation_summary
+
+    # ถ้ายังไม่เคยประเมินสำเร็จ ให้หยุดตรงนี้
+    if not st.session_state.get("assessment_completed", False):
         return
-    if birth_month is None:
-        st.warning("กรุณาเลือกเดือนเกิดก่อนประมวลผล"); return
-    missing = [qid for qid,v in answers.items() if v is None]
-    if missing:
-        st.markdown(f'<div class="missing-answer">กรุณาตอบคำถามให้ครบทุกข้อ ขณะนี้ยังเหลือ {len(missing)} ข้อ</div>', unsafe_allow_html=True); return
 
-    valid_answers = {qid:int(v) for qid,v in answers.items() if v is not None}
-    try:
-        scores = calculate_scores(valid_answers, int(birth_month))
-    except (ValueError, KeyError) as error:
-        st.error(f"ไม่สามารถคำนวณคะแนนได้: {error}"); return
-
-    result = get_result(scores)
-    birth_element = get_birth_element(int(birth_month))
-    recommendation_summary = build_recommendation_summary(scores)
+    # ทุก rerun (รวมถึงตอนกดปุ่มถาม RAG) ใช้ผลที่บันทึกไว้
+    scores = st.session_state["assessment_scores"]
+    result = st.session_state["assessment_result"]
+    birth_element = st.session_state["assessment_birth_element"]
+    recommendation_summary = st.session_state[
+        "assessment_recommendation_summary"
+    ]
     st.markdown('<div class="section-header" style="font-size:1.85rem;">ผลการประเมิน</div><div class="section-description">สรุปจากคำตอบของคุณและธาตุเกิดตามเดือนเกิด</div>', unsafe_allow_html=True)
     render_main_result(result, birth_element)
     st.markdown('<div class="section-header">คะแนนธาตุทั้ง 4</div>', unsafe_allow_html=True)
@@ -415,11 +685,15 @@ def main() -> None:
     )
     render_radar_chart(scores)
 
+    render_current_element_descriptions(scores, elements_data)
+
     st.markdown('<div class="section-header">ลำดับคะแนน</div>', unsafe_allow_html=True)
     ranking_data = pd.DataFrame([{"ลำดับ":i,"ธาตุ":f"{ELEMENT_ICONS[e]} {ELEMENT_NAMES[e]}","คะแนน":score} for i,(e,score) in enumerate(result["ranking"],1)])
     st.dataframe(ranking_data, use_container_width=True, hide_index=True)
     
     render_food_recommendations(recommendation_summary)
+
+    render_rag_section()
 
 if __name__ == "__main__":
     main()
