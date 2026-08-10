@@ -2,14 +2,11 @@ from __future__ import annotations
 
 import csv
 import json
-from io import BytesIO
 from html import escape
 from pathlib import Path
 from typing import Any
 
-import math
-
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import pandas as pd
 import streamlit as st
 
@@ -219,92 +216,21 @@ def render_score_cards(scores: dict[str,float]) -> None:
             st.markdown(f'<div class="score-card"><div class="score-icon">{ELEMENT_ICONS[element]}</div><div class="score-name">{ELEMENT_NAMES[element]}</div><div class="score-number">{scores[element]:.1f}</div></div>', unsafe_allow_html=True)
 
 
+
 def render_radar_chart(scores: dict[str, float]) -> None:
-    """แสดงคะแนนธาตุทั้ง 4 เป็นเรดาร์ขนาดกะทัดรัด พร้อมรายการคะแนนด้านขวา"""
+    """แสดงคะแนนธาตุทั้ง 4 ด้วย Plotly Radar Chart รองรับภาษาไทยบนเว็บโดยตรง"""
 
     element_order = ("earth", "water", "wind", "fire")
     labels = [ELEMENT_NAMES[element] for element in element_order]
     values = [float(scores[element]) for element in element_order]
 
-    angles = [
-        index / len(labels) * 2 * math.pi
-        for index in range(len(labels))
-    ]
-    closed_angles = angles + [angles[0]]
+    # ปิดรูปหลายเหลี่ยมให้กลับมาที่จุดแรก
+    closed_labels = labels + [labels[0]]
     closed_values = values + [values[0]]
 
     max_score = max(values) if values else 0.0
-    axis_max = max(20.0, math.ceil((max_score + 1.0) / 5.0) * 5.0)
-    radial_ticks = list(range(5, int(axis_max) + 1, 5))
+    axis_max = max(20.0, ((int(max_score) + 5) // 5) * 5)
 
-    plt.rcParams["font.family"] = "sans-serif"
-    plt.rcParams["font.sans-serif"] = [
-        "Tahoma",
-        "Thonburi",
-        "Arial Unicode MS",
-        "Noto Sans Thai",
-        "DejaVu Sans",
-    ]
-    plt.rcParams["axes.unicode_minus"] = False
-
-    # สร้างพื้นที่ 2 ส่วน: กราฟด้านซ้าย และรายการคะแนนด้านขวา
-    figure = plt.figure(figsize=(8.2, 3.15))
-    grid = figure.add_gridspec(
-        1,
-        2,
-        width_ratios=[1.15, 0.85],
-        wspace=0.18,
-    )
-
-    axis = figure.add_subplot(grid[0, 0], polar=True)
-    info_axis = figure.add_subplot(grid[0, 1])
-    info_axis.axis("off")
-
-    # ธาตุดินอยู่ด้านบน และเรียงตามเข็มนาฬิกา
-    axis.set_theta_offset(math.pi / 2)
-    axis.set_theta_direction(-1)
-
-    axis.plot(
-        closed_angles,
-        closed_values,
-        linewidth=2.4,
-        marker="o",
-        markersize=5.5,
-        color="#4f74e8",
-        zorder=3,
-    )
-    axis.fill(
-        closed_angles,
-        closed_values,
-        color="#8fa8ff",
-        alpha=0.30,
-        zorder=2,
-    )
-
-    axis.set_xticks(angles)
-    axis.set_xticklabels(
-        labels,
-        fontsize=11,
-        fontweight="bold",
-        color="#485320",
-    )
-    axis.tick_params(axis="x", pad=8)
-
-    axis.set_ylim(0, axis_max)
-    axis.set_yticks(radial_ticks)
-    axis.set_yticklabels(
-        [str(tick) for tick in radial_ticks],
-        fontsize=8,
-        color="#929a7b",
-    )
-    axis.set_rlabel_position(90)
-
-    axis.grid(color="#dfe4d4", linewidth=0.9)
-    axis.spines["polar"].set_color("#d3dac5")
-    axis.spines["polar"].set_linewidth(1.0)
-    axis.set_facecolor("#ffffff")
-
-    # สีของแต่ละธาตุสำหรับรายการคะแนนด้านขวา
     element_colors = {
         "earth": "#9b6a2f",
         "water": "#36a9dc",
@@ -312,71 +238,129 @@ def render_radar_chart(scores: dict[str, float]) -> None:
         "fire": "#ef5a5a",
     }
 
+    figure = go.Figure()
+
+    figure.add_trace(
+        go.Scatterpolar(
+            r=closed_values,
+            theta=closed_labels,
+            mode="lines+markers",
+            fill="toself",
+            line=dict(
+                color="#4f74e8",
+                width=3,
+            ),
+            marker=dict(
+                size=8,
+                color="#4f74e8",
+            ),
+            fillcolor="rgba(143,168,255,0.30)",
+            hovertemplate="%{theta}: %{r:.1f} คะแนน<extra></extra>",
+            showlegend=False,
+        )
+    )
+
+    # รายการคะแนนด้านขวา
     y_positions = [0.78, 0.60, 0.42, 0.24]
 
     for element, y in zip(element_order, y_positions):
         value = float(scores[element])
 
-        info_axis.scatter(
-            0.08,
-            y,
-            s=115,
-            marker="s",
-            color=element_colors[element],
-            transform=info_axis.transAxes,
+        figure.add_shape(
+            type="rect",
+            xref="paper",
+            yref="paper",
+            x0=0.69,
+            x1=0.715,
+            y0=y - 0.018,
+            y1=y + 0.018,
+            line=dict(width=0),
+            fillcolor=element_colors[element],
         )
 
-        info_axis.text(
-            0.16,
-            y,
-            ELEMENT_NAMES[element],
-            fontsize=11,
+        figure.add_annotation(
+            xref="paper",
+            yref="paper",
+            x=0.73,
+            y=y,
+            text=ELEMENT_NAMES[element],
+            showarrow=False,
+            xanchor="left",
+            yanchor="middle",
+            font=dict(
+                size=17,
+                color="#485320",
+                family="Tahoma, Noto Sans Thai, Arial, sans-serif",
+            ),
+        )
+
+        figure.add_annotation(
+            xref="paper",
+            yref="paper",
+            x=0.83,
+            y=y,
+            text=f"<b>{value:.1f}</b> คะแนน",
+            showarrow=False,
+            xanchor="left",
+            yanchor="middle",
+            font=dict(
+                size=16,
+                color="#303817",
+                family="Tahoma, Noto Sans Thai, Arial, sans-serif",
+            ),
+        )
+
+    figure.update_layout(
+        height=500,
+        margin=dict(l=45, r=45, t=35, b=35),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(
+            family="Tahoma, Noto Sans Thai, Arial, sans-serif",
             color="#485320",
-            va="center",
-            transform=info_axis.transAxes,
-        )
-
-        info_axis.text(
-            0.55,
-            y,
-            f"{value:.1f}",
-            fontsize=11,
-            fontweight="bold",
-            color="#303817",
-            va="center",
-            transform=info_axis.transAxes,
-        )
-
-        info_axis.text(
-            0.72,
-            y,
-            "คะแนน",
-            fontsize=9.5,
-            color="#77805c",
-            va="center",
-            transform=info_axis.transAxes,
-        )
-
-    figure.patch.set_alpha(0)
-    figure.subplots_adjust(left=0.05, right=0.96, top=0.96, bottom=0.05)
-
-    image_buffer = BytesIO()
-    figure.savefig(
-        image_buffer,
-        format="png",
-        dpi=150,
-        bbox_inches="tight",
-        pad_inches=0.02,
-        transparent=True,
+        ),
+        polar=dict(
+            domain=dict(
+                x=[0.02, 0.64],
+                y=[0.05, 0.95],
+            ),
+            bgcolor="rgba(255,255,255,0)",
+            angularaxis=dict(
+                rotation=90,
+                direction="clockwise",
+                tickfont=dict(
+                    size=18,
+                    color="#485320",
+                    family="Tahoma, Noto Sans Thai, Arial, sans-serif",
+                ),
+                gridcolor="#dfe4d4",
+                linecolor="#d3dac5",
+            ),
+            radialaxis=dict(
+                range=[0, axis_max],
+                tickmode="linear",
+                tick0=5,
+                dtick=5,
+                tickfont=dict(
+                    size=11,
+                    color="#929a7b",
+                    family="Arial, sans-serif",
+                ),
+                gridcolor="#dfe4d4",
+                linecolor="#d3dac5",
+                angle=0,
+            ),
+        ),
     )
-    image_buffer.seek(0)
 
-    # แสดงภาพที่ครอบตัดแล้ว เพื่อไม่ให้มีพื้นที่ว่างจาก canvas ของ Matplotlib
-    left_space, chart_column, right_space = st.columns([0.04, 0.92, 0.04])
-    with chart_column:
-        st.image(image_buffer, use_container_width=True)
-
-    plt.close(figure)
+    st.plotly_chart(
+        figure,
+        width="stretch",
+        config={
+            "displayModeBar": False,
+            "responsive": True,
+        },
+    )
 
 
 def render_main_result(result: dict[str,Any], birth_element: str) -> None:
@@ -609,7 +593,7 @@ def main() -> None:
                 answers[qid] = None if selected is None else options.index(selected)
                 n += 1
             st.divider()
-        submitted = st.form_submit_button("ประมวลผลแบบประเมิน", use_container_width=True)
+        submitted = st.form_submit_button("ประมวลผลแบบประเมิน", width="stretch")
 
     answered = sum(v is not None for v in answers.values())
     st.markdown('<div class="section-header" style="font-size:1.15rem;">ความคืบหน้าในการตอบแบบประเมิน</div>', unsafe_allow_html=True)
@@ -689,7 +673,7 @@ def main() -> None:
 
     st.markdown('<div class="section-header">ลำดับคะแนน</div>', unsafe_allow_html=True)
     ranking_data = pd.DataFrame([{"ลำดับ":i,"ธาตุ":f"{ELEMENT_ICONS[e]} {ELEMENT_NAMES[e]}","คะแนน":score} for i,(e,score) in enumerate(result["ranking"],1)])
-    st.dataframe(ranking_data, use_container_width=True, hide_index=True)
+    st.dataframe(ranking_data, width="stretch", hide_index=True)
     
     render_food_recommendations(recommendation_summary)
 
