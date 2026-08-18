@@ -1,4 +1,5 @@
 from __future__ import annotations
+from food_retrieval import retrieve_foods_by_element
 
 import csv
 import random
@@ -566,7 +567,6 @@ def recommend_foods(
             "limit ต้องมากกว่า 0"
         )
 
-    foods = load_foods()
     normalized = normalize_scores(scores)
 
     relationship = analyze_element_relationship(
@@ -601,18 +601,23 @@ def recommend_foods(
     ] = {}
 
     for element in target_elements:
-        element_foods = [
-            food
-            for food in foods
-            if (
-                food["recommendation_status"] == "recommended"
-                and food["recommended_element"] == element
-                and (
-                    allowed_categories is None
-                    or food["category"] in allowed_categories
-                )
-            )
-        ]
+
+        element_foods = retrieve_foods_by_element(
+            active_elements=[
+                element
+            ],
+            top_k=50,
+        )
+
+
+        if allowed_categories is not None:
+
+            element_foods = [
+                food
+                for food in element_foods
+                if food["category"]
+                in allowed_categories
+            ]
 
         prepared = [
             prepare_food_result(
@@ -628,7 +633,7 @@ def recommend_foods(
         # ลบชื่อซ้ำก่อน แล้วสุ่มลำดับรายการภายในธาตุ
         # เพื่อไม่ให้ผลลัพธ์เรียงตามตัวอักษรทุกครั้ง
         prepared = remove_duplicate_food_names(prepared)
-        random.shuffle(prepared)
+        # random.shuffle(prepared)
 
         grouped_results[element] = prepared
 
