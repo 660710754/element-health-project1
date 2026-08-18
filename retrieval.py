@@ -12,11 +12,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 # =========================================================
 
 BASE_DIR = Path(__file__).resolve().parent
+
 KNOWLEDGE_DIR = BASE_DIR / "knowledge"
 
 
 # =========================================================
-# ค่าพื้นฐาน
+# Config
 # =========================================================
 
 ALLOWED_EXTENSIONS = {".txt"}
@@ -26,61 +27,122 @@ DEFAULT_TOP_K = 5
 MIN_SIMILARITY = 0.01
 
 
+
 # =========================================================
-# โหลดเอกสาร
+# Load Documents
 # =========================================================
 
 def load_documents() -> list[dict[str, str]]:
     """
     โหลดไฟล์ .txt ทั้งหมดจาก knowledge/
 
-    คืนค่า:
+    รองรับโครงสร้าง:
+
+    knowledge/
+        earth/
+        water/
+        wind/
+        fire/
+        *.txt
+
+
+    return:
+
     [
         {
-            "document_id": "earth",
-            "filename": "earth.txt",
-            "text": "..."
-        },
-        ...
+            document_id:
+            filename:
+            element:
+            text:
+        }
     ]
+
     """
 
     if not KNOWLEDGE_DIR.exists():
+
         raise FileNotFoundError(
             f"ไม่พบโฟลเดอร์ knowledge: {KNOWLEDGE_DIR}"
         )
 
+
     documents: list[dict[str, str]] = []
 
-    for file_path in sorted(KNOWLEDGE_DIR.iterdir()):
+
+    # ค้นทุก folder ย่อย
+    for file_path in sorted(
+        KNOWLEDGE_DIR.rglob("*")
+    ):
+
 
         if not file_path.is_file():
             continue
 
+
         if file_path.suffix.lower() not in ALLOWED_EXTENSIONS:
             continue
+
+
 
         text = file_path.read_text(
             encoding="utf-8"
         ).strip()
 
+
+
         if not text:
             continue
 
+
+
+        relative_path = file_path.relative_to(
+            KNOWLEDGE_DIR
+        )
+
+
+        # หา element จาก folder
+        if len(relative_path.parts) > 1:
+
+            element = relative_path.parts[0]
+
+        else:
+
+            element = "system"
+
+
+
         documents.append(
             {
-                "document_id": file_path.stem,
-                "filename": file_path.name,
-                "text": text,
+
+                "document_id":
+                    str(relative_path),
+
+
+                "filename":
+                    str(relative_path),
+
+
+                "element":
+                    element,
+
+
+                "text":
+                    text,
+
             }
         )
 
+
+
     if not documents:
+
         raise ValueError(
-            "ไม่พบเอกสารความรู้ .txt ในโฟลเดอร์ knowledge"
+            "ไม่พบไฟล์ .txt ใน knowledge/"
         )
 
+
     return documents
+
 
 
 # =========================================================
@@ -88,298 +150,462 @@ def load_documents() -> list[dict[str, str]]:
 # =========================================================
 
 def split_into_chunks(
-    documents: list[dict[str, str]],
+    documents: list[dict[str, str]]
 ) -> list[dict[str, str]]:
-    """
-    แบ่งเอกสารเป็น chunk ตามย่อหน้า
 
-    ในไฟล์ knowledge เราใช้บรรทัดว่างคั่นแต่ละหัวข้อ
-    จึงสามารถแบ่งด้วย \\n\\n ได้โดยตรง
+    """
+    แบ่งเอกสารตามหัวข้อ
+
+    ใช้บรรทัดว่างเป็นตัวแบ่ง
+
     """
 
     chunks: list[dict[str, str]] = []
 
+
+
     for document in documents:
 
-        raw_sections = document["text"].split("\n\n")
 
         sections = [
+
             section.strip()
-            for section in raw_sections
+
+            for section in document["text"].split("\n\n")
+
             if section.strip()
+
         ]
+
+
 
         for index, section in enumerate(
             sections,
-            start=1,
+            start=1
         ):
+
 
             chunks.append(
                 {
-                    "chunk_id": (
-                        f"{document['document_id']}"
-                        f"_chunk_{index:03d}"
-                    ),
-                    "document_id": document[
-                        "document_id"
-                    ],
-                    "filename": document[
-                        "filename"
-                    ],
-                    "text": section,
+
+
+                    "chunk_id":
+
+                        (
+                            f"{document['document_id']}"
+                            f"_chunk_{index:03d}"
+                        ),
+
+
+                    "document_id":
+
+                        document["document_id"],
+
+
+                    "filename":
+
+                        document["filename"],
+
+
+                    "element":
+
+                        document["element"],
+
+
+                    "text":
+
+                        section,
+
+
                 }
             )
 
+
+
     if not chunks:
+
         raise ValueError(
-            "ไม่สามารถสร้าง chunk จากฐานความรู้ได้"
+            "ไม่สามารถสร้าง chunk ได้"
         )
+
 
     return chunks
 
 
+
+
 # =========================================================
-# Retriever
+# TF-IDF Retriever
 # =========================================================
+
 
 class TfidfRetriever:
     """
-    Information Retrieval แบบ TF-IDF
-    + Cosine Similarity
+    TF-IDF + Cosine Similarity Retriever
 
-    ใช้ character n-gram เพื่อให้เหมาะกับข้อความภาษาไทย
-    ที่ไม่มีการเว้นวรรคระหว่างคำทุกคำ
+    รองรับภาษาไทยด้วย character n-gram
+
     """
+
+
 
     def __init__(self) -> None:
 
+
         self.documents = load_documents()
+
+
 
         self.chunks = split_into_chunks(
             self.documents
         )
 
+
+
         self.vectorizer = TfidfVectorizer(
-            analyzer="char_wb",
-            ngram_range=(2, 5),
+
+            analyzer="char",
+
+            ngram_range=(2, 6),
+
             lowercase=False,
+
             sublinear_tf=True,
+
             norm="l2",
+
         )
+
+
 
         texts = [
+
             chunk["text"]
+
             for chunk in self.chunks
+
         ]
 
+
+
         self.document_matrix = (
-            self.vectorizer.fit_transform(texts)
+
+            self.vectorizer.fit_transform(
+                texts
+            )
+
         )
+
+
+
+
+    # -----------------------------------------------------
+
+    # Search
+
+    # -----------------------------------------------------
 
 
     def search(
+
         self,
+
         query: str,
+
         top_k: int = DEFAULT_TOP_K,
+
         min_similarity: float = MIN_SIMILARITY,
+
     ) -> list[dict[str, Any]]:
-        """
-        ค้น chunk ที่มีความใกล้เคียงกับคำถาม
 
-        Parameters
-        ----------
-        query:
-            คำถามของผู้ใช้
-
-        top_k:
-            จำนวนผลลัพธ์สูงสุด
-
-        min_similarity:
-            similarity ขั้นต่ำที่จะยอมรับ
-        """
 
         query = query.strip()
 
+
+
         if not query:
+
             return []
 
-        if top_k <= 0:
-            raise ValueError(
-                "top_k ต้องมากกว่า 0"
-            )
 
-        if not 0 <= min_similarity <= 1:
-            raise ValueError(
-                "min_similarity ต้องอยู่ระหว่าง 0 ถึง 1"
-            )
 
         query_vector = (
-            self.vectorizer.transform([query])
+
+            self.vectorizer.transform(
+                [query]
+            )
+
         )
+
+
 
         similarities = cosine_similarity(
+
             query_vector,
-            self.document_matrix,
+
+            self.document_matrix
+
         )[0]
 
+
+
         ranked_indices = (
+
             similarities.argsort()[::-1]
+
         )
 
-        results: list[dict[str, Any]] = []
+
+
+        results = []
+
+
 
         for index in ranked_indices:
 
-            similarity = float(
+
+
+            score = float(
                 similarities[index]
             )
 
-            if similarity < min_similarity:
+
+
+            if score < min_similarity:
+
                 continue
+
+
 
             chunk = self.chunks[index]
 
+
+
             results.append(
+
                 {
-                    "rank": len(results) + 1,
-                    "chunk_id": chunk[
-                        "chunk_id"
-                    ],
-                    "document_id": chunk[
-                        "document_id"
-                    ],
-                    "filename": chunk[
-                        "filename"
-                    ],
-                    "text": chunk[
-                        "text"
-                    ],
-                    "score": round(
-                        similarity,
-                        4,
-                    ),
+
+
+                    "rank":
+
+                        len(results)+1,
+
+
+                    "chunk_id":
+
+                        chunk["chunk_id"],
+
+
+                    "filename":
+
+                        chunk["filename"],
+
+
+                    "element":
+
+                        chunk["element"],
+
+
+                    "text":
+
+                        chunk["text"],
+
+
+                    "score":
+
+                        round(score,4)
+
                 }
+
             )
 
+
+
             if len(results) >= top_k:
+
                 break
+
+
 
         return results
 
 
+
+
 # =========================================================
-# ฟังก์ชันช่วยสำหรับ RAG ในอนาคต
+# Build RAG Context
 # =========================================================
+
 
 def build_context(
-    results: list[dict[str, Any]],
-) -> str:
-    """
-    รวมผลจาก IR เป็น context
 
-    ฟังก์ชันนี้เตรียมไว้สำหรับขั้น RAG ต่อไป
-    """
+    results:list[dict[str,Any]]
+
+)->str:
+
 
     if not results:
+
         return ""
 
-    context_parts: list[str] = []
+
+
+    context=[]
+
+
 
     for result in results:
 
-        context_parts.append(
+
+        context.append(
+
             (
-                f"[แหล่งข้อมูล: "
-                f"{result['filename']} | "
-                f"{result['chunk_id']}]\n"
+
+                f"[SOURCE: {result['filename']}]\n"
+
+                f"[ELEMENT: {result['element']}]\n"
+
                 f"{result['text']}"
+
             )
+
         )
 
-    return "\n\n".join(context_parts)
+
+
+    return "\n\n".join(context)
+
+
 
 
 # =========================================================
-# แสดงผลใน Terminal
+# Terminal Test
 # =========================================================
+
 
 def print_search_results(
-    query: str,
-    top_k: int = DEFAULT_TOP_K,
-) -> None:
+
+    query:str,
+
+    top_k:int=DEFAULT_TOP_K
+
+):
+
 
     retriever = TfidfRetriever()
 
+
+
     results = retriever.search(
-        query=query,
-        top_k=top_k,
-    )
 
-    print("=" * 70)
-
-    print(
-        "คำถาม:",
         query,
+
+        top_k
+
     )
 
-    print("=" * 70)
+
+
+    print("="*70)
+
+    print("QUERY:")
+
+    print(query)
+
+    print("="*70)
+
+
 
     if not results:
 
+
         print(
-            "ไม่พบข้อมูลที่เกี่ยวข้องในฐานความรู้"
+            "ไม่พบข้อมูล"
         )
 
         return
 
+
+
     for result in results:
 
+
         print()
+
 
         print(
             f"อันดับ {result['rank']}"
         )
 
-        print(
-            f"เอกสาร: {result['filename']}"
-        )
 
         print(
-            f"Chunk: {result['chunk_id']}"
+            f"ไฟล์: {result['filename']}"
         )
+
 
         print(
-            f"Similarity: {result['score']:.4f}"
+            f"ธาตุ: {result['element']}"
         )
 
-        print("-" * 70)
+
+        print(
+            f"คะแนน: {result['score']}"
+        )
+
+
+        print("-"*70)
+
 
         print(
             result["text"]
         )
 
-        print("-" * 70)
+
+        print("-"*70)
+
+
+
 
 
 # =========================================================
-# ทดสอบแบบ Manual
+# Manual Test
 # =========================================================
+
 
 if __name__ == "__main__":
 
+
     test_queries = [
-        "ธาตุเจ้าเรือนปัจจุบันคืออะไร",
-        "คนธาตุลมมีอาการอะไรบ้าง",
+
+
         "ธาตุไฟควรกินอาหารอะไร",
-        "ธาตุน้ำควรหลีกเลี่ยงอาหารอะไร",
-        "คนธาตุดินมีลักษณะนิสัยอย่างไร",
+
+
+        "ธาตุลมมีอาการอะไร",
+
+
+        "คนธาตุดินควรกินผักอะไร",
+
+
+        "ธาตุน้ำควรหลีกเลี่ยงอะไร",
+
+
+        "อาหารรสขมเย็นจืด",
+
     ]
+
+
 
     for query in test_queries:
 
+
         print_search_results(
+
             query=query,
-            top_k=5,
+
+            top_k=5
+
         )
 
-        print("\n")
+
+        print("\n\n")
