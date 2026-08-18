@@ -43,7 +43,7 @@ REQUIRED_COLUMNS = {
     "reason_th",
 }
 
-DEFAULT_MIXED_THRESHOLD = 3.0
+DEFAULT_MIXED_THRESHOLD = 1.0
 DEFAULT_ITEMS_PER_CATEGORY = 4
 DEFAULT_AVOID_LIMIT = 6
 
@@ -520,6 +520,28 @@ def select_items_by_mode(
 # ระบบแนะนำอาหาร
 # =========================================================
 
+def recommend(
+    scores: dict[str, float],
+    question: str = "",
+    limit: int = 10,
+    mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
+) -> dict[str, Any]:
+    """
+    Compatibility wrapper สำหรับ rag.py
+    """
+
+    result = build_recommendation_summary(
+        scores=scores,
+        question=question,
+        mixed_threshold=mixed_threshold,
+    )
+
+    result["top_recommendations"] = (
+        result["top_recommendations"][:limit]
+    )
+
+    return result
+
 def recommend_foods(
     scores: dict[str, float],
     limit: int = 10,
@@ -623,30 +645,57 @@ def recommend_foods(
 
     selected = remove_duplicate_food_names(selected)
 
-    # เติมรายการให้ครบเฉพาะจากธาตุที่อนุญาตในโหมดนั้น
+    # เติมรายการที่ขาดอย่างชาญฉลาด
+    # ใช้เฉพาะธาตุหลักและธาตุรองเท่านั้น
+    # ไม่ดึงธาตุอื่นเข้ามา แม้ว่าฐานข้อมูลธาตุหลักจะมีไม่ครบตาม quota
+
     if len(selected) < limit:
         existing_names = {
             normalize_food_name(item["food_name_th"])
             for item in selected
         }
 
-        fallback_candidates = (
-            primary_items + secondary_items
-        )
+        # คำนวณจำนวนที่ยังขาด
+        remaining = limit - len(selected)
 
-        for item in fallback_candidates:
-            name = normalize_food_name(
-                item["food_name_th"]
-            )
+        # กรณี mixed/equal ให้เติมจากธาตุรองก่อน
+        # เพราะธาตุหลักถูกใช้ตาม quota แล้ว
+        if mode in {"equal", "mixed"}:
+            fallback_candidates = secondary_items
 
-            if name in existing_names:
-                continue
+            for item in fallback_candidates:
+                if remaining <= 0:
+                    break
 
-            selected.append(item)
-            existing_names.add(name)
+                name = normalize_food_name(
+                    item["food_name_th"]
+                )
 
-            if len(selected) >= limit:
-                break
+                if name in existing_names:
+                    continue
+
+                selected.append(item)
+                existing_names.add(name)
+                remaining -= 1
+
+        # หากยังไม่ครบ และมีรายการธาตุหลักเหลือ
+        # ให้เติมจากธาตุหลักเพิ่มเติมได้
+        # เพื่อให้ครบจำนวนการ์ดที่หน้าเว็บต้องแสดง
+        if remaining > 0:
+            for item in primary_items:
+                if remaining <= 0:
+                    break
+
+                name = normalize_food_name(
+                    item["food_name_th"]
+                )
+
+                if name in existing_names:
+                    continue
+
+                selected.append(item)
+                existing_names.add(name)
+                remaining -= 1
 
     return selected[:limit]
 
@@ -786,7 +835,12 @@ def get_avoid_rules(
         }
 
         fallback_candidates = (
-            primary_rules + secondary_rules
+            secondary_rules
+            if (
+                mode in {"equal", "mixed"}
+                and len(primary_rules) < limit
+            )
+            else []
         )
 
         for item in fallback_candidates:
@@ -815,11 +869,18 @@ def get_avoid_rules(
 
 def build_recommendation_summary(
     scores: dict[str, float],
+    question: str = "",
     mixed_threshold: float = DEFAULT_MIXED_THRESHOLD,
 ) -> dict[str, Any]:
     """สร้างผลสรุปสำหรับแสดงบนหน้าเว็บ"""
 
     normalized = normalize_scores(scores)
+
+    if isinstance(mixed_threshold, str):
+        try:
+            mixed_threshold = float(mixed_threshold)
+        except ValueError:
+            mixed_threshold = DEFAULT_MIXED_THRESHOLD
 
     relationship = analyze_element_relationship(
         scores=scores,
@@ -993,10 +1054,25 @@ if __name__ == "__main__":
     # ตัวอย่างกรณีต่างกัน 0.5 คะแนน
     # ควรได้โหมด mixed และหมวดละ 3:1
     sample_scores = {
-        "earth": 16.1,
-        "water": 15.5,
-        "wind": 12.1,
-        "fire": 15.6,
+        "earth": 18,
+        "water": 12,
+        "wind": 10,
+        "fire": 8,
     }
 
-    print_recommendations(sample_scores)
+    result = recommend_foods_by_category(
+    sample_scores
+    )
+
+    for category, foods in result.items():
+
+        print("\n================")
+        print(category)
+        print("================")
+
+        for food in foods:
+            print(
+            food["food_name_th"],
+            "=>",
+            food["recommended_element_th"]
+        )

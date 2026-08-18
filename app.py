@@ -10,15 +10,39 @@ import plotly.graph_objects as go
 import pandas as pd
 import streamlit as st
 
-from scoring import calculate_scores, get_birth_element, get_result
+from scoring import calculate_scores, get_result
 from recommendation import build_recommendation_summary
-from rag import RAGSystem
+
 
 BASE_DIR = Path(__file__).resolve().parent
 QUESTIONS_FILE = BASE_DIR / "data" / "questions.csv"
 ELEMENTS_FILE = BASE_DIR / "data" / "elements.json"
 
 ELEMENT_NAMES = {"earth": "ธาตุดิน", "water": "ธาตุน้ำ", "wind": "ธาตุลม", "fire": "ธาตุไฟ"}
+
+
+
+def get_birth_element(month: int) -> str:
+    """
+    ธาตุเกิดจากเดือนเกิด
+    ใช้สำหรับแสดงผลเท่านั้น
+    ไม่ใช้รวมกับคะแนนแบบประเมิน 48 ข้อ
+    """
+    month_map = {
+        1: "fire",
+        2: "fire",
+        3: "fire",
+        4: "wind",
+        5: "wind",
+        6: "wind",
+        7: "water",
+        8: "water",
+        9: "water",
+        10: "earth",
+        11: "earth",
+        12: "earth",
+    }
+    return month_map.get(month, "earth")
 ELEMENT_ICONS = {"earth": "⛰️", "water": "💧", "wind": "🍃", "fire": "🔥"}
 MONTH_NAMES = {1:"มกราคม",2:"กุมภาพันธ์",3:"มีนาคม",4:"เมษายน",5:"พฤษภาคม",6:"มิถุนายน",7:"กรกฎาคม",8:"สิงหาคม",9:"กันยายน",10:"ตุลาคม",11:"พฤศจิกายน",12:"ธันวาคม"}
 SECTION_NAMES = {
@@ -68,12 +92,6 @@ div[data-testid="stProgress"]>div>div>div{background-color:var(--primary)}
 .element-description-heading{color:var(--primary);font-size:1rem;font-weight:800;margin-bottom:.35rem}
 .element-description-text{color:#4a5038;font-size:.96rem;line-height:1.8}
 .equal-note{width:100%;box-sizing:border-box;margin:.4rem 0 1rem;padding:.9rem 1rem;background:#f4f7ec;border:1px solid #d9e1c5;border-radius:13px;color:#596436;text-align:center;line-height:1.7}
-
-
-.rag-card{width:100%;box-sizing:border-box;margin:1rem 0 1.5rem;padding:1.35rem 1.5rem;background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:18px;box-shadow:0 8px 24px rgba(72,83,32,.08)}
-.rag-answer-title{color:var(--primary);font-size:1.05rem;font-weight:800;margin-bottom:.65rem}
-.rag-answer-text{color:#414735;font-size:.98rem;line-height:1.85;white-space:pre-wrap}
-.rag-source{display:inline-block;margin:.2rem .35rem .2rem 0;padding:.35rem .6rem;background:#f1f5e7;border:1px solid #dce4c8;border-radius:999px;color:#596436;font-size:.86rem}
 
 @media(max-width:768px){.block-container{padding:.9rem .75rem 4rem}.main-title{font-size:2rem}div[data-testid="stForm"]{padding:1.2rem .85rem 1.5rem}.question-heading{grid-template-columns:40px minmax(0,1fr);font-size:.94rem}.question-number{width:40px;padding-right:6px}div[data-testid="stRadio"] div[role="radiogroup"]>label{padding-left:.1rem!important;padding-right:.1rem!important;font-size:.82rem!important}div[data-testid="stRadio"] div[role="radiogroup"] label p{white-space:normal}}
 </style>
@@ -363,12 +381,60 @@ def render_radar_chart(scores: dict[str, float]) -> None:
     )
 
 
-def render_main_result(result: dict[str,Any], birth_element: str) -> None:
-    primary, secondary = result["primary_element"], result["secondary_element"]
-    html = (f'<div class="result-card"><div class="result-label">ธาตุเด่นปัจจุบันของคุณ</div>'
-            f'<div class="result-main">{ELEMENT_ICONS[primary]} {ELEMENT_NAMES[primary]}</div>'
-            f'<div class="result-secondary">ธาตุเกิดจากเดือนเกิด: <strong>{ELEMENT_NAMES[birth_element]}</strong><br>ธาตุรอง: <strong>{ELEMENT_NAMES[secondary]}</strong></div></div>')
-    st.markdown(html, unsafe_allow_html=True)
+def render_main_result(
+    result: dict[str, Any],
+    birth_element: str
+) -> None:
+    """
+    แสดงผล 3 ส่วน:
+    1. ธาตุเด่นปัจจุบันจากแบบประเมิน
+    2. ธาตุเกิดจากเดือนเกิด
+    3. ธาตุรองจากคะแนนแบบประเมิน
+    """
+
+    primary = result["primary_element"]
+    secondary = result["secondary_element"]
+    ranking = result["ranking"]
+    
+    max_score = ranking[0][1]
+
+    active_elements = [
+        element
+        for element, score in ranking
+        if score == max_score
+    ]
+
+    active_text = " + ".join(
+        ELEMENT_NAMES.get(e, e)
+        for e in active_elements
+    )
+
+    html = (
+        '<div class="result-card">'
+        '<div class="result-label">'
+        'สรุปผลธาตุเจ้าเรือน'
+        '</div>'
+
+        f'<div class="result-main">'
+        f'{ELEMENT_ICONS[primary]} '
+        f'ธาตุเด่นปัจจุบัน: {active_text}'
+        '</div>'
+
+        f'<div class="result-secondary">'
+        f'ธาตุเกิดจากเดือนเกิด: '
+        f'<strong>{ELEMENT_NAMES[birth_element]}</strong>'
+        '<br>'
+        f'ธาตุรอง: '
+        f'<strong>{ELEMENT_NAMES[secondary]}</strong>'
+        '</div>'
+
+        '</div>'
+    )
+
+    st.markdown(
+        html,
+        unsafe_allow_html=True
+    )
 
 def group_questions_by_section(questions: list[dict[str,str]]) -> dict[str,list[dict[str,str]]]:
     grouped: dict[str,list[dict[str,str]]] = {}
@@ -389,16 +455,21 @@ def render_food_recommendations(
     st.markdown(
         (
             '<div class="section-description">'
-            f'{escape(recommendation_summary["interpretation"])}'
+            f'{escape(recommendation_summary.get("interpretation", "คำแนะนำอาหารตามแนวโน้มธาตุของคุณ"))}'
             '</div>'
         ),
         unsafe_allow_html=True,
     )
 
-    grouped = recommendation_summary["recommendations_by_category"]
+    grouped = (
+        recommendation_summary.get("recommendations")
+        or recommendation_summary.get("recommendations_by_category")
+        or {}
+    )
 
     category_titles = {
         "menu": "เมนูอาหาร",
+        "vegetable": "ผักพื้นบ้านและสมุนไพร",
         "vegetable_herb": "ผักพื้นบ้านและสมุนไพร",
         "fruit": "ผลไม้",
         "snack": "อาหารว่าง",
@@ -413,26 +484,45 @@ def render_food_recommendations(
 
         st.markdown(f"### {title}")
 
-        columns = st.columns(len(foods))
+        # จัดตำแหน่งการ์ดให้อยู่กึ่งกลางเมื่อจำนวนรายการไม่เต็ม 5 ช่อง
+        food_count = len(foods)
 
-        for column, food in zip(columns, foods):
+        if food_count == 1:
+            columns = st.columns([2, 1, 2])
+            start_index = 1
+        elif food_count == 2:
+            columns = st.columns([1, 1, 1, 1, 1])
+            start_index = 1
+        elif food_count == 3:
+            columns = st.columns([1, 1, 1, 1, 1])
+            start_index = 1
+        elif food_count == 4:
+            columns = st.columns([0.5, 1, 1, 1, 1, 0.5])
+            start_index = 1
+        else:
+            columns = st.columns(5)
+            start_index = 0
+
+        for index, food in enumerate(foods):
+            column = columns[index + start_index]
+
             with column:
                 st.markdown(
                     (
                         '<div class="score-card">'
-                        f'<div class="score-name">{escape(food["food_name_th"])}</div>'
+                        f'<div class="score-name">{escape(food.get("food_name_th", "") if isinstance(food, dict) else str(food))}</div>'
                         f'<div style="margin-top:0.5rem;font-size:0.9rem;">'
-                        f'{escape(food["recommended_element_th"])}'
+                        f'{escape(food.get("recommended_element_th", "") if isinstance(food, dict) else "")}'
                         '</div>'
                         f'<div style="margin-top:0.5rem;font-size:0.85rem;line-height:1.6;">'
-                        f'{escape(food["match_reason"])}'
+                        f'{escape(food.get("description_th", "") or food.get("match_reason", "") if isinstance(food, dict) else "")}'
                         '</div>'
                         '</div>'
                     ),
                     unsafe_allow_html=True,
                 )
 
-    avoid_rules = recommendation_summary["avoid_rules"]
+    avoid_rules = recommendation_summary.get("avoid_rules", [])
 
     if avoid_rules:
         st.markdown(
@@ -442,123 +532,8 @@ def render_food_recommendations(
 
         for item in avoid_rules:
             st.warning(
-                f"{item['food_name_th']} — {item['reason_th']}"
+                f"{item.get('food_name_th','')} — {item.get('description_th') or item.get('reason_th','')} "
             )
-
-
-@st.cache_resource
-def get_rag_system() -> RAGSystem:
-    """สร้าง RAG system เพียงครั้งเดียวต่อการรันแอป"""
-    return RAGSystem(
-        model="scb10x/typhoon2.5-qwen3-4b:latest",
-        top_k=5,
-    )
-
-
-def render_rag_section() -> None:
-    """แสดงช่องถาม-ตอบ RAG บนหน้า Streamlit"""
-
-    st.markdown(
-        '<div class="section-header" style="margin-top:2rem;">'
-        'ถามเพิ่มเติมเกี่ยวกับธาตุเจ้าเรือนปัจจุบัน'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        '<div class="section-description">'
-        'ระบบจะค้นข้อมูลจากฐานเอกสารความรู้ แล้วสร้างคำตอบภาษาไทยจากข้อมูลที่ค้นพบ'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-
-    question = st.text_area(
-        "คำถามเพิ่มเติม",
-        placeholder=(
-            "ตัวอย่าง: ธาตุไฟควรกินอาหารอะไร "
-            "หรือ คนธาตุลมมีลักษณะอย่างไร"
-        ),
-        key="rag_question",
-        height=100,
-    )
-
-    ask = st.button(
-        "ค้นหาและสร้างคำตอบ",
-        width="stretch",
-        key="rag_ask_button",
-    )
-
-    if ask:
-        if not question.strip():
-            st.warning("กรุณาพิมพ์คำถามก่อน")
-            return
-
-        try:
-            rag = get_rag_system()
-
-            with st.spinner("กำลังค้นข้อมูลและสร้างคำตอบ..."):
-                result = rag.answer(question)
-
-            # เก็บคำตอบ RAG ไว้ เพื่อไม่ให้หายเมื่อ Streamlit rerun
-            st.session_state["rag_last_result"] = result
-            st.session_state["rag_last_question"] = question
-
-        except Exception as error:
-            st.error(
-                "ไม่สามารถใช้งานระบบ RAG ได้ "
-                "กรุณาตรวจสอบว่า Ollama เปิดอยู่และมีโมเดลที่กำหนดไว้\n\n"
-                f"รายละเอียด: {error}"
-            )
-            return
-
-    result = st.session_state.get("rag_last_result")
-
-    if not result:
-        return
-
-    answer = escape(str(result.get("answer", ""))).replace("\n", "<br>")
-
-    st.markdown(
-        (
-            '<div class="rag-card">'
-            '<div class="rag-answer-title">คำตอบจากฐานความรู้</div>'
-            f'<div class="rag-answer-text">{answer}</div>'
-            '</div>'
-        ),
-        unsafe_allow_html=True,
-    )
-
-    sources = result.get("sources", [])
-
-    if sources:
-        st.markdown(
-            '<div class="rag-answer-title" style="margin-top:.8rem;">'
-            'แหล่งข้อมูลที่ระบบค้นคืน'
-            '</div>',
-            unsafe_allow_html=True,
-        )
-
-        source_html = "".join(
-            f'<span class="rag-source">{escape(str(source))}</span>'
-            for source in sources
-        )
-        st.markdown(source_html, unsafe_allow_html=True)
-
-    with st.expander("ดูข้อมูลที่ระบบค้นคืน (Top-k)"):
-        retrieved_chunks = result.get("retrieved_chunks", [])
-
-        if not retrieved_chunks:
-            st.write("ไม่พบข้อมูลที่ค้นคืน")
-        else:
-            for chunk in retrieved_chunks:
-                st.markdown(
-                    f"**{escape(str(chunk.get('filename', '')))}** "
-                    f"— similarity: {float(chunk.get('score', 0)):.4f}"
-                )
-                st.write(chunk.get("text", ""))
-                st.divider()
-
-
 
 def main() -> None:
     render_page_header()
@@ -603,7 +578,7 @@ def main() -> None:
 
     # -----------------------------------------------------
     # บันทึกผลการประเมินไว้ใน session_state
-    # เพื่อให้ผลลัพธ์ยังอยู่เมื่อกดปุ่ม RAG ซึ่งทำให้ Streamlit rerun
+    # เพื่อให้ผลลัพธ์ยังอยู่เมื่อ Streamlit rerun
     # -----------------------------------------------------
     if submitted:
         if birth_month is None:
@@ -629,33 +604,51 @@ def main() -> None:
         try:
             scores = calculate_scores(
                 valid_answers,
-                int(birth_month),
             )
         except (ValueError, KeyError) as error:
             st.error(f"ไม่สามารถคำนวณคะแนนได้: {error}")
             return
 
-        result = get_result(scores)
-        birth_element = get_birth_element(int(birth_month))
-        recommendation_summary = build_recommendation_summary(scores)
+        result = get_result(
+            scores,
+            birth_month=int(birth_month)
+        )
+
+        # ธาตุเกิดจากเดือนเกิด (แสดงผลเท่านั้น)
+        birth_element = result["birth_element"]
+        
+        # recommendation.py เวอร์ชันใหม่
+        recommendation_summary = build_recommendation_summary(
+            scores,
+            "แนะนำอาหารตามธาตุเจ้าเรือน"
+        )
 
         st.session_state["assessment_completed"] = True
         st.session_state["assessment_scores"] = scores
         st.session_state["assessment_result"] = result
-        st.session_state["assessment_birth_element"] = birth_element
+        birth_month_element = result["birth_element"]
+
+        st.session_state["assessment_birth_element"] = birth_month_element
         st.session_state["assessment_recommendation_summary"] = recommendation_summary
+        st.session_state["assessment_active_elements"] = result.get(
+            "active_elements",
+            [result["primary_element"]],
+        )
 
     # ถ้ายังไม่เคยประเมินสำเร็จ ให้หยุดตรงนี้
     if not st.session_state.get("assessment_completed", False):
         return
 
-    # ทุก rerun (รวมถึงตอนกดปุ่มถาม RAG) ใช้ผลที่บันทึกไว้
+    # ทุก rerun ใช้ผลที่บันทึกไว้ใน session_state
     scores = st.session_state["assessment_scores"]
     result = st.session_state["assessment_result"]
-    birth_element = st.session_state["assessment_birth_element"]
     recommendation_summary = st.session_state[
         "assessment_recommendation_summary"
     ]
+    birth_element = st.session_state.get(
+        "assessment_birth_element",
+        "earth"
+    )
     st.markdown('<div class="section-header" style="font-size:1.85rem;">ผลการประเมิน</div><div class="section-description">สรุปจากคำตอบของคุณและธาตุเกิดตามเดือนเกิด</div>', unsafe_allow_html=True)
     render_main_result(result, birth_element)
     st.markdown('<div class="section-header">คะแนนธาตุทั้ง 4</div>', unsafe_allow_html=True)
@@ -676,8 +669,6 @@ def main() -> None:
     st.dataframe(ranking_data, width="stretch", hide_index=True)
     
     render_food_recommendations(recommendation_summary)
-
-    render_rag_section()
 
 if __name__ == "__main__":
     main()
