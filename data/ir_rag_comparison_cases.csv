@@ -1,0 +1,11 @@
+case_id,query,comparison_type,primary_element,secondary_element,active_elements,category,top_k
+C001,ธาตุดินควรกินอาหารอะไร,single,earth,,earth,food,5
+C002,ธาตุน้ำควรกินอาหารอะไร,single,water,,water,food,5
+C003,ธาตุลมควรกินอาหารอะไร,single,wind,,wind,food,5
+C004,ธาตุไฟควรกินอาหารอะไร,single,fire,,fire,food,5
+C005,ธาตุดินมีเมนูอะไรแนะนำ,single,earth,,earth,menu,5
+C006,ธาตุน้ำมีเมนูอะไรแนะนำ,single,water,,water,menu,5
+C007,ธาตุลมมีเมนูอะไรแนะนำ,single,wind,,wind,menu,5
+C008,ธาตุไฟมีเมนูอะไรแนะนำ,single,fire,,fire,menu,5
+C009,ฉันควรกินอาหารอะไร,mixed,water,earth,water|earth,food,5
+C010,มีเมนูอะไรแนะนำบ้าง,mixed,water,earth,water|earth,menu,5
