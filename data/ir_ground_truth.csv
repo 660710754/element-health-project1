@@ -1,0 +1,7 @@
+query_id,query,relevant_elements
+Q001,อาหารธาตุไฟ,fire
+Q002,อาหารธาตุน้ำ,water
+Q003,อาหารธาตุดิน,earth
+Q004,อาหารธาตุลม,wind
+Q005,อาหารธาตุไฟและธาตุน้ำ,fire|water
+Q006,อาหารธาตุดินและธาตุน้ำ,earth|water
