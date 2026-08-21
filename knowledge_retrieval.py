@@ -71,44 +71,42 @@ KNOWLEDGE_TYPE_NAMES_TH = {
 # Intent Keywords
 # =========================================================
 
-INTENT_KEYWORDS = {
+WARNING_KEYWORDS = [
+    "หลีกเลี่ยง",
+    "ควรระวัง",
+    "ระวัง",
+    "ไม่ควรกิน",
+    "ไม่ควรรับประทาน",
+    "ข้อควรระวัง",
+]
 
-    "warning": [
-        "หลีกเลี่ยง",
-        "ควรระวัง",
-        "ระวัง",
-        "ไม่ควรกิน",
-        "ไม่ควรรับประทาน",
-        "ข้อควรระวัง",
-    ],
 
-    "menu": [
-        "เมนู",
-        "เมนูอาหาร",
-        "ทำอาหาร",
-        "เมนูแนะนำ",
-        "เมนูอะไร",
-    ],
+MENU_KEYWORDS = [
+    "เมนู",
+    "เมนูอาหาร",
+    "ทำอาหาร",
+    "เมนูแนะนำ",
+    "เมนูอะไร",
+]
 
-    "food": [
-        "ควรกิน",
-        "กินอะไร",
-        "ควรรับประทาน",
-        "อาหารอะไร",
-        "อาหารที่เหมาะ",
-        "อาหารแนะนำ",
-        "ควรกินอะไร",
-    ],
 
-    "profile": [
-        "ลักษณะ",
-        "ลักษณะธาตุ",
-        "เป็นอย่างไร",
-        "อาการ",
-        "บุคลิก",
-        "นิสัย",
-    ],
-}
+FOOD_KEYWORDS = [
+    "ควรกิน",
+    "กินอะไร",
+    "ควรรับประทาน",
+    "อาหารที่เหมาะ",
+    "อาหารแนะนำ",
+]
+
+
+PROFILE_KEYWORDS = [
+    "ลักษณะ",
+    "ลักษณะธาตุ",
+    "เป็นอย่างไร",
+    "อาการ",
+    "บุคลิก",
+    "นิสัย",
+]
 
 
 # =========================================================
@@ -170,7 +168,6 @@ def detect_explicit_elements(
 
     detected: list[str] = []
 
-
     for element in ELEMENTS:
 
         element_name_th = (
@@ -183,8 +180,26 @@ def detect_explicit_elements(
                 element
             )
 
-
     return detected
+
+
+# =========================================================
+# Keyword Detection Helper
+# =========================================================
+
+def contains_any_keyword(
+    query: str,
+    keywords: list[str],
+) -> bool:
+    """
+    ตรวจว่า query มี keyword
+    อย่างน้อยหนึ่งคำหรือไม่
+    """
+
+    return any(
+        keyword in query
+        for keyword in keywords
+    )
 
 
 # =========================================================
@@ -197,30 +212,95 @@ def detect_query_intents(
     """
     ตรวจ intent ของคำถาม
 
-    รองรับมากกว่า 1 intent
-
-    ตัวอย่าง:
-    "ควรกินอะไรและควรหลีกเลี่ยงอะไร"
-
+    รองรับหลาย intent เช่น:
+    "ธาตุน้ำควรกินอะไร และควรหลีกเลี่ยงอะไร"
     -> ["warning", "food"]
+
+    Intent Priority:
+    - คำว่า "หลีกเลี่ยงอาหารอะไร"
+      ถือเป็น warning ไม่ใช่ food
+    - food จะถูกตรวจจากคำเชิงแนะนำ
+      เช่น "ควรกิน", "กินอะไร"
     """
+
+    query = query.strip()
+
+    if not query:
+        return []
 
     detected: list[str] = []
 
+    has_warning = contains_any_keyword(
+        query,
+        WARNING_KEYWORDS,
+    )
 
-    for knowledge_type, keywords in (
-        INTENT_KEYWORDS.items()
-    ):
+    has_menu = contains_any_keyword(
+        query,
+        MENU_KEYWORDS,
+    )
 
-        for keyword in keywords:
+    has_food = contains_any_keyword(
+        query,
+        FOOD_KEYWORDS,
+    )
 
-            if keyword in query:
+    has_profile = contains_any_keyword(
+        query,
+        PROFILE_KEYWORDS,
+    )
 
-                detected.append(
-                    knowledge_type
-                )
 
-                break
+    # -----------------------------------------------------
+    # Warning
+    # -----------------------------------------------------
+
+    if has_warning:
+
+        detected.append(
+            "warning"
+        )
+
+
+    # -----------------------------------------------------
+    # Menu
+    # -----------------------------------------------------
+
+    if has_menu:
+
+        detected.append(
+            "menu"
+        )
+
+
+    # -----------------------------------------------------
+    # Food
+    #
+    # สำคัญ:
+    # ไม่ใช้คำกว้าง ๆ เช่น "อาหารอะไร"
+    # เพราะจะทำให้:
+    #
+    # "ควรหลีกเลี่ยงอาหารอะไร"
+    #
+    # ถูกตีเป็น warning + food
+    # -----------------------------------------------------
+
+    if has_food:
+
+        detected.append(
+            "food"
+        )
+
+
+    # -----------------------------------------------------
+    # Profile
+    # -----------------------------------------------------
+
+    if has_profile:
+
+        detected.append(
+            "profile"
+        )
 
 
     return detected
@@ -241,16 +321,13 @@ def load_element_knowledge(
         element
     )
 
-
     element_dir = (
         KNOWLEDGE_DIR
         /
         element
     )
 
-
     knowledge: dict[str, str] = {}
-
 
     for knowledge_type in KNOWLEDGE_TYPES:
 
@@ -260,13 +337,11 @@ def load_element_knowledge(
             f"{element}_{knowledge_type}.txt"
         )
 
-
         knowledge[
             knowledge_type
         ] = load_text_file(
             file_path
         )
-
 
     return knowledge
 
@@ -294,7 +369,6 @@ def is_question_like_chunk(
         .strip("\"'")
     )
 
-
     question_patterns = [
         "อะไร",
         "อย่างไร",
@@ -304,14 +378,12 @@ def is_question_like_chunk(
         "มั้ย",
     ]
 
-
     if len(cleaned) <= 100:
 
         for pattern in question_patterns:
 
             if pattern in cleaned:
                 return True
-
 
     return False
 
@@ -325,14 +397,7 @@ def is_heading_like(
 ) -> bool:
     """
     ตรวจข้อความที่มีลักษณะเป็นหัวข้อสั้น ๆ
-
-    ตัวอย่าง:
-    ธาตุน้ำ:
-    ธาตุน้ำ (อาโปธาตุ)
-    อาหารที่เหมาะสม
-    ข้อควรระวัง
-
-    หัวข้อเหล่านี้ไม่ควรถูกสร้างเป็น chunk เดี่ยว
+    เพื่อไม่ให้สร้างเป็น chunk เดี่ยว
     """
 
     cleaned = (
@@ -341,30 +406,21 @@ def is_heading_like(
         .strip("\"'")
     )
 
-
     if not cleaned:
         return False
 
-
-    # ยาวเกินไป ไม่น่าจะเป็น heading
     if len(cleaned) > 80:
         return False
 
-
-    # ถ้ามีหลายบรรทัดมาก
-    # ไม่น่าจะเป็น heading
     lines = [
         line
         for line in cleaned.splitlines()
         if line.strip()
     ]
 
-
     if len(lines) > 2:
         return False
 
-
-    # หัวข้อที่พบบ่อยใน knowledge
     heading_keywords = [
         "ธาตุดิน",
         "ธาตุน้ำ",
@@ -384,20 +440,15 @@ def is_heading_like(
         "รส",
     ]
 
-
-    # ลงท้ายด้วย :
     if cleaned.endswith(":"):
         return True
 
-
-    # ข้อความสั้นมากและมี keyword แบบหัวข้อ
     if len(cleaned) <= 40:
 
         for keyword in heading_keywords:
 
             if keyword in cleaned:
                 return True
-
 
     return False
 
@@ -410,7 +461,8 @@ def is_useful_chunk(
     text: str,
 ) -> bool:
     """
-    ตรวจว่า chunk มีข้อมูลมากพอสำหรับ retrieval/RAG หรือไม่
+    ตรวจว่า chunk มีข้อมูลมากพอ
+    สำหรับ Retrieval / RAG หรือไม่
     """
 
     cleaned = (
@@ -419,29 +471,24 @@ def is_useful_chunk(
         .strip("\"'")
     )
 
-
     if not cleaned:
         return False
 
-
-    # ไม่เอาตัวอย่างคำถาม
     if is_question_like_chunk(
         cleaned
     ):
         return False
 
-
-    # ไม่เอาหัวข้อเดี่ยว
     if is_heading_like(
         cleaned
     ):
         return False
 
-
-    # สั้นเกินไป
-    if len(cleaned) < MIN_USEFUL_CHUNK_CHARS:
+    if (
+        len(cleaned)
+        < MIN_USEFUL_CHUNK_CHARS
+    ):
         return False
-
 
     return True
 
@@ -465,18 +512,15 @@ def split_large_part(
         if line.strip()
     ]
 
-
     chunks: list[str] = []
 
     current_chunk = ""
-
 
     for line in lines:
 
         candidate = (
             f"{current_chunk}\n{line}"
         ).strip()
-
 
         if (
             current_chunk
@@ -493,13 +537,11 @@ def split_large_part(
 
             current_chunk = candidate
 
-
     if current_chunk:
 
         chunks.append(
             current_chunk
         )
-
 
     return chunks
 
@@ -513,12 +555,11 @@ def split_text_into_chunks(
     max_chars: int = MAX_CHUNK_CHARS,
 ) -> list[str]:
     """
-    แบ่ง knowledge เป็น chunks
+    แบ่ง Knowledge เป็น chunks
 
     หลักการ:
     1. ใช้บรรทัดว่างแบ่ง section
-    2. ถ้า section เป็น heading สั้น ๆ
-       ให้รวมกับ section ถัดไป
+    2. ถ้าเป็น heading ให้รวมกับ section ถัดไป
     3. ไม่สร้าง heading เป็น chunk เดี่ยว
     4. ไม่เอาตัวอย่างคำถาม
     5. กรอง chunk ที่สั้นเกินไป
@@ -527,13 +568,11 @@ def split_text_into_chunks(
     if not text:
         return []
 
-
     raw_parts = [
         part.strip()
         for part in text.split("\n\n")
         if part.strip()
     ]
-
 
     merged_parts: list[str] = []
 
@@ -546,13 +585,10 @@ def split_text_into_chunks(
 
     for part in raw_parts:
 
-        # ตัวอย่างคำถาม
-        # ไม่เอาเข้าฐาน retrieval
         if is_question_like_chunk(
             part
         ):
             continue
-
 
         if is_heading_like(
             part
@@ -569,7 +605,6 @@ def split_text_into_chunks(
                 pending_heading = part
 
             continue
-
 
         if pending_heading:
 
@@ -590,17 +625,11 @@ def split_text_into_chunks(
             )
 
 
-    # ถ้าเหลือ heading ตัวเดียวท้ายไฟล์
-    # ไม่สร้างเป็น chunk เพราะไม่มีเนื้อหา
-    pending_heading = ""
-
-
     # -----------------------------------------------------
     # Split Oversized Sections
     # -----------------------------------------------------
 
     chunks: list[str] = []
-
 
     for part in merged_parts:
 
@@ -616,14 +645,10 @@ def split_text_into_chunks(
 
             continue
 
-
-        large_chunks = (
-            split_large_part(
-                text=part,
-                max_chars=max_chars,
-            )
+        large_chunks = split_large_part(
+            text=part,
+            max_chars=max_chars,
         )
-
 
         for chunk in large_chunks:
 
@@ -634,7 +659,6 @@ def split_text_into_chunks(
                 chunks.append(
                     chunk
                 )
-
 
     return chunks
 
@@ -647,8 +671,8 @@ def build_knowledge_documents(
     elements: list[str],
 ) -> list[dict[str, Any]]:
     """
-    เปลี่ยน knowledge files
-    เป็น retrieval documents
+    เปลี่ยน Knowledge files
+    เป็น Retrieval Documents
 
     1 document = 1 useful chunk
     """
@@ -657,20 +681,17 @@ def build_knowledge_documents(
         dict[str, Any]
     ] = []
 
-
     for element in elements:
 
         validate_element(
             element
         )
 
-
         element_knowledge = (
             load_element_knowledge(
                 element
             )
         )
-
 
         for knowledge_type, text in (
             element_knowledge.items()
@@ -679,15 +700,13 @@ def build_knowledge_documents(
             if not text:
                 continue
 
-
             chunks = split_text_into_chunks(
                 text
             )
 
-
             for chunk_index, chunk in enumerate(
                 chunks,
-                start=1
+                start=1,
             ):
 
                 documents.append(
@@ -725,7 +744,6 @@ def build_knowledge_documents(
                     }
                 )
 
-
     return documents
 
 
@@ -741,8 +759,8 @@ def calculate_element_boost(
     """
     คำนวณน้ำหนักของธาตุ
 
-    ลำดับความสำคัญ:
-    1. ธาตุที่ผู้ใช้ระบุในคำถามโดยตรง
+    Priority:
+    1. ธาตุที่ระบุในคำถามโดยตรง
     2. Primary element
     3. Secondary element
     """
@@ -750,10 +768,7 @@ def calculate_element_boost(
     boost = 0.0
 
 
-    # -----------------------------------------------------
     # Explicit Element
-    # -----------------------------------------------------
-
     if element in explicit_elements:
 
         boost += (
@@ -761,31 +776,30 @@ def calculate_element_boost(
         )
 
 
-    # -----------------------------------------------------
-    # Primary Element
-    # -----------------------------------------------------
-
+    # Primary
     if active_elements:
 
-        if element == active_elements[0]:
+        if (
+            element
+            == active_elements[0]
+        ):
 
             boost += (
                 PRIMARY_ELEMENT_BOOST
             )
 
 
-    # -----------------------------------------------------
-    # Secondary Element
-    # -----------------------------------------------------
-
+    # Secondary
     if len(active_elements) >= 2:
 
-        if element == active_elements[1]:
+        if (
+            element
+            == active_elements[1]
+        ):
 
             boost += (
                 SECONDARY_ELEMENT_BOOST
             )
-
 
     return boost
 
@@ -799,18 +813,266 @@ def calculate_type_boost(
     query_intents: list[str],
 ) -> float:
     """
-    เพิ่มคะแนนให้ knowledge type
-    ที่ตรงกับ intent ของคำถาม
+    เพิ่มคะแนนให้ Knowledge Type
+    ที่ตรงกับ Intent
     """
 
-    if knowledge_type in query_intents:
+    if (
+        knowledge_type
+        in query_intents
+    ):
 
         return (
             KNOWLEDGE_TYPE_BOOST
         )
 
-
     return 0.0
+
+
+# =========================================================
+# Find Best Candidate for Element
+# =========================================================
+
+def find_best_element_candidate(
+    ranked_results: list[dict[str, Any]],
+    element: str,
+    query_intents: list[str],
+    selected_chunk_ids: set[str],
+) -> dict[str, Any] | None:
+    """
+    หา candidate ที่ดีที่สุด
+    สำหรับธาตุที่ยังไม่ปรากฏใน Top-K
+
+    Priority:
+    1. element ตรง
+    2. knowledge_type ตรง intent
+    3. retrieval_score สูง
+    """
+
+    candidates = [
+        item
+        for item in ranked_results
+        if (
+            item["element"] == element
+            and item["chunk_id"]
+            not in selected_chunk_ids
+        )
+    ]
+
+    if not candidates:
+        return None
+
+
+    # -----------------------------------------------------
+    # Prefer Type Matching Intent
+    # -----------------------------------------------------
+
+    if query_intents:
+
+        intent_candidates = [
+            item
+            for item in candidates
+            if (
+                item["knowledge_type"]
+                in query_intents
+            )
+        ]
+
+        if intent_candidates:
+
+            return intent_candidates[0]
+
+
+    return candidates[0]
+
+
+# =========================================================
+# Mixed Element Coverage Safeguard
+# =========================================================
+
+def ensure_mixed_element_coverage(
+    ranked_results: list[dict[str, Any]],
+    active_elements: list[str],
+    query_intents: list[str],
+    top_k: int,
+) -> list[dict[str, Any]]:
+    """
+    ป้องกันกรณี Mixed Retrieval
+    ที่ Top-K ถูกครองโดยธาตุเดียวทั้งหมด
+
+    ตัวอย่าง:
+
+    Active:
+        water + earth
+
+    Raw Top 5:
+        water
+        water
+        water
+        water
+        water
+
+    หลัง safeguard:
+        water
+        water
+        water
+        water
+        earth
+
+    หลักการ:
+    - ใช้เฉพาะเมื่อมีมากกว่า 1 active element
+    - ไม่เปลี่ยน Top-1 โดยไม่จำเป็น
+    - เลือก candidate ที่ตรง intent ก่อน
+    - แทนที่รายการท้าย ๆ จากธาตุที่มีมากกว่า 1 รายการ
+    """
+
+    if not ranked_results:
+        return []
+
+    selected = [
+        dict(item)
+        for item in ranked_results[
+            :top_k
+        ]
+    ]
+
+    if (
+        len(active_elements) <= 1
+        or top_k < len(
+            set(active_elements)
+        )
+    ):
+        return selected
+
+
+    required_elements = list(
+        dict.fromkeys(
+            active_elements
+        )
+    )
+
+
+    for required_element in (
+        required_elements
+    ):
+
+        found_elements = [
+            item["element"]
+            for item in selected
+        ]
+
+
+        if (
+            required_element
+            in found_elements
+        ):
+            continue
+
+
+        selected_chunk_ids = {
+            item["chunk_id"]
+            for item in selected
+        }
+
+
+        candidate = (
+            find_best_element_candidate(
+                ranked_results=(
+                    ranked_results
+                ),
+                element=(
+                    required_element
+                ),
+                query_intents=(
+                    query_intents
+                ),
+                selected_chunk_ids=(
+                    selected_chunk_ids
+                ),
+            )
+        )
+
+
+        if candidate is None:
+            continue
+
+
+        # -------------------------------------------------
+        # Count Current Elements
+        # -------------------------------------------------
+
+        element_counts: dict[
+            str,
+            int
+        ] = {}
+
+        for item in selected:
+
+            element = item[
+                "element"
+            ]
+
+            element_counts[
+                element
+            ] = (
+                element_counts.get(
+                    element,
+                    0,
+                )
+                + 1
+            )
+
+
+        # -------------------------------------------------
+        # Find Replacement
+        #
+        # เริ่มจากท้าย Top-K
+        # และเลือกธาตุที่มีมากกว่า 1 chunk
+        # -------------------------------------------------
+
+        replacement_index = None
+
+
+        for index in range(
+            len(selected) - 1,
+            -1,
+            -1,
+        ):
+
+            current_element = (
+                selected[index][
+                    "element"
+                ]
+            )
+
+
+            if (
+                element_counts.get(
+                    current_element,
+                    0,
+                )
+                > 1
+            ):
+
+                replacement_index = (
+                    index
+                )
+
+                break
+
+
+        if replacement_index is None:
+            continue
+
+
+        selected[
+            replacement_index
+        ] = dict(
+            candidate
+        )
+
+
+    return selected
 
 
 # =========================================================
@@ -830,9 +1092,12 @@ def retrieve_knowledge(
         + Element Boost
         + Knowledge Type Boost
 
+    หลัง Ranking:
+        Mixed Element Coverage Safeguard
+
     active_elements:
-    index 0 = primary
-    index 1 = secondary (ถ้ามี)
+        index 0 = primary
+        index 1 = secondary
     """
 
     if top_k <= 0:
@@ -851,6 +1116,14 @@ def retrieve_knowledge(
 
     if not active_elements:
         return []
+
+
+    # Remove duplicated element names
+    active_elements = list(
+        dict.fromkeys(
+            active_elements
+        )
+    )
 
 
     for element in active_elements:
@@ -998,7 +1271,7 @@ def retrieve_knowledge(
             "tfidf_score"
         ] = round(
             tfidf_score,
-            4
+            4,
         )
 
 
@@ -1006,7 +1279,7 @@ def retrieve_knowledge(
             "element_boost"
         ] = round(
             element_boost,
-            4
+            4,
         )
 
 
@@ -1014,7 +1287,7 @@ def retrieve_knowledge(
             "type_boost"
         ] = round(
             type_boost,
-            4
+            4,
         )
 
 
@@ -1022,7 +1295,7 @@ def retrieve_knowledge(
             "retrieval_score"
         ] = round(
             final_score,
-            4
+            4,
         )
 
 
@@ -1032,7 +1305,7 @@ def retrieve_knowledge(
 
 
     # -----------------------------------------------------
-    # Sort Results
+    # Sort Raw Ranking
     # -----------------------------------------------------
 
     ranked_results.sort(
@@ -1053,9 +1326,27 @@ def retrieve_knowledge(
     )
 
 
-    return ranked_results[
-        :top_k
-    ]
+    # -----------------------------------------------------
+    # Mixed Element Coverage Safeguard
+    # -----------------------------------------------------
+
+    final_results = (
+        ensure_mixed_element_coverage(
+            ranked_results=(
+                ranked_results
+            ),
+            active_elements=(
+                active_elements
+            ),
+            query_intents=(
+                query_intents
+            ),
+            top_k=top_k,
+        )
+    )
+
+
+    return final_results
 
 
 # =========================================================
@@ -1074,7 +1365,9 @@ def build_knowledge_context(
 
     results = retrieve_knowledge(
         query=query,
-        active_elements=active_elements,
+        active_elements=(
+            active_elements
+        ),
         top_k=top_k,
     )
 
@@ -1088,7 +1381,7 @@ def build_knowledge_context(
 
     for index, item in enumerate(
         results,
-        start=1
+        start=1,
     ):
 
         context_parts.append(
@@ -1131,161 +1424,135 @@ if __name__ == "__main__":
     )
 
 
-    test_query = (
-        "ธาตุน้ำควรกินอะไร "
-        "และควรหลีกเลี่ยงอะไร"
-    )
+    test_cases = [
 
+        {
+            "name": "Warning Intent Priority",
 
-    # ตัวแรก = primary
-    # ตัวที่สอง = secondary
-    test_elements = [
-        "water",
-        "earth",
+            "query": (
+                "ธาตุน้ำควรหลีกเลี่ยงอาหารอะไร"
+            ),
+
+            "elements": [
+                "water"
+            ],
+        },
+
+        {
+            "name": "Combined Food + Warning",
+
+            "query": (
+                "ธาตุน้ำควรกินอะไร "
+                "และควรหลีกเลี่ยงอะไร"
+            ),
+
+            "elements": [
+                "water"
+            ],
+        },
+
+        {
+            "name": "Mixed Element Food",
+
+            "query": (
+                "ฉันควรกินอาหารอะไร"
+            ),
+
+            "elements": [
+                "water",
+                "earth",
+            ],
+        },
+
+        {
+            "name": "Mixed Element Menu",
+
+            "query": (
+                "มีเมนูอะไรแนะนำบ้าง"
+            ),
+
+            "elements": [
+                "water",
+                "earth",
+            ],
+        },
     ]
 
 
-    print(
-        f"QUERY: {test_query}"
-    )
+    for case in test_cases:
 
+        print()
 
-    print(
-        "ACTIVE ELEMENTS: "
-        + ", ".join(
-            test_elements
+        print(
+            "=" * 70
         )
-    )
 
-
-    explicit_elements = (
-        detect_explicit_elements(
-            test_query
+        print(
+            f"CASE: "
+            f"{case['name']}"
         )
-    )
 
-
-    query_intents = (
-        detect_query_intents(
-            test_query
+        print(
+            f"QUERY: "
+            f"{case['query']}"
         )
-    )
 
-
-    print(
-        "EXPLICIT ELEMENTS: "
-        + (
-            ", ".join(
-                explicit_elements
+        print(
+            "ACTIVE ELEMENTS: "
+            + ", ".join(
+                case[
+                    "elements"
+                ]
             )
-            if explicit_elements
-            else "-"
         )
-    )
 
-
-    print(
-        "QUERY INTENTS: "
-        + (
-            ", ".join(
-                query_intents
+        intents = (
+            detect_query_intents(
+                case[
+                    "query"
+                ]
             )
-            if query_intents
-            else "-"
         )
-    )
-
-
-    print()
-
-
-    results = retrieve_knowledge(
-        query=test_query,
-        active_elements=test_elements,
-        top_k=5,
-    )
-
-
-    for index, item in enumerate(
-        results,
-        start=1
-    ):
 
         print(
-            "-" * 70
+            "QUERY INTENTS: "
+            + (
+                ", ".join(
+                    intents
+                )
+                if intents
+                else "-"
+            )
         )
-
 
         print(
-            f"{index}. "
-            f"{item['source_file']}"
+            "=" * 70
         )
 
 
-        print(
-            f"   element = "
-            f"{item['element']}"
+        results = retrieve_knowledge(
+            query=case[
+                "query"
+            ],
+            active_elements=case[
+                "elements"
+            ],
+            top_k=5,
         )
 
 
-        print(
-            f"   type = "
-            f"{item['knowledge_type']}"
-        )
+        for index, item in enumerate(
+            results,
+            start=1,
+        ):
 
-
-        print(
-            f"   tfidf = "
-            f"{item['tfidf_score']}"
-        )
-
-
-        print(
-            f"   element_boost = "
-            f"{item['element_boost']}"
-        )
-
-
-        print(
-            f"   type_boost = "
-            f"{item['type_boost']}"
-        )
-
-
-        print(
-            f"   final_score = "
-            f"{item['retrieval_score']}"
-        )
-
-
-        print(
-            f"   text = "
-            f"{item['text'][:300]}"
-        )
-
-
-    print()
-
-    print(
-        "=" * 70
-    )
-
-    print(
-        "RAG Context"
-    )
-
-    print(
-        "=" * 70
-    )
-
-
-    context = build_knowledge_context(
-        query=test_query,
-        active_elements=test_elements,
-        top_k=5,
-    )
-
-
-    print(
-        context
-    )
+            print(
+                f"{index}. "
+                f"{item['source_file']} "
+                f"| element="
+                f"{item['element']} "
+                f"| type="
+                f"{item['knowledge_type']} "
+                f"| score="
+                f"{item['retrieval_score']}"
+            )

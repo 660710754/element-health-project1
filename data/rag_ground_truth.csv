@@ -1,0 +1,23 @@
+query_id,query,primary_element,secondary_element,expected_elements,expected_intents,expected_source_types
+R001,ธาตุดินมีลักษณะอย่างไร,,,earth,profile,profile
+R002,ธาตุน้ำมีลักษณะอย่างไร,,,water,profile,profile
+R003,ธาตุลมมีลักษณะอย่างไร,,,wind,profile,profile
+R004,ธาตุไฟมีลักษณะอย่างไร,,,fire,profile,profile
+R005,ธาตุดินควรกินอาหารอะไร,,,earth,food,food
+R006,ธาตุน้ำควรกินอาหารอะไร,,,water,food,food
+R007,ธาตุลมควรกินอาหารอะไร,,,wind,food,food
+R008,ธาตุไฟควรกินอาหารอะไร,,,fire,food,food
+R009,ธาตุดินมีเมนูอะไรแนะนำ,,,earth,menu,menu
+R010,ธาตุน้ำมีเมนูอะไรแนะนำ,,,water,menu,menu
+R011,ธาตุลมมีเมนูอะไรแนะนำ,,,wind,menu,menu
+R012,ธาตุไฟมีเมนูอะไรแนะนำ,,,fire,menu,menu
+R013,ธาตุดินควรหลีกเลี่ยงอาหารอะไร,,,earth,warning,warning
+R014,ธาตุน้ำควรหลีกเลี่ยงอาหารอะไร,,,water,warning,warning
+R015,ธาตุลมควรหลีกเลี่ยงอาหารอะไร,,,wind,warning,warning
+R016,ธาตุไฟควรหลีกเลี่ยงอาหารอะไร,,,fire,warning,warning
+R017,ธาตุน้ำควรกินอะไร และควรหลีกเลี่ยงอะไร,,,water,warning|food,warning|food
+R018,ธาตุไฟควรกินอะไร และควรหลีกเลี่ยงอะไร,,,fire,warning|food,warning|food
+R019,ฉันควรกินอาหารอะไร,water,earth,water|earth,food,food
+R020,มีเมนูอะไรแนะนำบ้าง,water,earth,water|earth,menu,menu
+R021,ฉันควรหลีกเลี่ยงอาหารอะไร,water,earth,water|earth,warning,warning
+R022,ธาตุไฟควรหลีกเลี่ยงอะไร,water,earth,fire,warning,warning
