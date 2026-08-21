@@ -1,0 +1,111 @@
+﻿case_id,query,comparison_type,primary_element,secondary_element,active_elements,category,top_k,ir_items,ir_elements,ir_categories,rag_answer,rag_sources,rag_active_elements,rag_query_intents,rag_status
+C001,ธาตุดินควรกินอาหารอะไร,single,earth,,earth,food,5,ฝรั่ง | ฟักทอง | เงาะ | เผือก | มังคุด,earth | earth | earth | earth | earth,fruit | fruit | fruit | fruit | fruit,ธาตุดินควรกินอาหารที่มีรสฝาด หวาน มัน เค็ม,earth_food.txt | earth_profile.txt,earth,food,success
+C002,ธาตุน้ำควรกินอาหารอะไร,single,water,,water,food,5,ส้ม | มะยม | มะกอก | มะนาว | มะดัน,water | water | water | water | water,fruit | fruit | fruit | fruit | fruit,ธาตุน้ำควรกินอาหารที่มีรสเปรี้ยวและรสขม,water_food.txt | water_profile.txt,water,food,success
+C003,ธาตุลมควรกินอาหารอะไร,single,wind,,wind,food,5,ข่า | ขิง | ชะพลู | สมอไทย | กานพลู,wind | wind | wind | wind | wind,vegetable_herb | vegetable_herb | vegetable_herb | vegetable_herb | vegetable_herb,ธาตุลมควรกินอาหารที่มีรสเผ็ดร้อน เช่น อาหารจากเครื่องเทศและพืชกลิ่นหอม,wind_food.txt | wind_profile.txt,wind,food,success
+C004,ธาตุไฟควรกินอาหารอะไร,single,fire,,fire,food,5,มะระ | ตำลึง | มะรุม | แตงโม | พุทรา,fire | fire | fire | fire | fire,vegetable_herb | vegetable_herb | vegetable_herb | fruit | fruit,ธาตุไฟควรกินอาหารที่มีรสขม เย็น และจืด,fire_profile.txt | fire_food.txt,fire,food,success
+C005,ธาตุดินมีเมนูอะไรแนะนำ,single,earth,,earth,menu,5,แกงป่า | กล้วยดิบ | คั่วขนุน | สะตอผัดกุ้ง | ดอกงิ้วทอดไข่,earth | earth | earth | earth | earth,menu | menu | menu | menu | menu,"เมนูอาหารสำหรับธาตุดิน:
+
+- ผักกูดผัดน้ำมันงา  
+- แกงป่า  
+- ดอกงิ้วทอดไข่  
+- กล้วยดิบคั่วขนุน  
+- สะตอผัดกุ้ง  
+- สมอไทยผัดน้ำมันหอย  
+
+หมวดหมู่เมนู:  
+- อาหารประเภทผัด  
+- อาหารประเภทแกง  
+- อาหารจากผักพื้นบ้าน  
+- อาหารจากผลไม้และพืชอาหาร",earth_menu.txt | earth_profile.txt | earth_food.txt,earth,menu,success
+C006,ธาตุน้ำมีเมนูอะไรแนะนำ,single,water,,water,menu,5,แกงอ่อม | ห่อหมกใบยอ | แกงส้มดอกแค | ผัดมะระใส่ไข่ | แกงป่าสะเดาปิ้ง,water | water | water | water | water,menu | menu | menu | menu | menu,"เมนูอาหารธาตุน้ำ:
+
+- เครื่องดื่ม:
+  - น้ำมะนาว
+  - น้ำกระเจี๊ยบ
+  - น้ำมะเฟือง
+  - น้ำมะขาม
+  - น้ำใบบัวบก
+  - น้ำมะเขือเทศ
+  - น้ำสับปะรด",water_menu.txt | water_food.txt | water_profile.txt,water,menu,success
+C007,ธาตุลมมีเมนูอะไรแนะนำ,single,wind,,wind,menu,5,ต้มข่าไก่ | ต้มยำกุ้ง | สมอไทยจิ้มน้ำพริก | แกงหอยขมใส่ใบชะพลู | แกงปลาดุกใส่กระทือ,wind | wind | wind | wind | wind,menu | menu | menu | menu | menu,"เมนูอาหารสำหรับธาตุลม:
+
+- เมนูอาหาร:
+  - ต้มข่าไก่
+  - ต้มยำกุ้ง
+  - แกงปลาดุกใส่กระทือ
+  - แกงหอยขมใส่ใบชะพลู
+  - สมอไทยทุบ ๆ ผัดน้ำมัน
+
+- อาหารว่าง:
+  - บัวลอยน้ำขิง
+  - เต้าฮวย
+  - เต้าทึง
+  - มันต้มขิง
+  - ถั่วเขียวต้มขิง
+  - เมี่ยงคำ
+
+- เครื่องดื่ม:
+  - น้ำขิง
+  - น้ำตะไคร้
+  - น้ำข่า
+  - น้ำกานพลู",wind_menu.txt,wind,menu,success
+C008,ธาตุไฟมีเมนูอะไรแนะนำ,single,fire,,fire,menu,5,แกงคูน | ผัดผักบุ้ง | แกงจืดมะระ | ยำผักกระเฉด | แกงจืดตำลึง,fire | fire | fire | fire | fire,menu | menu | menu | menu | menu,"เมนูอาหารสำหรับธาตุไฟ:
+
+- ผัดผักบุ้ง  
+- แกงจืดตำลึง  
+- ผัดสายบัวใส่พริก  
+- แกงส้มมะรุม  
+- แกงคูน  
+- แกงจืดมะระ  
+- แกงส้มหยวกกล้วยใส่ปลาช่อน  
+- ยำผักกระเฉด  
+- ผักหนามผัดน้ำมันหอย  
+
+อาหารว่างสำหรับธาตุไฟ:  
+- ซ่าหริ่ม  
+- ไอศกรีม  
+- น้ำแข็งไส  
+
+เครื่องดื่มสำหรับธาตุไฟ:  
+ไม่มีข้อมูลเฉพาะเจาะจงในบริบทนี้",fire_menu.txt | fire_food.txt,fire,menu,success
+C009,ฉันควรกินอาหารอะไร,mixed,water,earth,water | earth,food,5,ส้ม | มะยม | มะกอก | มะนาว | ฝรั่ง,water | water | water | water | earth,fruit | fruit | fruit | fruit | fruit,"สำหรับผู้มีแนวโน้มธาตุน้ำเด่น และธาตุดินรอง
+
+อาหารที่เหมาะสมคืออาหารรสเปรี้ยวและรสขม โดยเน้นจากผักพื้นบ้านและผลไม้ที่มีรสเปรี้ยว",water_food.txt | earth_food.txt,water | earth,food,success
+C010,มีเมนูอะไรแนะนำบ้าง,mixed,water,earth,water | earth,menu,5,แกงอ่อม | ห่อหมกใบยอ | แกงส้มดอกแค | ผัดมะระใส่ไข่ | แกงป่า,water | water | water | water | earth,menu | menu | menu | menu | menu,"เมนูอาหารสำหรับธาตุน้ำ:
+
+- แกงขี้เหล็กปลาย่าง  
+- แกงส้มดอกแค  
+- แกงอ่อม  
+- ผัดมะระใส่ไข่  
+- ห่อหมกใบยอ  
+- แกงป่าสะเดาใส่ปลาหมอ  
+- แกงป่าสะเดาปิ้ง  
+- ต้มโคล้งยอดมะขาม  
+- ใบยอผัดน้ำมันหอยใส่หมูบด  
+
+อาหารว่างธาตุน้ำ:
+
+- ไม่มีข้อมูลเฉพาะเจาะจงใน CONTEXT  
+
+เครื่องดื่มธาตุน้ำ:
+
+- ไม่มีข้อมูลเฉพาะเจาะจงใน CONTEXT  
+
+เมนูอาหารสำหรับธาตุดิน:
+
+- ผักกูดผัดน้ำมันงา  
+- แกงป่า  
+- ดอกงิ้วทอดไข่  
+- กล้วยดิบคั่วขนุน  
+- สะตอผัดกุ้ง  
+- สมอไทยผัดน้ำมันหอย  
+
+อาหารว่างธาตุดิน:
+
+- ไม่มีข้อมูลเฉพาะเจาะจงใน CONTEXT  
+
+เครื่องดื่มธาตุดิน:
+
+- ไม่มีข้อมูลเฉพาะเจาะจงใน CONTEXT  
+
+ข้อมูลนี้เป็นแนวทางตามองค์ความรู้ธาตุเจ้าเรือน ไม่สามารถใช้แทนการวินิจฉัยหรือคำแนะนำจากแพทย์",water_menu.txt | earth_menu.txt,water | earth,menu,success
