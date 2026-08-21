@@ -1,4 +1,5 @@
 from __future__ import annotations
+from food_retrieval import retrieve_foods_by_element
 
 import csv
 import random
@@ -206,8 +207,8 @@ def analyze_element_relationship(
 
     mode:
     - equal: คะแนนเท่ากัน
-    - mixed: คะแนนต่างกันมากกว่า 0 แต่ไม่เกิน 3 คะแนน
-    - primary_only: คะแนนต่างกันมากกว่า 3 คะแนน
+    - mixed: คะแนนต่างกันมากกว่า 0 แต่ไม่เกิน 1 คะแนน
+    - primary_only: คะแนนต่างกันมากกว่า 1 คะแนน
     """
 
     if mixed_threshold < 0:
@@ -264,7 +265,7 @@ def detect_close_elements(
     ฟังก์ชันรองรับโค้ดเดิม
 
     threshold ปัจจุบันหมายถึง "จำนวนคะแนน"
-    เช่น 3.0 คะแนน ไม่ใช่ร้อยละ
+    เช่น 1.0 คะแนน ไม่ใช่ร้อยละ
     """
 
     result = analyze_element_relationship(
@@ -293,8 +294,8 @@ def calculate_element_quotas(
 
     เมื่อ total_items = 4:
     - คะแนนเท่ากัน -> หลัก 2 + รอง 2
-    - ต่างกัน 0–3 คะแนน -> หลัก 3 + รอง 1
-    - ต่างกันมากกว่า 3 คะแนน -> หลัก 4 + รอง 0
+    - ต่างกัน 0–1 คะแนน -> หลัก 3 + รอง 1
+    - ต่างกันมากกว่า 1 คะแนน -> หลัก 4 + รอง 0
     """
 
     if total_items <= 0:
@@ -566,7 +567,6 @@ def recommend_foods(
             "limit ต้องมากกว่า 0"
         )
 
-    foods = load_foods()
     normalized = normalize_scores(scores)
 
     relationship = analyze_element_relationship(
@@ -601,18 +601,23 @@ def recommend_foods(
     ] = {}
 
     for element in target_elements:
-        element_foods = [
-            food
-            for food in foods
-            if (
-                food["recommendation_status"] == "recommended"
-                and food["recommended_element"] == element
-                and (
-                    allowed_categories is None
-                    or food["category"] in allowed_categories
-                )
-            )
-        ]
+
+        element_foods = retrieve_foods_by_element(
+            active_elements=[
+                element
+            ],
+            top_k=50,
+        )
+
+
+        if allowed_categories is not None:
+
+            element_foods = [
+                food
+                for food in element_foods
+                if food["category"]
+                in allowed_categories
+            ]
 
         prepared = [
             prepare_food_result(
@@ -628,7 +633,7 @@ def recommend_foods(
         # ลบชื่อซ้ำก่อน แล้วสุ่มลำดับรายการภายในธาตุ
         # เพื่อไม่ให้ผลลัพธ์เรียงตามตัวอักษรทุกครั้ง
         prepared = remove_duplicate_food_names(prepared)
-        random.shuffle(prepared)
+        # random.shuffle(prepared)
 
         grouped_results[element] = prepared
 
@@ -714,8 +719,8 @@ def recommend_foods_by_category(
 
     เมื่อ per_category = 4:
     - คะแนนเท่ากัน: หลัก 2 + รอง 2
-    - ต่างกันไม่เกิน 3: หลัก 3 + รอง 1
-    - ต่างกันมากกว่า 3: หลัก 4
+    - ต่างกันไม่เกิน 1: หลัก 3 + รอง 1
+    - ต่างกันมากกว่า 1: หลัก 4
     """
 
     if per_category <= 0:
@@ -1051,11 +1056,11 @@ def print_recommendations(
 # =========================================================
 
 if __name__ == "__main__":
-    # ตัวอย่างกรณีต่างกัน 0.5 คะแนน
+    # ตัวอย่างกรณีต่างกันไม่เกิน 1  คะแนน
     # ควรได้โหมด mixed และหมวดละ 3:1
     sample_scores = {
         "earth": 18,
-        "water": 12,
+        "water": 17,
         "wind": 10,
         "fire": 8,
     }
