@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# UI_FIX_VERSION = 2026-09-02_FINAL_EQUAL_AND_CENTERED
+
 import csv
 import json
 from html import escape
@@ -78,7 +80,67 @@ div[data-testid="stRadio"] div[role="radiogroup"] label p{margin:0!important;pad
 hr{border:none;border-top:1px solid #dce2cc;margin:2rem 0}
 div[data-testid="stFormSubmitButton"]{width:100%!important;margin-top:1rem} div[data-testid="stFormSubmitButton"]>button{width:100%!important;min-height:3.4rem;border:none;border-radius:13px;background:var(--primary);color:white;font-size:1.08rem;font-weight:800} div[data-testid="stFormSubmitButton"]>button:hover{background:var(--primary-hover);color:white;box-shadow:0 8px 20px rgba(72,83,32,.24)}
 div[data-testid="stProgress"]>div>div>div{background-color:var(--primary)}
-.result-card{width:100%;box-sizing:border-box;margin:1rem 0 1.5rem;padding:1.8rem 1.5rem;background:linear-gradient(135deg,#485320 0%,#69773a 100%);border-radius:22px;color:white;text-align:center;box-shadow:0 12px 30px rgba(72,83,32,.22)}.result-label{font-size:1rem;opacity:.9;margin-bottom:.35rem}.result-main{font-size:2.1rem;font-weight:850;line-height:1.5;margin-bottom:.8rem}.result-secondary{font-size:1rem;line-height:1.8}
+
+.result-card{
+    width:100%;
+    box-sizing:border-box;
+    margin:1rem 0 .9rem;
+    padding:1.8rem 1.5rem;
+    background:linear-gradient(135deg,#485320 0%,#69773a 100%);
+    border-radius:22px;
+    color:white;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(72,83,32,.22)
+}
+.result-label{
+    font-size:1rem;
+    opacity:.9;
+    margin-bottom:.35rem
+}
+.result-main{
+    font-size:2.1rem;
+    font-weight:850;
+    line-height:1.5;
+    margin-bottom:.6rem
+}
+.result-secondary{
+    font-size:1.25rem;
+    font-weight:750;
+    line-height:1.7;
+    margin-top:.15rem;
+    margin-bottom:.25rem
+}
+.result-birth{
+    font-size:.95rem;
+    font-weight:500;
+    line-height:1.7;
+    opacity:.92
+}
+.birth-element-info-card{
+    width:100%;
+    box-sizing:border-box;
+    margin:0 0 1.7rem;
+    padding:1rem 1.3rem;
+    background:rgba(255,255,255,.96);
+    border:1px solid #d9e1c5;
+    border-radius:15px;
+    box-shadow:0 6px 18px rgba(72,83,32,.07);
+    color:#596436;
+    font-size:.94rem;
+    line-height:1.8;
+    text-align:left
+}
+.birth-element-info-title{
+    color:var(--primary);
+    font-size:1rem;
+    font-weight:800;
+    margin-bottom:.3rem
+}
+.birth-element-info-card strong{
+    color:#485320;
+    font-weight:800
+}
+
 .score-card{width:100%;min-height:150px;box-sizing:border-box;padding:1.25rem .7rem;background:white;border:1px solid var(--border);border-radius:18px;text-align:center;box-shadow:0 7px 22px rgba(72,83,32,.08)}.score-icon{font-size:2rem;margin-bottom:.35rem}.score-name{color:var(--primary);font-size:1.05rem;font-weight:750}.score-number{color:var(--dark);font-size:1.9rem;font-weight:850;margin-top:.25rem}
 .safety-note{width:100%;box-sizing:border-box;margin-top:1.7rem;padding:1.1rem 1.35rem;background:var(--warning-bg);border:1px solid #e4d9a8;border-left:6px solid var(--warning-border);border-radius:14px;color:#544b22;font-size:.94rem;line-height:1.8;text-align:left}.safety-note-title{color:#675a24;font-size:1rem;font-weight:800;margin-bottom:.35rem}
 .missing-answer{width:100%;box-sizing:border-box;margin-top:1rem;padding:.95rem 1rem;background:#fff3e7;border:1px solid #e9b77f;border-radius:13px;color:#824a17;font-size:.98rem;font-weight:700;text-align:center}
@@ -386,28 +448,44 @@ def render_main_result(
     birth_element: str
 ) -> None:
     """
-    แสดงผล 3 ส่วน:
-    1. ธาตุเด่นปัจจุบันจากแบบประเมิน
-    2. ธาตุเกิดจากเดือนเกิด
-    3. ธาตุรองจากคะแนนแบบประเมิน
+    แสดงผลตามลำดับ:
+    1. ธาตุเด่นปัจจุบัน
+    2. ธาตุรอง เฉพาะกรณีคะแนนอันดับ 1 และ 2 ไม่เท่ากัน
+    3. ธาตุเจ้าเรือนตามเดือนเกิด
+
+    birth_element ใช้สำหรับแสดงผลเท่านั้น
+    ไม่มีผลต่อ logic การคำนวณคะแนน
     """
 
     primary = result["primary_element"]
     secondary = result["secondary_element"]
     ranking = result["ranking"]
-    
-    max_score = ranking[0][1]
+
+    max_score = float(ranking[0][1])
 
     active_elements = [
         element
         for element, score in ranking
-        if score == max_score
+        if abs(float(score) - max_score) < 1e-9
     ]
 
     active_text = " + ".join(
-        ELEMENT_NAMES.get(e, e)
-        for e in active_elements
+        ELEMENT_NAMES.get(element, element)
+        for element in active_elements
     )
+
+    # ถ้ามีธาตุคะแนนสูงสุดร่วมกันตั้งแต่ 2 ธาตุขึ้นไป
+    # ไม่แสดงบรรทัด "ธาตุรอง"
+    show_secondary = len(active_elements) == 1
+
+    secondary_html = ""
+    if show_secondary:
+        secondary_html = (
+            '<div class="result-secondary">'
+            'ธาตุรอง: '
+            f'<strong>{ELEMENT_NAMES[secondary]}</strong>'
+            '</div>'
+        )
 
     html = (
         '<div class="result-card">'
@@ -415,17 +493,16 @@ def render_main_result(
         'สรุปผลธาตุเจ้าเรือน'
         '</div>'
 
-        f'<div class="result-main">'
+        '<div class="result-main">'
         f'{ELEMENT_ICONS[primary]} '
         f'ธาตุเด่นปัจจุบัน: {active_text}'
         '</div>'
 
-        f'<div class="result-secondary">'
-        f'ธาตุเกิดจากเดือนเกิด: '
+        f'{secondary_html}'
+
+        '<div class="result-birth">'
+        'ธาตุเจ้าเรือนตามเดือนเกิด: '
         f'<strong>{ELEMENT_NAMES[birth_element]}</strong>'
-        '<br>'
-        f'ธาตุรอง: '
-        f'<strong>{ELEMENT_NAMES[secondary]}</strong>'
         '</div>'
 
         '</div>'
@@ -433,7 +510,27 @@ def render_main_result(
 
     st.markdown(
         html,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
+    )
+
+    info_html = (
+        '<div class="birth-element-info-card">'
+        '<div class="birth-element-info-title">'
+        'ธาตุเจ้าเรือนตามเดือนเกิด'
+        '</div>'
+
+        '<strong>ธาตุเจ้าเรือนตามเดือนเกิด</strong> '
+        'คือธาตุประจำตัวที่ติดตัวเรามาตั้งแต่เกิดตามหลักการแพทย์แผนไทย '
+        'ไม่ได้มีส่วนเกี่ยวข้องกับ '
+        '<strong>ธาตุเจ้าเรือนปัจจุบัน</strong> '
+        'ที่สภาพธาตุอาจเปลี่ยนแปลงหรือเสียสมดุลไปตามพฤติกรรม '
+        'สภาพแวดล้อม หรืออาการเจ็บป่วยในขณะนั้น'
+        '</div>'
+    )
+
+    st.markdown(
+        info_html,
+        unsafe_allow_html=True,
     )
 
 def group_questions_by_section(questions: list[dict[str,str]]) -> dict[str,list[dict[str,str]]]:
@@ -484,27 +581,28 @@ def render_food_recommendations(
 
         st.markdown(f"### {title}")
 
-        # จัดตำแหน่งการ์ดให้อยู่กึ่งกลางเมื่อจำนวนรายการไม่เต็ม 5 ช่อง
+        # จัดตำแหน่งการ์ดให้ยึด grid หลัก 4 ช่อง
+        # 2 รายการจะอยู่ช่องที่ 2 และ 3 ทำให้กึ่งกลางตรงกับแถว 4 การ์ด
         food_count = len(foods)
 
         if food_count == 1:
-            columns = st.columns([2, 1, 2])
-            start_index = 1
-        elif food_count == 2:
-            columns = st.columns([1, 1, 1, 1, 1])
-            start_index = 1
-        elif food_count == 3:
-            columns = st.columns([1, 1, 1, 1, 1])
-            start_index = 1
-        elif food_count == 4:
-            columns = st.columns([0.5, 1, 1, 1, 1, 0.5])
-            start_index = 1
-        else:
-            columns = st.columns(5)
-            start_index = 0
+            columns = st.columns([1, 1, 1])
+            content_columns = [columns[1]]
 
-        for index, food in enumerate(foods):
-            column = columns[index + start_index]
+        elif food_count == 2:
+            columns = st.columns(4)
+            content_columns = [columns[1], columns[2]]
+
+        elif food_count == 3:
+            columns = st.columns([0.5, 1, 1, 1, 0.5])
+            content_columns = [columns[1], columns[2], columns[3]]
+
+        else:
+            columns = st.columns(4)
+            content_columns = columns[:4]
+
+        for index, food in enumerate(foods[:len(content_columns)]):
+            column = content_columns[index]
 
             with column:
                 st.markdown(
@@ -552,7 +650,7 @@ def main() -> None:
     total_questions = len(scored_questions)
 
     with st.form("element_questionnaire"):
-        st.markdown('<div class="section-header">ข้อมูลพื้นฐาน</div><div class="section-description">เลือกเดือนเกิดเพื่อใช้คำนวณธาตุเกิดเบื้องต้น</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ข้อมูลพื้นฐาน</div><div class="section-description">เลือกเดือนเกิดเพื่อแสดงธาตุเจ้าเรือนตามเดือนเกิด</div>', unsafe_allow_html=True)
         birth_month = st.selectbox(birth_question["question_th"].strip(), list(MONTH_NAMES.keys()), format_func=lambda m: MONTH_NAMES[m], index=None, placeholder="กรุณาเลือกเดือนเกิด")
         st.divider()
         answers: dict[str,int|None] = {}
@@ -649,7 +747,7 @@ def main() -> None:
         "assessment_birth_element",
         "earth"
     )
-    st.markdown('<div class="section-header" style="font-size:1.85rem;">ผลการประเมิน</div><div class="section-description">สรุปจากคำตอบของคุณและธาตุเกิดตามเดือนเกิด</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header" style="font-size:1.85rem;">ผลการประเมิน</div><div class="section-description">สรุปจากคำตอบของคุณ พร้อมแสดงธาตุเจ้าเรือนตามเดือนเกิดประกอบ</div>', unsafe_allow_html=True)
     render_main_result(result, birth_element)
     st.markdown('<div class="section-header">คะแนนธาตุทั้ง 4</div>', unsafe_allow_html=True)
     render_score_cards(scores)
