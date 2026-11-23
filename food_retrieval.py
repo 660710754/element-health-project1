@@ -7,6 +7,8 @@ from typing import Any
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from ontology import IngredientOntology
+
 
 # =========================================================
 # Path
@@ -271,59 +273,44 @@ def load_food_database() -> list[dict[str, str]]:
 # =========================================================
 
 def create_food_documents(
-    foods: list[dict[str, str]]
+    foods: list[dict[str, str]],
+    ontology: IngredientOntology | None = None
 ) -> list[dict[str, Any]]:
     """
     สร้างข้อความสำหรับ TF-IDF
 
-    ใช้ข้อมูล:
-    - ชื่ออาหาร
-    - หมวดอาหาร
-    - ธาตุ
-    - รสตามหลักธาตุ
-    - รสจริงของอาหาร
-    - เหตุผลคำแนะนำ
+    ใช้ข้อมูลอาหารเดิมร่วมกับคำค้นวัตถุดิบจาก Ontology
+    โดยไม่เปลี่ยนข้อมูลต้นฉบับใน foods.csv
+
+    หากไม่ส่ง ontology เข้ามา จะทำงานเหมือนเวอร์ชันเดิม
+    เพื่อรักษาความเข้ากันได้กับโค้ดและชุดทดสอบเดิม
     """
 
     documents = []
 
-
     for food in foods:
+        ingredient_terms: list[str] = []
+
+        if ontology is not None:
+            ingredient_terms = ontology.get_food_search_terms(
+                food.get("food_id", "")
+            )
+
+        text_parts = [
+            food.get("food_name_th", ""),
+            food.get("category_th", ""),
+            food.get("recommended_element_th", ""),
+            food.get("taste_profile", ""),
+            food.get("food_taste_profile", ""),
+            food.get("reason_th", ""),
+            " ".join(ingredient_terms),
+        ]
 
         text = " ".join(
-            [
-                food.get(
-                    "food_name_th",
-                    ""
-                ),
-
-                food.get(
-                    "category_th",
-                    ""
-                ),
-
-                food.get(
-                    "recommended_element_th",
-                    ""
-                ),
-
-                food.get(
-                    "taste_profile",
-                    ""
-                ),
-
-                food.get(
-                    "food_taste_profile",
-                    ""
-                ),
-
-                food.get(
-                    "reason_th",
-                    ""
-                ),
-            ]
+            part.strip()
+            for part in text_parts
+            if part and part.strip()
         )
-
 
         documents.append(
             {
@@ -331,7 +318,6 @@ def create_food_documents(
                 "data": food,
             }
         )
-
 
     return documents
 
@@ -344,31 +330,82 @@ def detect_category_intent(
     query: str
 ) -> str | None:
     """
-    ตรวจสอบว่าผู้ใช้ถามถึงหมวดอาหารใด
+    ตรวจจับเจตนาการเลือกหมวดอาหารจากวลีที่สื่อถึงหมวดหมู่
 
-    ตัวอย่าง:
-    "ธาตุไฟควรกินผักอะไร"
-        -> vegetable_herb
-
-    "ธาตุน้ำมีผลไม้อะไร"
-        -> fruit
+    ไม่ใช้คำว่า "ผัก" แบบ substring ทั่วไป เพราะอาจเป็นส่วนหนึ่ง
+    ของชื่อวัตถุดิบ เช่น "ผักกูด" หรือ "ผักกูดสด"
     """
 
-    query = (
-        query or ""
-    ).strip()
+    query = (query or "").strip()
 
+    if not query:
+        return None
 
-    for category, keywords in (
-        CATEGORY_KEYWORDS.items()
-    ):
+    # คำ/วลีที่แสดงว่าผู้ใช้ต้องการเลือกหมวดอาหาร
+    # หลีกเลี่ยงการใช้คำกว้าง ๆ เช่น "ผัก" เพียงคำเดียว
+    category_phrases = {
+        "vegetable_herb": (
+            "ผักอะไร",
+            "กินผัก",
+            "แนะนำผัก",
+            "ผักรส",
+            "เมนูผัก",
+            "ผักพื้นบ้าน",
+            "ผักสมุนไพร",
+            "ผักและสมุนไพร",
+            "สมุนไพรอะไร",
+            "กินสมุนไพร",
+            "แนะนำสมุนไพร",
+            "เมนูสมุนไพร",
+        ),
+        "fruit": (
+            "ผลไม้อะไร",
+            "มีผลไม้",
+            "กินผลไม้",
+            "แนะนำผลไม้",
+            "ผลไม้รส",
+            "ผลไม้สด",
+        ),
+        "menu": (
+            "เมนูอาหาร",
+            "มีเมนู",
+            "แนะนำเมนู",
+            "อาหารจาน",
+            "อาหารปรุง",
+            "กับข้าว",
+        ),
+        "snack": (
+            "ขนมอะไร",
+            "ขนมรส",
+            "แนะนำขนม",
+            "ของหวาน",
+            "ของว่าง",
+            "อาหารว่าง",
+        ),
+        "drink": (
+            "เครื่องดื่ม",
+            "น้ำสมุนไพร",
+            "น้ำผลไม้",
+            "แนะนำเครื่องดื่ม",
+        ),
+    }
 
-        for keyword in keywords:
+    # รองรับการเลือกหมวดด้วยคำเดี่ยวที่ไม่กำกวม
+    exact_category_terms = {
+        "ผัก": "vegetable_herb",
+        "สมุนไพร": "vegetable_herb",
+        "ผลไม้": "fruit",
+        "เมนู": "menu",
+        "ขนม": "snack",
+        "เครื่องดื่ม": "drink",
+    }
 
-            if keyword in query:
+    if query in exact_category_terms:
+        return exact_category_terms[query]
 
-                return category
-
+    for category, phrases in category_phrases.items():
+        if any(phrase in query for phrase in phrases):
+            return category
 
     return None
 
@@ -489,9 +526,11 @@ class FoodRetriever:
 
     def __init__(self):
 
-        self.all_foods = (
-            load_food_database()
-        )
+        # โหลดฐานข้อมูลอาหารเดิม
+        self.all_foods = load_food_database()
+
+        # โหลด Ingredient Ontology สำหรับขยายคำค้นวัตถุดิบ
+        self.ontology = IngredientOntology()
 
 
     # -----------------------------------------------------
@@ -775,10 +814,9 @@ class FoodRetriever:
             )
 
 
-        documents = (
-            create_food_documents(
-                foods
-            )
+        documents = create_food_documents(
+            foods,
+            ontology=self.ontology
         )
 
 
