@@ -410,6 +410,282 @@ class IngredientOntology:
 
         return results
 
+
+    # =====================================================
+    # Ontology Inference Engine
+    # =====================================================
+
+    def infer_ingredient_facts(
+        self,
+        ingredient_id: str,
+    ) -> list[dict[str, Any]]:
+        """
+        อนุมานข้อเท็จจริงของวัตถุดิบจาก Verified Relations
+
+        รองรับ:
+        - Same as
+        - Synonym of
+        - Has scientific name
+        - Associated with element
+        - Part of
+        - Derived from
+        - Decomposed into
+        - Variant of
+
+        ไม่อนุมานจาก Pending หรือ Unverified
+        และไม่เปลี่ยนความสัมพันธ์ให้เป็น Same as
+        """
+
+        ingredient = self.get_ingredient(ingredient_id)
+
+        if not ingredient:
+            return []
+
+        canonical_name = ingredient.get(
+            "canonical_standard_name", ""
+        )
+
+        # ค้นหาความสัมพันธ์ของชื่อที่บันทึก
+        # และชื่อมาตรฐานของวัตถุดิบ
+        relations = [
+            row
+            for row in self.relations
+            if (
+                row.get("subject_id") == ingredient_id
+                or (
+                    canonical_name
+                    and row.get("subject_id") == canonical_name
+                )
+            )
+            and row.get("verification_status") == "Verified"
+        ]
+
+        results = []
+
+        for relation in relations:
+
+            predicate = relation["predicate_relation"]
+
+            # ใช้เฉพาะ Relationship ที่รองรับ
+            supported_predicates = {
+                "Same as",
+                "Synonym of",
+                "Has scientific name",
+                "Associated with element",
+                "Part of",
+                "Derived from",
+                "Decomposed into",
+                "Variant of",
+            }
+
+            if predicate not in supported_predicates:
+                continue
+
+            results.append({
+                "ingredient_id": ingredient_id,
+                "ingredient_name": ingredient[
+                    "ingredient_name_as_recorded"
+                ],
+                "canonical_name": canonical_name,
+                "relationship": predicate,
+                "related_entity": relation["object_label"],
+                "related_entity_type": relation[
+                    "object_entity_type"
+                ],
+                "relation_id": relation["relation_id"],
+                "evidence_source_id": relation[
+                    "evidence_source_id"
+                ],
+                "inference_status": "VERIFIED",
+            })
+
+        return results
+
+
+    # =====================================================
+    # Inference Audit
+    # =====================================================
+
+    def get_inference_audit(
+        self,
+        ingredient_id: str,
+    ) -> list[dict[str, Any]]:
+        """
+        ตรวจสอบย้อนกลับผลการอนุมาน
+
+        แสดง:
+        - Ingredient
+        - Relationship ID
+        - Relationship Type
+        - Inferred Result
+        - Evidence Source
+        - Evidence Page
+        - Evidence Note
+
+        แยก Source ID เมื่อมีหลายแหล่ง
+        และไม่รวม Pending หรือ Unverified Relations
+        """
+
+        facts = self.infer_ingredient_facts(
+            ingredient_id
+        )
+
+        if not facts:
+            return []
+
+        # สร้าง Source Lookup
+        source_by_id = {
+            row["source_id"]: row
+            for row in self.sources
+            if row.get("source_id")
+        }
+
+        # สร้าง Relationship Lookup
+        relation_by_id = {
+            row["relation_id"]: row
+            for row in self.relations
+            if row.get("relation_id")
+        }
+
+        audit_results = []
+
+        for fact in facts:
+
+            relation = relation_by_id.get(
+                fact["relation_id"]
+            )
+
+            if not relation:
+                continue
+
+            if relation.get(
+                "verification_status"
+            ) != "Verified":
+                continue
+
+            raw_source_ids = relation.get(
+                "evidence_source_id", ""
+            )
+
+            source_ids = [
+                sid.strip()
+                for sid in raw_source_ids.split("|")
+                if sid.strip()
+            ]
+
+            if not source_ids:
+                source_ids = ["NONE"]
+
+            for source_id in source_ids:
+
+                source = source_by_id.get(
+                    source_id
+                )
+
+                if source_id == "NONE":
+                    audit_status = "NO_SOURCE_RECORDED"
+                elif source:
+                    audit_status = "SOURCE_FOUND"
+                else:
+                    audit_status = "SOURCE_NOT_FOUND"
+
+                audit_results.append({
+
+                    "ingredient_id": ingredient_id,
+
+                    "ingredient_name": fact[
+                        "ingredient_name"
+                    ],
+
+                    "canonical_name": fact[
+                        "canonical_name"
+                    ],
+
+                    "relation_id": fact[
+                        "relation_id"
+                    ],
+
+                    "relationship": fact[
+                        "relationship"
+                    ],
+
+                    "inferred_result": fact[
+                        "related_entity"
+                    ],
+
+                    "related_entity_type": fact[
+                        "related_entity_type"
+                    ],
+
+                    "evidence_source_id": source_id,
+
+                    "source_title": (
+                        source.get("title_th", "")
+                        if source else ""
+                    ),
+
+                    "source_type": (
+                        source.get("source_type", "")
+                        if source else ""
+                    ),
+
+                    "source_location": (
+                        source.get(
+                            "access_url_or_holding", ""
+                        )
+                        if source else ""
+                    ),
+
+                    "evidence_page_or_section": relation.get(
+                        "evidence_page_or_section", ""
+                    ),
+
+                    "evidence_note": relation.get(
+                        "evidence_note", ""
+                    ),
+
+                    "verification_status": relation[
+                        "verification_status"
+                    ],
+
+                    "audit_status": audit_status,
+
+                })
+
+        return audit_results
+
+    # =====================================================
+    # Element Inference
+    # =====================================================
+
+    def infer_ingredient_elements(
+        self,
+        ingredient_id: str,
+    ) -> list[str]:
+        """
+        อนุมานธาตุจาก Associated with element
+
+        คืนเฉพาะธาตุที่มี Verified Relation
+        """
+
+        facts = self.infer_ingredient_facts(
+            ingredient_id
+        )
+
+        elements = []
+
+        for fact in facts:
+
+            if fact["relationship"] != "Associated with element":
+                continue
+
+            element = fact["related_entity"]
+
+            if element not in elements:
+                elements.append(element)
+
+        return elements
+
     # =====================================================
     # Ingredient Lookup
     # =====================================================
