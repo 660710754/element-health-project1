@@ -1,0 +1,35 @@
+﻿recipe_id,food_id,food_name,recipe_ground_truth_element,recipe_computed_primary_element,recipe_audit_status,is_drift_alert,recipe_ir_status
+R001,F027,ผักกูดผัดน้ำมันงา,earth,earth,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R002,F028,แกงป่าเนื้อ,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.48),true,QUARANTINE_DRIFT_ALERT
+R003,F028,แกงป่าปลานิล,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.92),true,QUARANTINE_DRIFT_ALERT
+R004,F028,แกงป่าปลาทูสด,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.91),true,QUARANTINE_DRIFT_ALERT
+R005,F028,แกงป่าหมูใส่มะเขือ,earth,fire,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_fire:0.58),true,QUARANTINE_DRIFT_ALERT
+R006,F028,แกงป่ากระดูกหมู,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.76),true,QUARANTINE_DRIFT_ALERT
+R007,F028,แกงป่าทะเล,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.50),true,QUARANTINE_DRIFT_ALERT
+R008,F028,แกงป่าผักบุ้งใส่ปลากระป๋อง,earth,fire,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_fire:0.55),true,QUARANTINE_DRIFT_ALERT
+R009,F028,แกงป่าหยวกกล้วยใส่ไก่บ้าน,earth,water,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_water:0.33),true,QUARANTINE_DRIFT_ALERT
+R010,F028,แกงป่าไก่บ้านใส่พวงไข่อ่อน,earth,wind,WEB_RECIPE_DRIFT_ALERT(F028=earth_in_TTM_p7_but_TrueID_recipe_is_wind:0.65),true,QUARANTINE_DRIFT_ALERT
+R011,F032,สะตอผัดกุ้ง,earth,earth,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R012,F075,แกงส้มดอกแค,water,water,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R013,F120,ต้มข่าไก่,wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R014,F077,ผัดมะระใส่ไข่,water,water,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R015,F165,แกงส้มมะรุม,fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R016,F163,แกงจืดตำลึง,fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R017,F162,ผัดผักบุ้ง,fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R018,F121,ต้มยำกุ้ง,wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R019,F074,แกงขี้เหล็กปลาย่าง,water,water,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R020,F081,ต้มโคล้งยอดมะขาม,water,water,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R021,F167,แกงจืดมะระ,fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R022,F123,แกงคั่วหอยขมใส่ใบชะพลู,wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R023,F168,แกงส้มปลาช่อนกับหยวกกล้วยอ่อน แบบปักษ์ใต้,fire,water,"DUAL_ELEMENT_BRIDGE_MATCH(pred=water,gt=fire:0.25)",false,ELIGIBLE_VECTOR_DUAL_BRIDGE
+R024,F076,แกงอ่อมหมู,water,wind,"CULINARY_VARIANT_SHIFT(pred=wind:0.49,gt=water:0.08)",false,ELIGIBLE_WITH_VARIANT_CAVEAT
+R025,F078,ห่อหมกปลาช่อนใบยอ,water,water,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R026,F166,แกงคูน,fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R027,F031,คั่วขนุน (แม่บ้าน),earth,earth,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R028,F169,ยำผักกระเฉด (Thai-ThaiFood),fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R029,F169,ยำผักกระเฉด (สำนักพิมพ์แสงแดด),fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R030,F029,ดอกงิ้วทอดไข่ (สูตรผู้ใช้ส่ง),earth,earth,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R031,F122,แกงปลาดุกใส่กระทือ (สูตรข้อความผู้ใช้),wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R032,F125,สมอไทยสดจิ้มพริกเกลือ (รูปแบบการกิน),wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R033,F125,สมอไทยสดจิ้มน้ำพริกปลาร้า (รูปแบบการกิน),wind,wind,EXACT_PRIMARY_MATCH,false,ELIGIBLE
+R034,F170,ผักหนามผัดน้ำมันหอย (สูตรข้อความผู้ใช้),fire,fire,EXACT_PRIMARY_MATCH,false,ELIGIBLE
