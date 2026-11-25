@@ -18,6 +18,7 @@ SOURCES_FILE = DATA_DIR / "ontology_sources.csv"
 
 RECIPES_FILE = DATA_DIR / "recipes_3nf.csv"
 RECIPE_INGREDIENTS_FILE = DATA_DIR / "recipe_ingredients_3nf.csv"
+SEARCH_TERMS_FILE = DATA_DIR / "ingredient_search_terms.csv"
 
 VERIFIED_RELATION_STATUS = {"Verified"}
 
@@ -90,6 +91,22 @@ class IngredientOntology:
         self.recipe_ingredients = read_csv_rows(
             RECIPE_INGREDIENTS_FILE
         )
+
+        # Search Expansion จาก Canonical Ontology Dataset
+        self.search_terms = read_csv_rows(SEARCH_TERMS_FILE)
+
+        self.search_terms_by_ingredient: dict[str, list[str]] = {}
+
+        for row in self.search_terms:
+            ingredient_id = row["ingredient_id"]
+            term = row["search_term"]
+
+            self.search_terms_by_ingredient.setdefault(
+                ingredient_id, []
+            )
+
+            if term and term not in self.search_terms_by_ingredient[ingredient_id]:
+                self.search_terms_by_ingredient[ingredient_id].append(term)
 
         # Ingredient Catalog lookup
         self.catalog_by_id = {
@@ -165,6 +182,11 @@ class IngredientOntology:
             "option_group_normalized",
         }
 
+        required_search_terms = {
+            "ingredient_id",
+            "search_term",
+        }
+
         self._check_columns(
             self.catalog,
             required_catalog,
@@ -194,6 +216,31 @@ class IngredientOntology:
             required_recipe_ingredients,
             "Recipe Ingredients",
         )
+
+        self._check_columns(
+            self.search_terms,
+            required_search_terms,
+            "Ingredient Search Terms",
+        )
+
+        # ตรวจสอบ Composite Key ของ Search Terms
+        search_term_keys = [
+            (row["ingredient_id"], row["search_term"])
+            for row in self.search_terms
+        ]
+
+        if len(search_term_keys) != len(set(search_term_keys)):
+            raise ValueError(
+                "Ingredient Search Terms มีคู่ ingredient_id/search_term ซ้ำ"
+            )
+
+        # ตรวจสอบ Foreign Key ไปยัง Ingredient Catalog
+        for row in self.search_terms:
+            if row["ingredient_id"] not in self.catalog_by_id:
+                raise ValueError(
+                    "ไม่พบ ingredient_id ใน Search Terms: "
+                    f"{row['ingredient_id']}"
+                )
 
         # Primary Key
         self._check_unique(
@@ -873,37 +920,55 @@ class IngredientOntology:
         food_id: str,
     ) -> list[str]:
         """
-        สร้างคำค้นเสริมจาก Ontology
+        สร้างคำค้นเสริมจาก Ingredient Ontology และ Search Expansion
 
         รองรับ:
-            - ชื่อวัตถุดิบ
-            - Canonical name
-            - Lexical synonyms
-            - Scientific name
-            - English name
-            - Same as
-            - Decomposed into
+            - ชื่อวัตถุดิบและ Canonical name
+            - ชื่อพ้อง ชื่อวิทยาศาสตร์ และชื่อภาษาอังกฤษ
+            - Search Expansion จาก ingredient_search_terms.csv
+            - Part-aware Search Expansion
+            - Verified Same as และ Decomposed into
 
-        ใช้เฉพาะความสัมพันธ์ที่ผ่าน Verified
+        ใช้เฉพาะ mapping status ที่อนุญาตให้ค้นหา
+        และใช้เฉพาะ Ontology Relations ที่ผ่าน Verified
         """
 
         terms: list[str] = []
+
+        allowed_mapping_statuses = {
+            "ELIGIBLE",
+            "ELIGIBLE_WITH_VARIANT_CAVEAT",
+            "ELIGIBLE_VECTOR_DUAL_BRIDGE",
+        }
 
         for item in self.get_food_ingredients(food_id):
 
             mapping_status = item["mapping_status"]
             verification_status = item["verification_status"]
-
             ingredient_id = item["ingredient_id"]
 
-            # ข้ามสถานะที่ไม่อนุญาตให้ค้นหา
-            if mapping_status != "ELIGIBLE":
+            # ข้าม Quarantine และ Pending
+            if mapping_status not in allowed_mapping_statuses:
                 continue
 
             catalog = item["catalog_record"]
 
             # ---------------------------------------------
-            # 1. Normal searchable ingredients
+            # Search Expansion จาก Canonical Ontology Dataset
+            # ใช้เฉพาะวัตถุดิบที่ผ่านการตรวจสอบ
+            # ---------------------------------------------
+
+            if verification_status in SEARCHABLE_INGREDIENT_STATUS:
+
+                expanded_terms = self.search_terms_by_ingredient.get(
+                    ingredient_id, []
+                )
+
+                for term in expanded_terms:
+                    self._add_term(terms, term)
+
+            # ---------------------------------------------
+            # 2. Normal searchable ingredients
             # ---------------------------------------------
 
             if verification_status in SEARCHABLE_INGREDIENT_STATUS:
@@ -920,7 +985,7 @@ class IngredientOntology:
                     self._add_term(terms, candidate)
 
                 # -----------------------------------------
-                # 1.1 Part-aware Search Expansion
+                # 2.1 Part-aware Search Expansion
                 # -----------------------------------------
 
                 self._add_part_aware_terms(
@@ -929,7 +994,7 @@ class IngredientOntology:
                 )
 
             # ---------------------------------------------
-            # 2. Verified Ontology Relations
+            # 3. Verified Ontology Relations
             # ---------------------------------------------
 
             relations = self.get_verified_relations(
@@ -939,12 +1004,10 @@ class IngredientOntology:
             for relation in relations:
 
                 predicate = relation["predicate_relation"]
-
                 object_label = relation["object_label"]
 
-                # Same as: เพิ่มชื่อมาตรฐานหรือชื่อพ้อง
+                # Same as: เพิ่มชื่อมาตรฐาน
                 if predicate == "Same as":
-
                     self._add_term(
                         terms,
                         object_label,
@@ -952,15 +1015,14 @@ class IngredientOntology:
 
                 # Decomposed into: ขยายส่วนประกอบของวัตถุดิบ
                 elif predicate == "Decomposed into":
-
                     if self._is_searchable_component(object_label):
-
                         self._add_term(
                             terms,
                             object_label,
                         )
 
         return terms
+
 
     # =====================================================
     # Summary

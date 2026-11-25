@@ -1,0 +1,523 @@
+
+เริ่มประเมิน Hybrid IR Recommendation System
+Query-Level Ground Truth Evaluation
+
+โหลด foods.csv: 183 rows
+โหลด Ground Truth: 24 queries
+
+✅ Ground Truth Validation ผ่าน
+
+=====================================================================================
+QUERY ID       : Q001
+USER INPUT     : ธาตุดินควรกินผักรสฝาดอะไร
+ELEMENTS       : earth
+CATEGORY       : vegetable_herb
+TASTE          : ฝาด
+GROUND TRUTH   : 7 relevant foods
+=====================================================================================
+1. [F001] ผักกระโดน | element=earth | category=vegetable_herb | taste=ฝาดอมมัน|เปรี้ยวนิดๆ | score=0.2537 | ✓ Relevant
+2. [F007] กระโดนบก | element=earth | category=vegetable_herb | taste=ฝาด | score=0.231 | ✓ Relevant
+3. [F008] กระโดนน้ำ | element=earth | category=vegetable_herb | taste=ฝาด | score=0.228 | ✓ Relevant
+4. [F002] กล้วยดิบ | element=earth | category=vegetable_herb | taste=ฝาด | score=0.2189 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.571
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q002
+USER INPUT     : ธาตุดินมีผลไม้รสหวานอะไร
+ELEMENTS       : earth
+CATEGORY       : fruit
+TASTE          : หวาน
+GROUND TRUTH   : 5 relevant foods
+=====================================================================================
+1. [F023] เงาะ | element=earth | category=fruit | taste=หวาน | score=0.3723 | ✓ Relevant
+2. [F022] ฟักทอง | element=earth | category=fruit | taste=หวาน|มัน | score=0.3583 | ✓ Relevant
+3. [F026] หัวมันเทศ | element=earth | category=fruit | taste=หวาน|มัน | score=0.348 | ✓ Relevant
+4. [F024] เผือก | element=earth | category=fruit | taste=มัน|หวานเล็กน้อย | score=0.3276 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.800
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q003
+USER INPUT     : ธาตุดินมีเมนูรสเผ็ดอะไร
+ELEMENTS       : earth
+CATEGORY       : menu
+TASTE          : เผ็ด
+GROUND TRUTH   : 3 relevant foods
+=====================================================================================
+1. [F028] แกงป่า | element=earth | category=menu | taste=เผ็ดจัดจ้าน|เค็มกลมกล่อม | score=0.2702 | ✓ Relevant
+2. [F032] สะตอผัดกุ้ง | element=earth | category=menu | taste=เค็ม|อมหวาน|กลมกล่อม|เผ็ดจัดจ้าน|หอมนัว | score=0.1452 | ✓ Relevant
+3. [F031] คั่วขนุน | element=earth | category=menu | taste=เค็ม|มัน|เผ็ดกลมกล่อม|อมเปรี้ยวเล็กน้อย | score=0.1039 | ✓ Relevant
+
+Precision@4: 0.750
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q004
+USER INPUT     : ธาตุดินมีขนมรสหวานอะไร
+ELEMENTS       : earth
+CATEGORY       : snack
+TASTE          : หวาน
+GROUND TRUTH   : 5 relevant foods
+=====================================================================================
+1. [F034] เต้าส่วน | element=earth | category=snack | taste=หวาน|มัน | score=0.2972 | ✓ Relevant
+2. [F035] วุ้นกะทิ | element=earth | category=snack | taste=หวาน|มัน | score=0.2971 | ✓ Relevant
+3. [F038] ตะโกเผือก | element=earth | category=snack | taste=หวาน|มัน | score=0.2937 | ✓ Relevant
+4. [F036] กล้วยบวชชี | element=earth | category=snack | taste=หวาน|มัน | score=0.2903 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.800
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q005
+USER INPUT     : ธาตุดินมีเครื่องดื่มรสหวานอะไร
+ELEMENTS       : earth
+CATEGORY       : drink
+TASTE          : หวาน
+GROUND TRUTH   : 10 relevant foods
+=====================================================================================
+1. [F039] น้ำอ้อย | element=earth | category=drink | taste=หวาน | score=0.446 | ✓ Relevant
+2. [F042] น้ำมะตูม | element=earth | category=drink | taste=หวาน | score=0.4395 | ✓ Relevant
+3. [F041] น้ำตาลสด | element=earth | category=drink | taste=หวาน | score=0.437 | ✓ Relevant
+4. [F049] น้ำแห้ว | element=earth | category=drink | taste=หวานละมุน | score=0.4159 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.400
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q006
+USER INPUT     : ธาตุน้ำควรกินผักรสขมอะไร
+ELEMENTS       : water
+CATEGORY       : vegetable_herb
+TASTE          : ขม
+GROUND TRUTH   : 7 relevant foods
+=====================================================================================
+1. [F065] ใบยอ | element=water | category=vegetable_herb | taste=ขมอมฝาด|มัน | score=0.2671 | ✓ Relevant
+2. [F064] มะแว้ง | element=water | category=vegetable_herb | taste=ขม | score=0.253 | ✓ Relevant
+3. [F063] มะระจีน | element=water | category=vegetable_herb | taste=ขม | score=0.2524 | ✓ Relevant
+4. [F061] สะเดาบ้าน | element=water | category=vegetable_herb | taste=ขม | score=0.2489 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.571
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q007
+USER INPUT     : ธาตุน้ำมีผลไม้รสเปรี้ยวอะไร
+ELEMENTS       : water
+CATEGORY       : fruit
+TASTE          : เปรี้ยว
+GROUND TRUTH   : 8 relevant foods
+=====================================================================================
+1. [F072] มะดัน | element=water | category=fruit | taste=เปรี้ยว | score=0.4072 | ✓ Relevant
+2. [F066] มะนาว | element=water | category=fruit | taste=เปรี้ยว | score=0.4041 | ✓ Relevant
+3. [F067] ส้ม | element=water | category=fruit | taste=เปรี้ยว|หวาน | score=0.3914 | ✓ Relevant
+4. [F070] มะยม | element=water | category=fruit | taste=เปรี้ยว|ฝาด | score=0.3837 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.500
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q008
+USER INPUT     : ธาตุน้ำมีเมนูรสขมอะไร
+ELEMENTS       : water
+CATEGORY       : menu
+TASTE          : ขม
+GROUND TRUTH   : 7 relevant foods
+=====================================================================================
+1. [F082] ใบยอผัดน้ำมันหอยใส่หมูบด | element=water | category=menu | taste=เค็ม|หวาน|มันนัว|ขมอ่อนๆ | score=0.2478 | ✓ Relevant
+2. [F080] แกงป่าสะเดาปิ้ง | element=water | category=menu | taste=ขมอมหวาน|เผ็ดร้อน | score=0.2207 | ✓ Relevant
+3. [F079] แกงป่าสะเดาใส่ปลาหมอ | element=water | category=menu | taste=ขมอมหวาน|เผ็ดร้อน|มันนัวจากเนื้อปลา | score=0.1885 | ✓ Relevant
+4. [F075] แกงส้มดอกแค | element=water | category=menu | taste=เปรี้ยวนำ|เผ็ด|หวาน|เค็ม|ขมอ่อนๆ | score=0.1428 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.571
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q009
+USER INPUT     : ธาตุน้ำมีขนมรสเปรี้ยวอะไร
+ELEMENTS       : water
+CATEGORY       : snack
+TASTE          : เปรี้ยว
+GROUND TRUTH   : 5 relevant foods
+=====================================================================================
+1. [F087] มะม่วงกวน | element=water | category=snack | taste=หวาน|เปรี้ยว | score=0.4103 | ✓ Relevant
+2. [F084] สับปะรดกวน | element=water | category=snack | taste=หวาน|เปรี้ยว | score=0.4005 | ✓ Relevant
+3. [F083] มะยมเชื่อม | element=water | category=snack | taste=หวาน|เปรี้ยว | score=0.3952 | ✓ Relevant
+4. [F086] มะม่วงน้ำปลาหวาน | element=water | category=snack | taste=เปรี้ยว|หวาน|เค็ม|เผ็ด | score=0.3408 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.800
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q010
+USER INPUT     : ธาตุน้ำมีเครื่องดื่มรสเปรี้ยวอะไร
+ELEMENTS       : water
+CATEGORY       : drink
+TASTE          : เปรี้ยว
+GROUND TRUTH   : 6 relevant foods
+=====================================================================================
+1. [F090] น้ำมะเฟือง | element=water | category=drink | taste=เปรี้ยวอมหวาน|ฝาดบางๆ | score=0.4969 | ✓ Relevant
+2. [F091] น้ำมะขาม | element=water | category=drink | taste=เปรี้ยวจัดอมหวาน | score=0.4707 | ✓ Relevant
+3. [F089] น้ำกระเจี๊ยบ | element=water | category=drink | taste=เปรี้ยวอมหวาน|ฝาดบางๆ | score=0.4624 | ✓ Relevant
+4. [F088] น้ำมะนาว | element=water | category=drink | taste=เปรี้ยวจื้ด|ขมปลายๆ | score=0.4479 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.667
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q011
+USER INPUT     : ธาตุลมควรกินผักหรือสมุนไพรรสเผ็ดอะไร
+ELEMENTS       : wind
+CATEGORY       : vegetable_herb
+TASTE          : เผ็ด
+GROUND TRUTH   : 17 relevant foods
+=====================================================================================
+1. [F099] ขิง | element=wind | category=vegetable_herb | taste=เผ็ดร้อน | score=0.283 | ✓ Relevant
+2. [F101] ตะไคร้ | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.2819 | ✓ Relevant
+3. [F109] ชะพลู | element=wind | category=vegetable_herb | taste=เผ็ดร้อน | score=0.2736 | ✓ Relevant
+4. [F110] ผักไผ่ | element=wind | category=vegetable_herb | taste=เผ็ดร้อน | score=0.2689 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.235
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q012
+USER INPUT     : ธาตุลมมีเมนูรสเผ็ดอะไร
+ELEMENTS       : wind
+CATEGORY       : menu
+TASTE          : เผ็ด
+GROUND TRUTH   : 4 relevant foods
+=====================================================================================
+1. [F125] สมอไทยจิ้มน้ำพริก | element=wind | category=menu | taste=เปรี้ยว|ฝาด|เผ็ด|เค็ม|มัน | score=0.1888 | ✓ Relevant
+2. [F123] แกงหอยขมใส่ใบชะพลู | element=wind | category=menu | taste=มันนัว|เผ็ดร้อน|หวานเค็ม | score=0.1162 | ✓ Relevant
+3. [F121] ต้มยำกุ้ง | element=wind | category=menu | taste=เปรี้ยว|เผ็ด|เค็ม | score=0.1129 | ✓ Relevant
+4. [F122] แกงปลาดุกใส่กระทือ | element=wind | category=menu | taste=เผ็ดร้อนจัดจ้าน|มันกะทิ|ขมอมหวาน | score=0.092 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q013
+USER INPUT     : ธาตุลมมีขนมรสเผ็ดอะไร
+ELEMENTS       : wind
+CATEGORY       : snack
+TASTE          : เผ็ด
+GROUND TRUTH   : 5 relevant foods
+=====================================================================================
+1. [F129] มันต้มขิง | element=wind | category=snack | taste=หวาน|เผ็ดร้อน | score=0.2887 | ✓ Relevant
+2. [F126] บัวลอยน้ำขิง | element=wind | category=snack | taste=หวาน|เผ็ดร้อน | score=0.2784 | ✓ Relevant
+3. [F130] ถั่วเขียวต้มขิง | element=wind | category=snack | taste=หวาน|เผ็ดร้อน | score=0.2675 | ✓ Relevant
+4. [F131] เมี่ยงคำ | element=wind | category=snack | taste=หวาน|เค็ม|เปรี้ยว|เผ็ด | score=0.2475 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.800
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q014
+USER INPUT     : ธาตุลมมีเครื่องดื่มรสเผ็ดอะไร
+ELEMENTS       : wind
+CATEGORY       : drink
+TASTE          : เผ็ด
+GROUND TRUTH   : 4 relevant foods
+=====================================================================================
+1. [F133] น้ำตะไคร้ | element=wind | category=drink | taste=จืดอมหวาน|เผ็ดซ่าบางๆ | score=0.4103 | ✓ Relevant
+2. [F132] น้ำขิง | element=wind | category=drink | taste=เผ็ดร้อน|ซ่า|อมหวานชุ่มคอ | score=0.3928 | ✓ Relevant
+3. [F134] น้ำข่า | element=wind | category=drink | taste=เผ็ดซ่า|ร้อนลึก|ขมอมฝาด | score=0.3914 | ✓ Relevant
+4. [F135] น้ำกานพลู | element=wind | category=drink | taste=เผ็ดปร่า|ซ่าชาลิ้น|ขมอมหวาน | score=0.3714 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q015
+USER INPUT     : ธาตุลมมีสมุนไพรที่มีกลิ่นหอมอะไร
+ELEMENTS       : wind
+CATEGORY       : vegetable_herb
+TASTE          : หอม
+GROUND TRUTH   : 5 relevant foods
+=====================================================================================
+1. [F101] ตะไคร้ | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.3401 | ✓ Relevant
+2. [F117] ยี่หร่า | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.3209 | ✓ Relevant
+3. [F119] กานพลู | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.3207 | ✓ Relevant
+4. [F102] กระชาย | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.3205 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.800
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q016
+USER INPUT     : ธาตุไฟควรกินผักรสขมอะไร
+ELEMENTS       : fire
+CATEGORY       : vegetable_herb
+TASTE          : ขม
+GROUND TRUTH   : 3 relevant foods
+=====================================================================================
+1. [F146] มะระ | element=fire | category=vegetable_herb | taste=ขม | score=0.2665 | ✓ Relevant
+2. [F153] สะเดา | element=fire | category=vegetable_herb | taste=ขม | score=0.2652 | ✓ Relevant
+3. [F144] ผักกาดนา | element=fire | category=vegetable_herb | taste=เผ็ดร้อน|ขมเรื่อๆ | score=0.2377 | ✓ Relevant
+
+Precision@4: 0.750
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q017
+USER INPUT     : ธาตุไฟมีผลไม้รสหวานอะไร
+ELEMENTS       : fire
+CATEGORY       : fruit
+TASTE          : หวาน
+GROUND TRUTH   : 4 relevant foods
+=====================================================================================
+1. [F160] พุทรา | element=fire | category=fruit | taste=หวานอมเปรี้ยว|มันจืด|ฝาดบางๆ | score=0.2818 | ✓ Relevant
+2. [F158] แตงโม | element=fire | category=fruit | taste=หวาน | score=0.2723 | ✓ Relevant
+3. [F161] แอปเปิล | element=fire | category=fruit | taste=หวาน|เปรี้ยว | score=0.2478 | ✓ Relevant
+4. [F159] มันแกว | element=fire | category=fruit | taste=หวานเล็กน้อย|จืด | score=0.2394 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q018
+USER INPUT     : ธาตุไฟมีเมนูรสเผ็ดอะไร
+ELEMENTS       : fire
+CATEGORY       : menu
+TASTE          : เผ็ด
+GROUND TRUTH   : 6 relevant foods
+=====================================================================================
+1. [F164] ผัดสายบัวใส่พริก | element=fire | category=menu | taste=เค็ม|มัน|นัวกลมลก่อม|เผ็ดจัดจ้าน | score=0.2116 | ✓ Relevant
+2. [F168] แกงส้มหยวกกล้วยใส่ปลาช่อน | element=fire | category=menu | taste=เปรี้ยว|เผ็ด|เค็ม|หวาน | score=0.133 | ✓ Relevant
+3. [F166] แกงคูน | element=fire | category=menu | taste=เปรี้ยว|เค็ม|เผ็ด|จืดมันฉ่ำน้ำจากตัวก้านคูน | score=0.132 | ✓ Relevant
+4. [F162] ผัดผักบุ้ง | element=fire | category=menu | taste=เค็ม|มัน|นัวกลมลกล่อม|เผ็ดจัดจ้าน|อมหวานธรรมชาติ | score=0.1123 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.667
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q019
+USER INPUT     : ธาตุไฟมีขนมรสหวานอะไร
+ELEMENTS       : fire
+CATEGORY       : snack
+TASTE          : หวาน
+GROUND TRUTH   : 3 relevant foods
+=====================================================================================
+1. [F171] ซาหริ่ม | element=fire | category=snack | taste=หวาน|มัน | score=0.2517 | ✓ Relevant
+2. [F172] ไอศกรีม | element=fire | category=snack | taste=หวาน|มัน | score=0.2511 | ✓ Relevant
+3. [F173] น้ำแข็งไส | element=fire | category=snack | taste=หวาน|มันนัว | score=0.2372 | ✓ Relevant
+
+Precision@4: 0.750
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q020
+USER INPUT     : ธาตุไฟมีเครื่องดื่มรสหวานอะไร
+ELEMENTS       : fire
+CATEGORY       : drink
+TASTE          : หวาน
+GROUND TRUTH   : 3 relevant foods
+=====================================================================================
+1. [F174] น้ำแตงโมปั่น | element=fire | category=drink | taste=หวาน | score=0.4263 | ✓ Relevant
+2. [F175] น้ำใบเตย | element=fire | category=drink | taste=หวานละมุน|จืดมัน | score=0.4175 | ✓ Relevant
+3. [F176] น้ำเก๊กฮวย | element=fire | category=drink | taste=หวานละมุน|จืดมันอ่อนๆ | score=0.4077 | ✓ Relevant
+
+Precision@4: 0.750
+Recall@4: 1.000
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q021
+USER INPUT     : ธาตุไฟและธาตุน้ำมีเมนูรสขมอะไร
+ELEMENTS       : fire | water
+CATEGORY       : menu
+TASTE          : ขม
+GROUND TRUTH   : 9 relevant foods
+=====================================================================================
+1. [F082] ใบยอผัดน้ำมันหอยใส่หมูบด | element=water | category=menu | taste=เค็ม|หวาน|มันนัว|ขมอ่อนๆ | score=0.176 | ✓ Relevant
+2. [F080] แกงป่าสะเดาปิ้ง | element=water | category=menu | taste=ขมอมหวาน|เผ็ดร้อน | score=0.1605 | ✓ Relevant
+3. [F170] ผักหนามผัดน้ำมันหอย | element=fire | category=menu | taste=เค็ม|หวาน|มันนัว|ขมอ่อนๆ | score=0.1539 | ✓ Relevant
+4. [F079] แกงป่าสะเดาใส่ปลาหมอ | element=water | category=menu | taste=ขมอมหวาน|เผ็ดร้อน|มันนัวจากเนื้อปลา | score=0.1368 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.444
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q022
+USER INPUT     : ธาตุดินและธาตุน้ำมีผลไม้รสเปรี้ยวอะไร
+ELEMENTS       : earth | water
+CATEGORY       : fruit
+TASTE          : เปรี้ยว
+GROUND TRUTH   : 10 relevant foods
+=====================================================================================
+1. [F020] มังคุด | element=earth | category=fruit | taste=หวาน|อมเปรี้ยวเล็กน้อย | score=0.298 | ✓ Relevant
+2. [F072] มะดัน | element=water | category=fruit | taste=เปรี้ยว | score=0.2947 | ✓ Relevant
+3. [F021] ฝรั่ง | element=earth | category=fruit | taste=หวาาน|อมเปรี้ยวเล็กน้อย | score=0.2934 | ✓ Relevant
+4. [F066] มะนาว | element=water | category=fruit | taste=เปรี้ยว | score=0.2919 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.400
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q023
+USER INPUT     : ธาตุลมและธาตุไฟควรกินผักรสเผ็ดอะไร
+ELEMENTS       : wind | fire
+CATEGORY       : vegetable_herb
+TASTE          : เผ็ด
+GROUND TRUTH   : 20 relevant foods
+=====================================================================================
+1. [F157] กุยช่าย | element=fire | category=vegetable_herb | taste=เผ็ดอ่อน|หอม | score=0.2767 | ✓ Relevant
+2. [F141] ผักกระสัง | element=fire | category=vegetable_herb | taste=เผ็ดหอม | score=0.2277 | ✓ Relevant
+3. [F144] ผักกาดนา | element=fire | category=vegetable_herb | taste=เผ็ดร้อน|ขมเรื่อๆ | score=0.2047 | ✓ Relevant
+4. [F101] ตะไคร้ | element=wind | category=vegetable_herb | taste=เผ็ดร้อน|หอม | score=0.1529 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.200
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 1.000
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+QUERY ID       : Q024
+USER INPUT     : ธาตุดินและธาตุลมมีขนมรสหวานอะไร
+ELEMENTS       : earth | wind
+CATEGORY       : snack
+TASTE          : หวาน
+GROUND TRUTH   : 11 relevant foods
+=====================================================================================
+1. [F034] เต้าส่วน | element=earth | category=snack | taste=หวาน|มัน | score=0.2308 | ✓ Relevant
+2. [F035] วุ้นกะทิ | element=earth | category=snack | taste=หวาน|มัน | score=0.2291 | ✓ Relevant
+3. [F038] ตะโกเผือก | element=earth | category=snack | taste=หวาน|มัน | score=0.2267 | ✓ Relevant
+4. [F036] กล้วยบวชชี | element=earth | category=snack | taste=หวาน|มัน | score=0.2236 | ✓ Relevant
+
+Precision@4: 1.000
+Recall@4: 0.364
+AP@4: 1.000
+Top-K Accuracy: 1.000
+Element Coverage@4: 0.500
+Category Match@4: 1.000
+Taste Match@4: 1.000
+
+=====================================================================================
+HYBRID IR EVALUATION SUMMARY
+=====================================================================================
+Queries evaluated: 24
+
+Mean Precision@4: 0.958
+Mean Recall@4: 0.691
+MAP@4: 1.000
+Average Top-K Accuracy: 1.000
+
+Mean Element Coverage@4: 0.979
+Mean Category Match@4: 1.000
+Mean Taste Match@4: 1.000
+=====================================================================================
